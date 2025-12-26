@@ -9,6 +9,7 @@ const navLinks = [
   { name: 'Home', path: '/' },
   { name: 'Buy NFT', path: '/buy' },
   { name: 'Staking', path: '/staking' },
+  { name: 'Sell NXP', path: '/pool' },
   { name: 'Dashboard', path: '/dashboard' },
 ];
 

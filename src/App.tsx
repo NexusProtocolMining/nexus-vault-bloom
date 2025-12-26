@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import BuyNFT from "./pages/BuyNFT";
 import Staking from "./pages/Staking";
 import Dashboard from "./pages/Dashboard";
+import InternalPool from "./pages/InternalPool";
 import NotFound from "./pages/NotFound";
 
 const App = () => (
@@ -20,6 +21,7 @@ const App = () => (
           <Route path="/buy" element={<BuyNFT />} />
           <Route path="/staking" element={<Staking />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/pool" element={<InternalPool />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

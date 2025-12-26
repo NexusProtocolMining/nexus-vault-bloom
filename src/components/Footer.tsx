@@ -37,6 +37,7 @@ export function Footer() {
               <li><Link to="/" className="text-sm text-muted-foreground hover:text-primary transition-colors">Home</Link></li>
               <li><Link to="/buy" className="text-sm text-muted-foreground hover:text-primary transition-colors">Buy NFT</Link></li>
               <li><Link to="/staking" className="text-sm text-muted-foreground hover:text-primary transition-colors">Staking</Link></li>
+              <li><Link to="/pool" className="text-sm text-muted-foreground hover:text-primary transition-colors">Sell NXP</Link></li>
               <li><Link to="/dashboard" className="text-sm text-muted-foreground hover:text-primary transition-colors">Dashboard</Link></li>
             </ul>
           </div>
