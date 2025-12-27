@@ -13,6 +13,11 @@ import { CONTRACTS } from '@/config/contracts';
 import { NFT_MINER_ABI, STAKING_ABI, INTERNAL_POOL_ABI, ERC20_ABI } from '@/config/abis';
 import { toast } from '@/hooks/use-toast';
 
+// Staking components
+import { TierComparisonChart } from '@/components/staking/TierComparisonChart';
+import { RewardHistory, ClaimHistoryItem } from '@/components/staking/RewardHistory';
+import { TotalRewardsAggregation, NFTRewardFetcher } from '@/components/staking/TotalRewardsAggregation';
+
 import treeNFT from '@/assets/tree-nft.png';
 import diamondNFT from '@/assets/diamond-nft.png';
 import carbonNFT from '@/assets/carbon-nft.png';
@@ -145,6 +150,9 @@ const Staking = () => {
   const [processingId, setProcessingId] = useState<bigint | null>(null);
   const [sellAmount, setSellAmount] = useState('');
   const [sellStep, setSellStep] = useState<'idle' | 'approve' | 'sell'>('idle');
+  const [claimHistory, setClaimHistory] = useState<ClaimHistoryItem[]>([]);
+  const [claimingTokenInfo, setClaimingTokenInfo] = useState<{ tokenId: bigint; tier: number } | null>(null);
+  const [nftRewardsMap, setNftRewardsMap] = useState<Map<string, { pendingReward: bigint; totalClaimed: bigint; isStaked: boolean }>>(new Map());
 
   // Read owned NFTs
   const { data: tokenIds, refetch: refetchTokens } = useReadContract({
@@ -224,9 +232,13 @@ const Staking = () => {
     } as any);
   };
 
-  // Handle claim
-  const handleClaim = (tokenId: bigint) => {
+  // Handle claim with history tracking
+  const handleClaim = (tokenId: bigint, tier?: number) => {
     setProcessingId(tokenId);
+    // Store tier info for history logging
+    if (tier !== undefined) {
+      setClaimingTokenInfo({ tokenId, tier });
+    }
     claimReward({
       address: CONTRACTS.STAKING,
       abi: STAKING_ABI,
@@ -284,12 +296,28 @@ const Staking = () => {
   }, [isStakeSuccess, refetchTokens]);
 
   useEffect(() => {
-    if (isClaimSuccess) {
+    if (isClaimSuccess && claimingTokenInfo) {
+      // Get pending reward from map before it updates
+      const rewardData = nftRewardsMap.get(claimingTokenInfo.tokenId.toString());
+      const claimedAmount = rewardData ? formatUnits(rewardData.pendingReward, 18) : '0';
+      
+      // Add to claim history
+      const newHistoryItem: ClaimHistoryItem = {
+        id: `${Date.now()}-${claimingTokenInfo.tokenId.toString()}`,
+        tokenId: claimingTokenInfo.tokenId.toString(),
+        tierName: tierNames[claimingTokenInfo.tier] || 'NFT',
+        amount: claimedAmount,
+        timestamp: new Date(),
+        txHash: claimTxHash,
+      };
+      setClaimHistory(prev => [newHistoryItem, ...prev]);
+      
       toast({ title: 'Rewards Claimed!', description: 'NXP tokens have been sent to your wallet.' });
       refetchNxpBalance();
       setProcessingId(null);
+      setClaimingTokenInfo(null);
     }
-  }, [isClaimSuccess, refetchNxpBalance]);
+  }, [isClaimSuccess, claimingTokenInfo, claimTxHash, nftRewardsMap, refetchNxpBalance]);
 
   useEffect(() => {
     if (isUnstakeSuccess) {
@@ -382,6 +410,32 @@ const Staking = () => {
 
           {isConnected && (
             <div className="space-y-6 sm:space-y-8">
+              {/* Total Rewards Aggregation - Hero Section */}
+              <TotalRewardsAggregation 
+                tokenIds={tokenIds as bigint[] | undefined}
+                nxpBalance={nxpBalanceFormatted}
+                nftRewardsMap={nftRewardsMap}
+              />
+
+              {/* NFT Reward Fetchers (invisible, just for data aggregation) */}
+              {tokenIds && (tokenIds as bigint[]).map((tokenId) => (
+                <NFTRewardFetcher
+                  key={tokenId.toString()}
+                  tokenId={tokenId}
+                  onDataLoaded={(data) => {
+                    setNftRewardsMap(prev => {
+                      const newMap = new Map(prev);
+                      newMap.set(tokenId.toString(), {
+                        pendingReward: data.pendingReward,
+                        totalClaimed: data.totalClaimed,
+                        isStaked: data.isStaked,
+                      });
+                      return newMap;
+                    });
+                  }}
+                />
+              ))}
+
               {/* Staking Overview Stats */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -432,14 +486,21 @@ const Staking = () => {
 
               {/* Main Grid Layout */}
               <div className="grid lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-                {/* Left Column - Available NFTs to Stake */}
+                {/* Left Column - Available NFTs to Stake + History */}
                 <div className="lg:col-span-2 space-y-4 sm:space-y-6 order-2 lg:order-1">
+                  {/* Tier Comparison Chart */}
+                  <TierComparisonChart />
+
+                  {/* Available NFTs */}
                   <AvailableNFTsSection
                     tokenIds={tokenIds as bigint[] | undefined}
                     processingId={processingId}
                     isStaking={isStaking}
                     onStake={handleStake}
                   />
+
+                  {/* Claim History */}
+                  <RewardHistory claimHistory={claimHistory} />
                 </div>
 
                 {/* Right Column - Sell Rewards */}
