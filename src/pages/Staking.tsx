@@ -12,11 +12,12 @@ import {
 import { CONTRACTS } from '@/config/contracts';
 import { NFT_MINER_ABI, STAKING_ABI, INTERNAL_POOL_ABI, ERC20_ABI } from '@/config/abis';
 import { toast } from '@/hooks/use-toast';
+import { useStakedNFTs, type StakedNFTData } from '@/hooks/useStakedNFTs';
 
 // Staking components
 import { TierComparisonChart } from '@/components/staking/TierComparisonChart';
 import { RewardHistory, ClaimHistoryItem } from '@/components/staking/RewardHistory';
-import { TotalRewardsAggregation, NFTRewardFetcher } from '@/components/staking/TotalRewardsAggregation';
+import { TotalRewardsAggregation } from '@/components/staking/TotalRewardsAggregation';
 
 import treeNFT from '@/assets/tree-nft.png';
 import diamondNFT from '@/assets/diamond-nft.png';
@@ -152,7 +153,10 @@ const Staking = () => {
   const [sellStep, setSellStep] = useState<'idle' | 'approve' | 'sell'>('idle');
   const [claimHistory, setClaimHistory] = useState<ClaimHistoryItem[]>([]);
   const [claimingTokenInfo, setClaimingTokenInfo] = useState<{ tokenId: bigint; tier: number } | null>(null);
-  const [nftRewardsMap, setNftRewardsMap] = useState<Map<string, { pendingReward: bigint; monthlyReward: bigint; yearlyReward: bigint; totalClaimed: bigint; isStaked: boolean }>>(new Map());
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  // Fetch staked NFTs using the new hook
+  const { stakedNFTs, isLoading: isLoadingStaked, lastUpdate, refetch: refetchStaked } = useStakedNFTs();
 
   // Read owned NFTs
   const { data: tokenIds, refetch: refetchTokens } = useReadContract({
@@ -291,15 +295,16 @@ const Staking = () => {
     if (isStakeSuccess) {
       toast({ title: 'NFT Staked!', description: 'Your NFT is now staking and earning rewards.' });
       refetchTokens();
+      refetchStaked();
       setProcessingId(null);
     }
-  }, [isStakeSuccess, refetchTokens]);
+  }, [isStakeSuccess, refetchTokens, refetchStaked]);
 
   useEffect(() => {
     if (isClaimSuccess && claimingTokenInfo) {
-      // Get pending reward from map before it updates
-      const rewardData = nftRewardsMap.get(claimingTokenInfo.tokenId.toString());
-      const claimedAmount = rewardData ? formatUnits(rewardData.pendingReward, 18) : '0';
+      // Get pending reward from stakedNFTs
+      const nftData = stakedNFTs.find(n => n.tokenId === claimingTokenInfo.tokenId);
+      const claimedAmount = nftData ? formatUnits(nftData.pendingReward, 18) : '0';
       
       // Add to claim history
       const newHistoryItem: ClaimHistoryItem = {
@@ -314,18 +319,20 @@ const Staking = () => {
       
       toast({ title: 'Rewards Claimed!', description: 'NXP tokens have been sent to your wallet.' });
       refetchNxpBalance();
+      refetchStaked();
       setProcessingId(null);
       setClaimingTokenInfo(null);
     }
-  }, [isClaimSuccess, claimingTokenInfo, claimTxHash, nftRewardsMap, refetchNxpBalance]);
+  }, [isClaimSuccess, claimingTokenInfo, claimTxHash, stakedNFTs, refetchNxpBalance, refetchStaked]);
 
   useEffect(() => {
     if (isUnstakeSuccess) {
       toast({ title: 'NFT Unstaked!', description: 'Your NFT has been returned to your wallet.' });
       refetchTokens();
+      refetchStaked();
       setProcessingId(null);
     }
-  }, [isUnstakeSuccess, refetchTokens]);
+  }, [isUnstakeSuccess, refetchTokens, refetchStaked]);
 
   useEffect(() => {
     if (isApproveSuccess) {
@@ -412,31 +419,16 @@ const Staking = () => {
             <div className="space-y-6 sm:space-y-8">
               {/* Total Rewards Aggregation - Hero Section */}
               <TotalRewardsAggregation 
-                tokenIds={tokenIds as bigint[] | undefined}
+                stakedNFTs={stakedNFTs}
                 nxpBalance={nxpBalanceFormatted}
-                nftRewardsMap={nftRewardsMap}
+                lastUpdate={lastUpdate}
+                onRefresh={() => {
+                  setIsRefreshing(true);
+                  refetchStaked();
+                  setTimeout(() => setIsRefreshing(false), 1000);
+                }}
+                isRefreshing={isRefreshing}
               />
-
-              {/* NFT Reward Fetchers (invisible, just for data aggregation) */}
-              {tokenIds && (tokenIds as bigint[]).map((tokenId) => (
-                <NFTRewardFetcher
-                  key={tokenId.toString()}
-                  tokenId={tokenId}
-                  onDataLoaded={(data) => {
-                    setNftRewardsMap(prev => {
-                      const newMap = new Map(prev);
-                      newMap.set(tokenId.toString(), {
-                        pendingReward: data.pendingReward,
-                        monthlyReward: data.monthlyReward,
-                        yearlyReward: data.yearlyReward,
-                        totalClaimed: data.totalClaimed,
-                        isStaked: data.isStaked,
-                      });
-                      return newMap;
-                    });
-                  }}
-                />
-              ))}
 
               {/* Staking Overview Stats */}
               <motion.div
@@ -476,11 +468,10 @@ const Staking = () => {
 
               {/* Active Staking Section - Real-time Rewards */}
               <ActiveStakingSection
-                tokenIds={tokenIds as bigint[] | undefined}
+                stakedNFTs={stakedNFTs}
                 processingId={processingId}
                 isClaiming={isClaiming}
                 isUnstaking={isUnstaking}
-                lockDuration={lockDuration as bigint | undefined}
                 claimInterval={claimInterval as bigint | undefined}
                 onClaim={handleClaim}
                 onUnstake={handleUnstake}
@@ -647,22 +638,20 @@ const Staking = () => {
 
 // ============= ACTIVE STAKING SECTION =============
 interface ActiveStakingSectionProps {
-  tokenIds: bigint[] | undefined;
+  stakedNFTs: StakedNFTData[];
   processingId: bigint | null;
   isClaiming: boolean;
   isUnstaking: boolean;
-  lockDuration: bigint | undefined;
   claimInterval: bigint | undefined;
-  onClaim: (tokenId: bigint) => void;
+  onClaim: (tokenId: bigint, tier?: number) => void;
   onUnstake: (tokenId: bigint) => void;
 }
 
 function ActiveStakingSection({
-  tokenIds,
+  stakedNFTs,
   processingId,
   isClaiming,
   isUnstaking,
-  lockDuration,
   claimInterval,
   onClaim,
   onUnstake,
@@ -686,22 +675,21 @@ function ActiveStakingSection({
         </div>
       </div>
 
-      {!tokenIds || tokenIds.length === 0 ? (
+      {stakedNFTs.length === 0 ? (
         <div className="text-center py-8">
           <Sparkles className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
           <p className="text-muted-foreground">No NFTs found. Purchase and stake NFTs to start earning.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-          {tokenIds.map((tokenId, index) => (
+          {stakedNFTs.map((nft, index) => (
             <ActiveStakingCard
-              key={tokenId.toString()}
-              tokenId={tokenId}
+              key={nft.tokenId.toString()}
+              nftData={nft}
               index={index}
               processingId={processingId}
               isClaiming={isClaiming}
               isUnstaking={isUnstaking}
-              lockDuration={lockDuration}
               claimInterval={claimInterval}
               onClaim={onClaim}
               onUnstake={onUnstake}
@@ -715,88 +703,35 @@ function ActiveStakingSection({
 
 // ============= ACTIVE STAKING CARD WITH REAL-TIME REWARDS =============
 interface ActiveStakingCardProps {
-  tokenId: bigint;
+  nftData: StakedNFTData;
   index: number;
   processingId: bigint | null;
   isClaiming: boolean;
   isUnstaking: boolean;
-  lockDuration: bigint | undefined;
   claimInterval: bigint | undefined;
-  onClaim: (tokenId: bigint) => void;
+  onClaim: (tokenId: bigint, tier?: number) => void;
   onUnstake: (tokenId: bigint) => void;
 }
 
 function ActiveStakingCard({
-  tokenId,
+  nftData,
   index,
   processingId,
   isClaiming,
   isUnstaking,
-  lockDuration,
   claimInterval,
   onClaim,
   onUnstake,
 }: ActiveStakingCardProps) {
-  // Read tier
-  const { data: tier } = useReadContract({
-    address: CONTRACTS.NFT_MINER,
-    abi: NFT_MINER_ABI,
-    functionName: 'tokenTier',
-    args: [tokenId],
-  });
-
-  // Read stake info
-  const { data: stakeInfo } = useReadContract({
-    address: CONTRACTS.STAKING,
-    abi: STAKING_ABI,
-    functionName: 'getStakeCore',
-    args: [tokenId],
-  });
-
-  // Read pending reward with auto-refresh every 10 seconds
-  const { data: pendingReward, refetch: refetchReward } = useReadContract({
-    address: CONTRACTS.STAKING,
-    abi: STAKING_ABI,
-    functionName: 'getStakeReward',
-    args: [tokenId],
-  });
-
-  // Read total claimed
-  const { data: totalClaimed } = useReadContract({
-    address: CONTRACTS.STAKING,
-    abi: STAKING_ABI,
-    functionName: 'totalClaimed',
-    args: [tokenId],
-  });
-
-  // Auto-refresh rewards every 10 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      refetchReward();
-    }, 10000);
-    return () => clearInterval(interval);
-  }, [refetchReward]);
-
-  const tierNum = tier !== undefined ? Number(tier) : 0;
-  // stakeInfo returns: [staked, stakeOwner, startTime, lastClaim, unlockTime]
-  const stakeData = stakeInfo as [boolean, string, bigint, bigint, bigint] | undefined;
-  const isStaked = stakeData ? stakeData[0] : false;
-  const isProcessing = processingId === tokenId;
-
-  // Calculate countdown timestamps
-  const lastClaimAt = stakeData?.[3] ?? BigInt(0);
-  const unlockTimeFromContract = stakeData?.[4] ?? BigInt(0);
+  const { tokenId, tier, lastClaim, unlockTime, pendingReward, totalClaimed } = nftData;
   
-  const nextClaimTime = isStaked && claimInterval ? lastClaimAt + claimInterval : undefined;
-  const unlockTime = isStaked ? unlockTimeFromContract : undefined;
+  const isProcessing = processingId === tokenId;
+  
+  // Calculate next claim time
+  const nextClaimTime = claimInterval ? lastClaim + claimInterval : undefined;
 
-  // pendingReward returns: [pending, monthly, year, claimed]
-  const rewardData = pendingReward as [bigint, bigint, bigint, bigint] | undefined;
-  const pendingFormatted = rewardData ? formatUnits(rewardData[0], 18) : '0';
-  const totalClaimedFormatted = totalClaimed ? formatUnits(totalClaimed as bigint, 18) : '0';
-
-  // Don't render if not staked
-  if (!isStaked) return null;
+  const pendingFormatted = formatUnits(pendingReward, 18);
+  const totalClaimedFormatted = formatUnits(totalClaimed, 18);
 
   return (
     <motion.div
@@ -817,8 +752,8 @@ function ActiveStakingCard({
         {/* NFT Image */}
         <div className="relative h-32 sm:h-40 overflow-hidden">
           <img
-            src={tierImages[tierNum]}
-            alt={tierNames[tierNum]}
+            src={tierImages[tier]}
+            alt={tierNames[tier]}
             className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />
@@ -826,7 +761,7 @@ function ActiveStakingCard({
           {/* Tier Badge */}
           <div className="absolute bottom-2 left-2">
             <div className="px-2 py-1 bg-background/80 backdrop-blur-sm rounded-lg border border-primary/20">
-              <span className="font-display font-bold text-xs text-primary">{tierNames[tierNum]}</span>
+              <span className="font-display font-bold text-xs text-primary">{tierNames[tier]}</span>
               <span className="text-[10px] text-muted-foreground ml-1">#{tokenId.toString()}</span>
             </div>
           </div>
@@ -887,7 +822,7 @@ function ActiveStakingCard({
           {/* Action Buttons */}
           <div className="flex gap-2">
             <motion.button
-              onClick={() => onClaim(tokenId)}
+              onClick={() => onClaim(tokenId, tier)}
               disabled={isProcessing && isClaiming}
               className="flex-1 btn-primary-glow text-xs py-2 flex items-center justify-center gap-1.5"
               whileHover={{ scale: 1.02 }}
