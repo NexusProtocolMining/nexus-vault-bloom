@@ -93,10 +93,10 @@ export function RoadmapSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-            <span className="text-primary">Nexus</span> Roadmap
+          <h2 className="neon-headline text-3xl sm:text-4xl md:text-5xl mb-4">
+            ROADMAP
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="nexus-body max-w-2xl mx-auto">
             Our journey to build a sustainable blockchain ecosystem
           </p>
         </motion.div>
@@ -118,8 +118,9 @@ export function RoadmapSection() {
                 {/* Timeline dot */}
                 <div className="hidden lg:flex absolute -top-2 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full border-2 items-center justify-center z-10"
                   style={{
-                    borderColor: phase.active ? 'hsl(142 76% 42%)' : 'hsl(142 50% 25%)',
-                    backgroundColor: phase.active ? 'hsl(142 76% 42%)' : 'transparent',
+                    borderColor: phase.active ? 'hsl(135 100% 50%)' : 'hsl(135 50% 25%)',
+                    backgroundColor: phase.active ? 'hsl(135 100% 50%)' : 'transparent',
+                    boxShadow: phase.active ? '0 0 20px hsl(135 100% 50% / 0.6)' : 'none',
                   }}
                 >
                   {phase.active && (
@@ -132,10 +133,10 @@ export function RoadmapSection() {
                 </div>
 
                 <div className={`glass-card p-6 mt-8 lg:mt-12 h-full transition-all ${
-                  phase.active ? 'border-primary/50 shadow-nexus' : 'hover:border-primary/30'
+                  phase.active ? 'border-primary/50 neon-glow' : 'hover:border-primary/30'
                 }`}>
                   <div className="flex items-center gap-2 mb-3">
-                    <span className="text-xs font-semibold px-2 py-1 rounded-full bg-primary/20 text-primary">
+                    <span className="text-xs font-semibold px-2 py-1 rounded-full bg-primary/20 text-primary border border-primary/30">
                       {phase.quarter}
                     </span>
                     {phase.active && (
@@ -145,7 +146,7 @@ export function RoadmapSection() {
                     )}
                   </div>
                   
-                  <h3 className="font-display text-lg font-bold text-foreground mb-1">
+                  <h3 className="nexus-card-title text-lg text-primary mb-1">
                     {phase.phase}
                   </h3>
                   <h4 className="text-primary font-semibold mb-4">
@@ -154,7 +155,7 @@ export function RoadmapSection() {
 
                   <ul className="space-y-2">
                     {phase.items.map((item, j) => (
-                      <li key={j} className="text-xs text-muted-foreground flex items-start gap-2">
+                      <li key={j} className="nexus-muted text-xs flex items-start gap-2">
                         <span className="w-1.5 h-1.5 rounded-full bg-primary/50 mt-1.5 flex-shrink-0" />
                         {item}
                       </li>

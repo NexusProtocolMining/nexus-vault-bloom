@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { useSearchParams } from 'react-router-dom';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
-import { Loader2, CheckCircle, AlertCircle, Wallet } from 'lucide-react';
+import { Loader2, CheckCircle, AlertCircle, Wallet, ShoppingCart } from 'lucide-react';
 import { CONTRACTS } from '@/config/contracts';
 import { NFT_SALE_ABI, ERC20_ABI } from '@/config/abis';
 import { toast } from '@/hooks/use-toast';
@@ -154,7 +154,7 @@ const BuyNFT = () => {
       {/* Background effects */}
       <div className="fixed inset-0 tech-grid-bg opacity-40 pointer-events-none" />
       <div className="fixed top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="fixed bottom-1/4 right-1/4 w-80 h-80 bg-accent/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="fixed bottom-1/4 right-1/4 w-80 h-80 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
       
       <Navbar />
       
@@ -173,11 +173,11 @@ const BuyNFT = () => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6 }}
             >
-              <Wallet className="w-4 h-4 text-emerald-400" />
-              <span className="nexus-label text-white/75">NFT MARKETPLACE</span>
+              <ShoppingCart className="w-4 h-4 text-primary" />
+              <span className="nexus-label">NFT MARKETPLACE</span>
             </motion.div>
-            <h1 className="nexus-section-title text-4xl sm:text-5xl md:text-6xl mb-4">
-              Buy <span className="nexus-highlight">NFT</span>
+            <h1 className="neon-headline text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-4">
+              BUY NFT
             </h1>
             <p className="nexus-body max-w-xl mx-auto text-lg">
               Choose your NFT tier and start mining NXP tokens. Higher tiers earn more rewards.
@@ -199,11 +199,11 @@ const BuyNFT = () => {
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="max-w-md mx-auto glass-card p-8 text-center"
+              className="max-w-md mx-auto glass-card p-8 text-center neon-glow"
             >
               <Wallet className="w-12 h-12 text-primary mx-auto mb-4" />
-              <h2 className="font-display text-xl font-bold mb-2">Connect Wallet</h2>
-              <p className="text-muted-foreground text-sm">
+              <h2 className="nexus-card-title text-xl mb-2">Connect Wallet</h2>
+              <p className="nexus-muted text-sm">
                 Please connect your wallet to purchase NFTs on BSC.
               </p>
             </motion.div>
@@ -225,9 +225,9 @@ const BuyNFT = () => {
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.1 }}
-                    className="nft-card group"
+                    className="glass-card group hover:border-primary/40 transition-all"
                   >
-                    <div className="relative overflow-hidden rounded-xl bg-card">
+                    <div className="relative overflow-hidden rounded-xl">
                       {/* NFT Image */}
                       <div className="aspect-[3/4] relative overflow-hidden">
                         <img
@@ -235,16 +235,16 @@ const BuyNFT = () => {
                           alt={tier.name}
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
                       </div>
 
                       {/* Info */}
                       <div className="p-6">
-                        <h3 className="font-display text-2xl font-bold text-foreground mb-2">
+                        <h3 className="neon-headline text-2xl mb-2">
                           {tier.name}
                         </h3>
-                        <p className="text-3xl font-display font-bold text-primary mb-4">
-                          ${priceFormatted} <span className="text-sm text-muted-foreground">USDT</span>
+                        <p className="nexus-metric text-3xl mb-4">
+                          ${priceFormatted} <span className="text-sm nexus-muted">USDT</span>
                         </p>
 
                         {/* Action Button */}
@@ -306,8 +306,8 @@ const BuyNFT = () => {
               transition={{ delay: 0.5 }}
               className="text-center mt-8"
             >
-              <p className="text-sm text-muted-foreground">
-                Your USDT Balance: <span className="text-foreground font-mono">{formatUnits(usdtBalance as bigint, 18)} USDT</span>
+              <p className="nexus-muted text-sm">
+                Your USDT Balance: <span className="text-primary font-mono">{formatUnits(usdtBalance as bigint, 18)} USDT</span>
               </p>
             </motion.div>
           )}

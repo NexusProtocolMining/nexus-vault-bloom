@@ -17,7 +17,7 @@ export function Footer() {
       {/* Background effects */}
       <div className="absolute inset-0 tech-grid-bg opacity-30 pointer-events-none" />
       <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute top-0 right-1/4 w-64 h-64 bg-accent/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-0 right-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="container mx-auto px-4 py-16 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
@@ -25,15 +25,18 @@ export function Footer() {
           <div className="lg:col-span-1">
             <Link to="/" className="flex items-center gap-3 mb-6 group">
               <motion.div 
-                className="w-12 h-12 rounded-xl overflow-hidden relative"
+                className="w-12 h-12 rounded-xl overflow-hidden relative border border-primary/30"
                 whileHover={{ scale: 1.1, rotate: 5 }}
+                style={{
+                  boxShadow: '0 0 20px hsl(135 100% 50% / 0.3)',
+                }}
               >
                 <img src={logoNexus} alt="Nexus Protocol" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent" />
               </motion.div>
               <div>
-                <span className="nexus-card-title text-xl block">
-                  NEXUS<span className="nexus-highlight">PROTOCOL</span>
+                <span className="neon-headline text-xl block">
+                  NEXUS
                 </span>
                 <span className="nexus-label">Blockchain Ecosystem</span>
               </div>
@@ -42,13 +45,13 @@ export function Footer() {
               One Nexus, One Tree. A Green Blockchain for a Sustainable Future powered by SocialFi.
             </p>
             <div className="flex items-center gap-3">
-              <div className="icon-3d w-10 h-10">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center border border-primary/30">
                 <Leaf className="w-5 h-5 text-primary" />
               </div>
-              <div className="icon-3d w-10 h-10">
-                <Zap className="w-5 h-5 text-accent" />
+              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center border border-primary/30">
+                <Zap className="w-5 h-5 text-primary" />
               </div>
-              <div className="icon-3d w-10 h-10">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center border border-primary/30">
                 <Globe className="w-5 h-5 text-primary" />
               </div>
             </div>
@@ -56,7 +59,7 @@ export function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-display text-sm font-semibold text-foreground mb-6 flex items-center gap-2">
+            <h4 className="nexus-card-title text-sm mb-6 flex items-center gap-2">
               <Shield className="w-4 h-4 text-primary" />
               Quick Links
             </h4>
@@ -71,7 +74,7 @@ export function Footer() {
                 <li key={link.path}>
                   <Link 
                     to={link.path} 
-                    className="text-sm text-muted-foreground hover:text-primary transition-all duration-300 flex items-center gap-2 group"
+                    className="nexus-muted text-sm hover:text-primary transition-all duration-300 flex items-center gap-2 group"
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-primary/50 group-hover:bg-primary group-hover:shadow-lg group-hover:shadow-primary/50 transition-all" />
                     {link.name}
@@ -83,8 +86,8 @@ export function Footer() {
 
           {/* Smart Contracts */}
           <div className="lg:col-span-2">
-            <h4 className="font-display text-sm font-semibold text-foreground mb-6 flex items-center gap-2">
-              <Zap className="w-4 h-4 text-accent" />
+            <h4 className="nexus-card-title text-sm mb-6 flex items-center gap-2">
+              <Zap className="w-4 h-4 text-primary" />
               Smart Contracts (BSC)
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -98,11 +101,11 @@ export function Footer() {
                 >
                   <div className="min-w-0">
                     <span className="text-sm text-foreground block">{contract.name}</span>
-                    <span className="font-mono text-xs text-muted-foreground truncate block">
+                    <span className="font-mono text-xs text-primary/70 truncate block">
                       {contract.address.slice(0, 8)}...{contract.address.slice(-6)}
                     </span>
                   </div>
-                  <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
+                  <ExternalLink className="w-4 h-4 text-primary/50 group-hover:text-primary transition-colors flex-shrink-0" />
                 </a>
               ))}
             </div>
@@ -111,11 +114,11 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-primary/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-muted-foreground text-center sm:text-left flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+          <p className="nexus-muted text-xs text-center sm:text-left flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" style={{ boxShadow: '0 0 10px hsl(135 100% 50% / 0.5)' }} />
             © 2024 Nexus Protocol. Built on BSC.
           </p>
-          <p className="text-xs text-muted-foreground/60 text-center sm:text-right max-w-lg">
+          <p className="nexus-muted text-xs text-center sm:text-right max-w-lg opacity-60">
             This website uses real on-chain data only. All balances, rewards, and staking information are read directly from smart contracts.
           </p>
         </div>
