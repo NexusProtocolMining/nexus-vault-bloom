@@ -547,6 +547,21 @@
   50% { transform: translateY(-15px); }
 }
 
+@keyframes float3D {
+  0%, 100% { 
+    transform: translateY(0px) rotateX(0deg) rotateY(0deg); 
+  }
+  25% { 
+    transform: translateY(-10px) rotateX(3deg) rotateY(2deg); 
+  }
+  50% { 
+    transform: translateY(-20px) rotateX(0deg) rotateY(-2deg); 
+  }
+  75% { 
+    transform: translateY(-10px) rotateX(-3deg) rotateY(2deg); 
+  }
+}
+
 @keyframes dataFlow {
   0% { transform: translateY(-100%); opacity: 0; }
   50% { opacity: 1; }
@@ -573,6 +588,44 @@
   }
 }
 
+@keyframes borderGlow {
+  0%, 100% {
+    border-color: hsl(120 100% 50% / 0.3);
+    box-shadow: 0 0 20px hsl(120 100% 50% / 0.2);
+  }
+  50% {
+    border-color: hsl(120 100% 50% / 0.7);
+    box-shadow: 0 0 40px hsl(120 100% 50% / 0.5);
+  }
+}
+
+@keyframes scanLine {
+  0% { top: -10%; }
+  100% { top: 110%; }
+}
+
+@keyframes hologram {
+  0%, 100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    opacity: 0.95;
+    transform: translateY(-2px) scale(1.002);
+  }
+}
+
+@keyframes rotateGlow {
+  0% {
+    transform: rotate(0deg);
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    filter: hue-rotate(30deg);
+  }
+}
+
 .animate-shimmer {
   animation: shimmer 8s ease-in-out infinite;
 }
@@ -585,8 +638,98 @@
   animation: float 6s ease-in-out infinite;
 }
 
+.animate-float-3d {
+  animation: float3D 8s ease-in-out infinite;
+  transform-style: preserve-3d;
+}
+
 .animate-neon-pulse {
   animation: neonPulse 2s ease-in-out infinite;
+}
+
+.animate-border-glow {
+  animation: borderGlow 3s ease-in-out infinite;
+}
+
+.animate-hologram {
+  animation: hologram 4s ease-in-out infinite;
+}
+
+.animate-rotate-glow {
+  animation: rotateGlow 10s linear infinite;
+}
+
+/* Premium Hover Effects */
+.hover-3d {
+  transform-style: preserve-3d;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.hover-3d:hover {
+  transform: perspective(1000px) rotateX(5deg) rotateY(-5deg) translateZ(20px);
+}
+
+.hover-lift {
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.hover-lift:hover {
+  transform: translateY(-10px);
+  box-shadow: 
+    0 30px 60px -15px rgba(0, 0, 0, 0.5),
+    0 0 40px hsl(120 100% 50% / 0.3);
+}
+
+.hover-glow {
+  transition: all 0.3s ease;
+}
+
+.hover-glow:hover {
+  box-shadow: 
+    0 0 30px hsl(120 100% 50% / 0.5),
+    0 0 60px hsl(120 100% 50% / 0.3),
+    0 0 100px hsl(120 100% 50% / 0.15);
+}
+
+.hover-scale-glow {
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.hover-scale-glow:hover {
+  transform: scale(1.05);
+  box-shadow: 
+    0 20px 40px -10px rgba(0, 0, 0, 0.5),
+    0 0 50px hsl(120 100% 50% / 0.4);
+}
+
+/* Scan Line Effect */
+.scan-line::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, hsl(120 100% 50% / 0.8), transparent);
+  animation: scanLine 3s linear infinite;
+  pointer-events: none;
+}
+
+/* Holographic Overlay */
+.holographic {
+  position: relative;
+}
+
+.holographic::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    hsl(120 100% 50% / 0.03) 0%,
+    transparent 50%,
+    hsl(150 80% 50% / 0.03) 100%
+  );
+  pointer-events: none;
 }
 
 /* ==================== SCROLLBAR ==================== */
@@ -606,6 +749,7 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(120 100% 55%);
+  box-shadow: 0 0 10px hsl(120 100% 50% / 0.5);
 }
 
 ::selection {
