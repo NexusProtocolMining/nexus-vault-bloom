@@ -9,15 +9,25 @@ import { STAKING_ABI, NFT_MINER_ABI } from '@/config/abis';
 interface TotalRewardsAggregationProps {
   tokenIds: bigint[] | undefined;
   nxpBalance: string;
-  nftRewardsMap: Map<string, { pendingReward: bigint; totalClaimed: bigint; isStaked: boolean }>;
+  nftRewardsMap: Map<string, { 
+    pendingReward: bigint; 
+    monthlyReward: bigint;
+    yearlyReward: bigint;
+    totalClaimed: bigint; 
+    isStaked: boolean 
+  }>;
 }
 
-interface StakedNFTReward {
+export interface StakedNFTReward {
   tokenId: bigint;
   tier: number;
   pendingReward: bigint;
+  monthlyReward: bigint;
+  yearlyReward: bigint;
   totalClaimed: bigint;
   isStaked: boolean;
+  unlockTime: bigint;
+  lastClaim: bigint;
 }
 
 export function TotalRewardsAggregation({ tokenIds, nxpBalance, nftRewardsMap }: TotalRewardsAggregationProps) {
@@ -166,32 +176,39 @@ export function NFTRewardFetcher({ tokenId, onDataLoaded }: NFTRewardFetcherProp
     args: [tokenId],
   });
 
-  const { data: pendingReward, refetch } = useReadContract({
+  const { data: rewardData, refetch } = useReadContract({
     address: CONTRACTS.STAKING,
     abi: STAKING_ABI,
     functionName: 'getStakeReward',
     args: [tokenId],
   });
 
-  const { data: totalClaimed } = useReadContract({
-    address: CONTRACTS.STAKING,
-    abi: STAKING_ABI,
-    functionName: 'totalClaimed',
-    args: [tokenId],
-  });
-
   useEffect(() => {
-    const stakeData = stakeInfo as [string, bigint, bigint] | undefined;
-    const isStaked = stakeData && stakeData[0] !== '0x0000000000000000000000000000000000000000';
+    // stakeInfo returns: [staked, stakeOwner, startTime, lastClaim, unlockTime]
+    const stakeData = stakeInfo as [boolean, string, bigint, bigint, bigint] | undefined;
+    const isStaked = stakeData ? stakeData[0] : false;
+    const lastClaim = stakeData ? stakeData[3] : BigInt(0);
+    const unlockTime = stakeData ? stakeData[4] : BigInt(0);
+
+    // rewardData returns: [pending, monthly, year, claimed]
+    const rewards = rewardData as [bigint, bigint, bigint, bigint] | undefined;
+    const pending = rewards ? rewards[0] : BigInt(0);
+    const monthly = rewards ? rewards[1] : BigInt(0);
+    const yearly = rewards ? rewards[2] : BigInt(0);
+    const claimed = rewards ? rewards[3] : BigInt(0);
 
     onDataLoaded({
       tokenId,
       tier: tier !== undefined ? Number(tier) : 0,
-      pendingReward: (pendingReward as bigint) ?? BigInt(0),
-      totalClaimed: (totalClaimed as bigint) ?? BigInt(0),
-      isStaked: !!isStaked,
+      pendingReward: pending,
+      monthlyReward: monthly,
+      yearlyReward: yearly,
+      totalClaimed: claimed,
+      isStaked,
+      unlockTime,
+      lastClaim,
     });
-  }, [tokenId, tier, stakeInfo, pendingReward, totalClaimed, onDataLoaded]);
+  }, [tokenId, tier, stakeInfo, rewardData, onDataLoaded]);
 
   // Auto-refresh every 15 seconds
   useEffect(() => {
