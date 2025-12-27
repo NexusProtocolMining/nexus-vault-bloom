@@ -153,10 +153,15 @@ const InternalPool = () => {
   const isSellDisabled = !sellEnabled;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background particle-bg">
+      {/* Background effects */}
+      <div className="fixed inset-0 tech-grid-bg opacity-40 pointer-events-none" />
+      <div className="fixed top-1/3 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="fixed bottom-1/3 right-1/4 w-80 h-80 bg-accent/5 rounded-full blur-3xl pointer-events-none" />
+      
       <Navbar />
       
-      <main className="pt-24 pb-16">
+      <main className="pt-24 pb-16 relative z-10">
         <div className="container mx-auto px-4">
           {/* Header */}
           <motion.div
@@ -164,10 +169,18 @@ const InternalPool = () => {
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-12"
           >
-            <h1 className="font-display text-4xl sm:text-5xl font-bold mb-4">
-              Internal <span className="text-primary">Pool</span>
+            <motion.div 
+              className="inline-flex items-center gap-2 badge-tech mb-6"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+            >
+              <TrendingDown className="w-4 h-4 text-primary" />
+              <span className="text-sm">Liquidity Pool</span>
+            </motion.div>
+            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold mb-4 tracking-tight">
+              Internal <span className="gradient-text-tech">Pool</span>
             </h1>
-            <p className="text-muted-foreground max-w-xl mx-auto">
+            <p className="text-muted-foreground max-w-xl mx-auto text-lg">
               Sell your NXP tokens directly to the internal liquidity pool
             </p>
           </motion.div>

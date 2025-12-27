@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Zap } from 'lucide-react';
 import { ConnectWallet } from './ConnectWallet';
 import logoNexus from '@/assets/logo-nexus.jpeg';
 
@@ -30,8 +30,10 @@ export function Navbar() {
     <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-background/80 backdrop-blur-xl border-b border-primary/10' : 'bg-transparent'
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        isScrolled 
+          ? 'bg-background/70 backdrop-blur-2xl border-b border-primary/10 shadow-lg shadow-primary/5' 
+          : 'bg-transparent'
       }`}
     >
       <div className="container mx-auto px-4">
@@ -39,33 +41,43 @@ export function Navbar() {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
             <motion.div
-              className="relative w-10 h-10 rounded-xl overflow-hidden"
-              whileHover={{ scale: 1.05 }}
+              className="relative w-11 h-11 rounded-xl overflow-hidden"
+              whileHover={{ scale: 1.1, rotate: 5 }}
+              transition={{ type: "spring", stiffness: 400 }}
             >
               <img src={logoNexus} alt="Nexus Protocol" className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors" />
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-accent/20 group-hover:opacity-0 transition-opacity duration-300" />
+              <motion.div 
+                className="absolute inset-0 border-2 border-primary/50 rounded-xl"
+                animate={{ opacity: [0.5, 1, 0.5] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
             </motion.div>
-            <span className="font-display text-xl font-bold text-foreground hidden sm:block">
-              NEXUS<span className="text-primary">PROTOCOL</span>
-            </span>
+            <div className="hidden sm:flex flex-col">
+              <span className="font-display text-lg font-bold text-foreground leading-tight tracking-wider">
+                NEXUS<span className="gradient-text-tech">PROTOCOL</span>
+              </span>
+              <span className="text-[10px] text-muted-foreground tracking-widest uppercase">Green • Social • Fi</span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-1">
+          <nav className="hidden lg:flex items-center gap-1 bg-card/30 backdrop-blur-xl rounded-2xl p-1.5 border border-primary/10">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
-                className="relative px-4 py-2 text-sm font-medium transition-colors"
+                className="relative px-5 py-2.5 text-sm font-medium transition-all duration-300 rounded-xl"
               >
-                <span className={location.pathname === link.path ? 'text-primary' : 'text-muted-foreground hover:text-foreground'}>
+                <span className={`relative z-10 ${location.pathname === link.path ? 'text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}>
                   {link.name}
                 </span>
                 {location.pathname === link.path && (
                   <motion.div
                     layoutId="navbar-indicator"
-                    className="absolute bottom-0 left-2 right-2 h-0.5 bg-primary rounded-full"
-                    transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                    className="absolute inset-0 bg-primary rounded-xl"
+                    style={{ boxShadow: '0 0 20px hsl(160 84% 45% / 0.4)' }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                   />
                 )}
               </Link>
@@ -74,21 +86,25 @@ export function Navbar() {
 
           {/* Connect Wallet & Mobile Menu */}
           <div className="flex items-center gap-4">
-            <div className="hidden sm:block">
+            <motion.div 
+              className="hidden sm:block"
+              whileHover={{ scale: 1.02 }}
+            >
               <ConnectWallet />
-            </div>
+            </motion.div>
 
             {/* Mobile Menu Button */}
-            <button
+            <motion.button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg hover:bg-primary/10 transition-colors"
+              className="lg:hidden p-2.5 rounded-xl bg-card/50 border border-primary/20 hover:border-primary/40 transition-colors"
+              whileTap={{ scale: 0.95 }}
             >
               {isMobileMenuOpen ? (
                 <X className="w-6 h-6 text-foreground" />
               ) : (
                 <Menu className="w-6 h-6 text-foreground" />
               )}
-            </button>
+            </motion.button>
           </div>
         </div>
       </div>
@@ -97,31 +113,44 @@ export function Navbar() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-background/95 backdrop-blur-xl border-b border-primary/10"
+            initial={{ opacity: 0, height: 0, y: -20 }}
+            animate={{ opacity: 1, height: 'auto', y: 0 }}
+            exit={{ opacity: 0, height: 0, y: -20 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="lg:hidden bg-background/95 backdrop-blur-2xl border-b border-primary/10"
           >
-            <div className="container mx-auto px-4 py-4">
+            <div className="container mx-auto px-4 py-6">
               <nav className="flex flex-col gap-2">
-                {navLinks.map((link) => (
-                  <Link
+                {navLinks.map((link, i) => (
+                  <motion.div
                     key={link.path}
-                    to={link.path}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
-                      location.pathname === link.path
-                        ? 'bg-primary/10 text-primary'
-                        : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
-                    }`}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.05 }}
                   >
-                    {link.name}
-                  </Link>
+                    <Link
+                      to={link.path}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={`flex items-center gap-3 px-5 py-4 rounded-xl text-sm font-medium transition-all duration-300 ${
+                        location.pathname === link.path
+                          ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/30'
+                          : 'text-muted-foreground hover:text-foreground hover:bg-muted/30'
+                      }`}
+                    >
+                      <Zap className={`w-4 h-4 ${location.pathname === link.path ? 'text-primary-foreground' : 'text-primary'}`} />
+                      {link.name}
+                    </Link>
+                  </motion.div>
                 ))}
               </nav>
-              <div className="mt-4 pt-4 border-t border-primary/10 sm:hidden">
+              <motion.div 
+                className="mt-6 pt-6 border-t border-primary/10 sm:hidden"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3 }}
+              >
                 <ConnectWallet />
-              </div>
+              </motion.div>
             </div>
           </motion.div>
         )}
