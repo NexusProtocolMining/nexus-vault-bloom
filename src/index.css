@@ -6,96 +6,88 @@
 
 @layer base {
   :root {
-    /* NEON MATRIX GREEN THEME - Ultra Dark with Bright Green */
-    --background: 120 10% 3%;
+    /* CYBERPUNK TECH THEME - Dark with Cyan, Magenta, Gold */
+    --background: 230 25% 4%;
     --foreground: 0 0% 98%;
 
-    --card: 120 15% 5%;
+    --card: 230 25% 7%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 120 15% 5%;
+    --popover: 230 25% 7%;
     --popover-foreground: 0 0% 98%;
 
-    /* NEON GREEN PRIMARY - #00FF41 inspired */
-    --primary: 135 100% 50%;
-    --primary-foreground: 120 10% 3%;
+    /* NEON CYAN PRIMARY */
+    --primary: 185 100% 50%;
+    --primary-foreground: 230 25% 4%;
 
-    /* Dark green secondary */
-    --secondary: 120 20% 8%;
+    /* Deep purple secondary */
+    --secondary: 280 80% 55%;
     --secondary-foreground: 0 0% 98%;
 
-    --muted: 120 10% 12%;
-    --muted-foreground: 120 10% 55%;
+    --muted: 230 20% 15%;
+    --muted-foreground: 220 15% 55%;
 
-    /* Bright green accent */
-    --accent: 135 100% 45%;
-    --accent-foreground: 120 10% 3%;
+    /* Bright gold accent */
+    --accent: 45 100% 55%;
+    --accent-foreground: 230 25% 4%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 135 50% 15%;
-    --input: 120 15% 10%;
-    --ring: 135 100% 50%;
+    --border: 185 50% 20%;
+    --input: 230 20% 12%;
+    --ring: 185 100% 50%;
 
     --radius: 0.75rem;
 
-    /* NEXUS NEON Colors */
-    --nexus-neon: 135 100% 50%;
-    --nexus-neon-glow: 135 100% 60%;
-    --nexus-neon-dark: 135 80% 25%;
-    --nexus-matrix: 120 100% 40%;
-    --nexus-gold: 45 93% 58%;
-    --nexus-carbon: 120 10% 3%;
-    --nexus-carbon-light: 120 10% 8%;
+    /* CYBERPUNK Colors */
+    --cyber-cyan: 185 100% 50%;
+    --cyber-magenta: 320 100% 55%;
+    --cyber-gold: 45 100% 55%;
+    --cyber-purple: 280 80% 55%;
+    --cyber-green: 150 100% 45%;
+    --cyber-dark: 230 25% 4%;
 
-    /* Glass effects - green tint */
-    --glass-bg: 135 50% 50% / 0.03;
-    --glass-border: 135 100% 50% / 0.15;
-    --glass-shimmer: 135 100% 60% / 0.1;
+    /* Glass effects */
+    --glass-bg: 185 50% 50% / 0.03;
+    --glass-border: 185 100% 50% / 0.15;
 
-    /* NEON Gradients */
-    --gradient-neon: linear-gradient(135deg, hsl(135 100% 50%), hsl(120 100% 40%));
-    --gradient-dark: linear-gradient(180deg, hsl(120 10% 5%), hsl(120 10% 2%));
-    --gradient-radial-glow: radial-gradient(ellipse at center, hsl(135 100% 50% / 0.25), transparent 60%);
-
-    /* NEON Shadows - Strong glow */
-    --shadow-neon: 0 0 30px hsl(135 100% 50% / 0.6), 0 0 60px hsl(135 100% 50% / 0.3), 0 0 100px hsl(135 100% 50% / 0.15);
-    --shadow-neon-lg: 0 0 50px hsl(135 100% 50% / 0.7), 0 0 100px hsl(135 100% 50% / 0.4), 0 0 150px hsl(135 100% 50% / 0.2);
-    --shadow-neon-text: 0 0 10px hsl(135 100% 50% / 0.8), 0 0 20px hsl(135 100% 50% / 0.5), 0 0 40px hsl(135 100% 50% / 0.3);
-    --shadow-3d: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 40px hsl(135 100% 50% / 0.1);
+    /* Shadows */
+    --shadow-cyan: 0 0 30px hsl(185 100% 50% / 0.5), 0 0 60px hsl(185 100% 50% / 0.25);
+    --shadow-magenta: 0 0 30px hsl(320 100% 55% / 0.5), 0 0 60px hsl(320 100% 55% / 0.25);
+    --shadow-gold: 0 0 30px hsl(45 100% 55% / 0.5), 0 0 60px hsl(45 100% 55% / 0.25);
 
     /* Sidebar */
-    --sidebar-background: 120 10% 4%;
+    --sidebar-background: 230 25% 5%;
     --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 135 100% 50%;
-    --sidebar-primary-foreground: 120 10% 3%;
-    --sidebar-accent: 120 15% 8%;
+    --sidebar-primary: 185 100% 50%;
+    --sidebar-primary-foreground: 230 25% 4%;
+    --sidebar-accent: 230 20% 10%;
     --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 135 50% 15%;
-    --sidebar-ring: 135 100% 50%;
+    --sidebar-border: 185 50% 15%;
+    --sidebar-ring: 185 100% 50%;
   }
 
   .dark {
-    --background: 120 10% 3%;
+    --background: 230 25% 4%;
     --foreground: 0 0% 98%;
-    --card: 120 15% 5%;
+    --card: 230 25% 7%;
     --card-foreground: 0 0% 98%;
-    --popover: 120 15% 5%;
+    --popover: 230 25% 7%;
     --popover-foreground: 0 0% 98%;
-    --primary: 135 100% 50%;
-    --primary-foreground: 120 10% 3%;
-    --secondary: 120 20% 8%;
+    --primary: 185 100% 50%;
+    --primary-foreground: 230 25% 4%;
+    --secondary: 280 80% 55%;
     --secondary-foreground: 0 0% 98%;
-    --muted: 120 10% 12%;
-    --muted-foreground: 120 10% 55%;
-    --accent: 135 100% 45%;
-    --accent-foreground: 120 10% 3%;
+    --muted: 230 20% 15%;
+    --muted-foreground: 220 15% 55%;
+    --accent: 45 100% 55%;
+    --accent-foreground: 230 25% 4%;
     --destructive: 0 62% 30%;
     --destructive-foreground: 0 0% 98%;
-    --border: 135 50% 15%;
-    --input: 120 15% 10%;
-    --ring: 135 100% 50%;
+    --border: 185 50% 20%;
+    --input: 230 20% 12%;
+    --ring: 185 100% 50%;
   }
 }
 
@@ -107,11 +99,9 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
-    font-weight: 400;
-    background: hsl(120 10% 3%);
+    background: hsl(230 25% 4%);
   }
 
-  /* Orbitron for HERO headings - Futuristic Matrix style */
   h1 {
     font-family: 'Orbitron', 'Space Grotesk', system-ui, sans-serif;
     letter-spacing: 0.08em;
@@ -127,140 +117,121 @@
   }
 }
 
-/* ==================== NEON MATRIX TYPOGRAPHY ==================== */
+/* ==================== CYBERPUNK TYPOGRAPHY ==================== */
 @layer components {
-  /* HERO / MAIN HEADLINE - Orbitron with STRONG neon glow */
-  .nexus-title {
+  /* HERO HEADLINE - Orbitron with CYAN glow */
+  .cyber-title {
     font-family: 'Orbitron', 'Space Grotesk', system-ui, sans-serif;
-    @apply font-extrabold tracking-widest text-primary uppercase;
+    @apply font-extrabold tracking-widest uppercase;
+    color: hsl(185 100% 50%);
     text-shadow: 
-      0 0 10px hsl(135 100% 50% / 0.9),
-      0 0 20px hsl(135 100% 50% / 0.7),
-      0 0 40px hsl(135 100% 50% / 0.5),
-      0 0 80px hsl(135 100% 50% / 0.3);
+      0 0 10px hsl(185 100% 50% / 0.9),
+      0 0 20px hsl(185 100% 50% / 0.7),
+      0 0 40px hsl(185 100% 50% / 0.5),
+      0 0 80px hsl(185 100% 50% / 0.3);
   }
 
-  /* SECTION TITLE - Orbitron with glow */
-  .nexus-section-title {
-    font-family: 'Orbitron', 'Space Grotesk', system-ui, sans-serif;
-    @apply font-bold tracking-wider text-white uppercase;
-    text-shadow: 
-      0 0 10px hsl(135 100% 50% / 0.5),
-      0 0 20px hsl(135 100% 50% / 0.3);
-  }
-
-  /* HIGHLIGHT WORD - Bright Neon Green */
-  .nexus-highlight {
-    color: hsl(135 100% 50%);
-    text-shadow: 
-      0 0 10px hsl(135 100% 50% / 0.9),
-      0 0 20px hsl(135 100% 50% / 0.7),
-      0 0 40px hsl(135 100% 50% / 0.5),
-      0 0 80px hsl(135 100% 50% / 0.3);
-  }
-
-  /* NEON HEADLINE - For hero text like reference */
-  .neon-headline {
+  /* GRADIENT HEADLINE - Cyan to Magenta */
+  .cyber-headline {
     font-family: 'Orbitron', 'Space Grotesk', system-ui, sans-serif;
     @apply font-black tracking-widest uppercase;
-    color: hsl(135 100% 50%);
-    text-shadow: 
-      0 0 5px hsl(135 100% 50%),
-      0 0 10px hsl(135 100% 50%),
-      0 0 20px hsl(135 100% 50%),
-      0 0 40px hsl(135 100% 50% / 0.8),
-      0 0 80px hsl(135 100% 50% / 0.6),
-      0 0 120px hsl(135 100% 50% / 0.4);
+    background: linear-gradient(135deg, hsl(185 100% 50%) 0%, hsl(320 100% 55%) 50%, hsl(45 100% 55%) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 20px hsl(185 100% 50% / 0.3));
   }
 
-  /* SUBTITLE - Weight 500 */
-  .nexus-subtitle {
+  /* SECTION TITLE */
+  .cyber-section-title {
+    font-family: 'Orbitron', 'Space Grotesk', system-ui, sans-serif;
+    @apply font-bold tracking-wider text-white uppercase;
+    text-shadow: 0 0 10px hsl(185 100% 50% / 0.5);
+  }
+
+  /* SUBTITLE */
+  .cyber-subtitle {
     font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
     @apply font-medium text-white/80 tracking-widest uppercase;
-    text-shadow: 0 0 10px hsl(135 100% 50% / 0.3);
+    text-shadow: 0 0 10px hsl(185 100% 50% / 0.3);
   }
 
-  /* BODY TEXT - Weight 400 */
-  .nexus-body {
+  /* BODY TEXT */
+  .cyber-body {
     font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
     @apply font-normal text-white/70 leading-relaxed;
   }
 
-  /* CTA TEXT - Weight 700, Uppercase */
-  .nexus-cta {
+  /* CTA TEXT */
+  .cyber-cta {
     font-family: 'Orbitron', 'Space Grotesk', system-ui, sans-serif;
     @apply font-bold uppercase tracking-widest;
   }
 
   /* MUTED TEXT */
-  .nexus-muted {
+  .cyber-muted {
     @apply text-white/50;
   }
 
-  /* CARD TITLE - Weight 600 */
-  .nexus-card-title {
+  /* CARD TITLE */
+  .cyber-card-title {
     font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
     @apply font-semibold text-white tracking-wide;
   }
 
-  /* NUMBER/METRIC DISPLAY - Neon glow */
-  .nexus-metric {
+  /* METRIC DISPLAY */
+  .cyber-metric {
     font-family: 'Orbitron', 'Space Grotesk', system-ui, sans-serif;
     @apply font-bold text-primary;
-    text-shadow: 
-      0 0 10px hsl(135 100% 50% / 0.8),
-      0 0 20px hsl(135 100% 50% / 0.5);
+    text-shadow: 0 0 10px hsl(185 100% 50% / 0.5);
   }
 
   /* LABEL TEXT */
-  .nexus-label {
+  .cyber-label {
     font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
     @apply font-medium text-white/50 tracking-widest uppercase text-xs;
   }
 
-  /* NAV LINK - Like reference with underline */
-  .nav-link-neon {
+  /* NAV LINK */
+  .nav-link-cyber {
     font-family: 'Orbitron', 'Space Grotesk', system-ui, sans-serif;
     @apply font-medium tracking-widest uppercase text-sm text-white/80 transition-all duration-300;
   }
   
-  .nav-link-neon:hover,
-  .nav-link-neon.active {
-    color: hsl(135 100% 50%);
-    text-shadow: 0 0 10px hsl(135 100% 50% / 0.5);
+  .nav-link-cyber:hover,
+  .nav-link-cyber.active {
+    color: hsl(185 100% 50%);
+    text-shadow: 0 0 10px hsl(185 100% 50% / 0.5);
   }
   
-  .nav-link-neon.active {
+  .nav-link-cyber.active {
     text-decoration: underline;
     text-underline-offset: 8px;
-    text-decoration-color: hsl(135 100% 50%);
+    text-decoration-color: hsl(185 100% 50%);
     text-decoration-thickness: 2px;
   }
 }
 
 @layer components {
-  /* ==================== NEON GLASS SYSTEM ==================== */
+  /* ==================== CYBERPUNK GLASS SYSTEM ==================== */
   
-  /* Enhanced Glass Card with Neon Border */
-  .glass-card {
-    @apply relative overflow-hidden;
+  .cyber-card {
+    @apply relative overflow-hidden rounded-xl;
     background: linear-gradient(
       165deg,
-      hsl(120 15% 8% / 0.95) 0%,
-      hsl(120 15% 5% / 0.9) 50%,
-      hsl(120 10% 3% / 0.95) 100%
+      hsl(230 25% 10% / 0.95) 0%,
+      hsl(230 25% 7% / 0.9) 50%,
+      hsl(230 25% 5% / 0.95) 100%
     );
     backdrop-filter: blur(20px);
-    border: 1px solid hsl(135 100% 50% / 0.15);
-    border-radius: var(--radius);
+    border: 1px solid hsl(185 100% 50% / 0.15);
     box-shadow: 
       0 20px 50px -15px rgba(0, 0, 0, 0.7),
-      0 0 0 1px hsl(135 100% 50% / 0.05),
-      inset 0 1px 0 hsl(135 100% 50% / 0.05);
-    transform: translateZ(0);
+      0 0 0 1px hsl(185 100% 50% / 0.05),
+      inset 0 1px 0 hsl(185 100% 50% / 0.05);
   }
 
-  .glass-card::before {
+  .cyber-card::before {
     content: '';
     position: absolute;
     top: 0;
@@ -269,14 +240,14 @@
     height: 1px;
     background: linear-gradient(90deg, 
       transparent 0%, 
-      hsl(135 100% 50% / 0.5) 20%, 
-      hsl(135 100% 50% / 0.8) 50%, 
-      hsl(135 100% 50% / 0.5) 80%, 
+      hsl(185 100% 50% / 0.5) 20%, 
+      hsl(320 100% 55% / 0.8) 50%, 
+      hsl(185 100% 50% / 0.5) 80%, 
       transparent 100%
     );
   }
 
-  .glass-card::after {
+  .cyber-card::after {
     content: '';
     position: absolute;
     top: 0;
@@ -286,212 +257,185 @@
     background: linear-gradient(
       90deg, 
       transparent 0%, 
-      hsl(135 100% 50% / 0.03) 50%, 
+      hsl(185 100% 50% / 0.03) 50%, 
       transparent 100%
     );
     animation: shimmer 8s ease-in-out infinite;
     pointer-events: none;
   }
 
-  /* Premium 3D Card with Neon Glow */
-  .card-3d {
-    @apply glass-card;
+  /* 3D Card with hover */
+  .cyber-card-3d {
+    @apply cyber-card;
     transform: perspective(1200px) rotateX(0deg) rotateY(0deg) translateZ(0);
     transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
     transform-style: preserve-3d;
   }
 
-  .card-3d:hover {
+  .cyber-card-3d:hover {
     transform: perspective(1200px) rotateX(3deg) rotateY(-2deg) translateY(-10px) translateZ(20px);
     box-shadow: 
       0 40px 70px -20px rgba(0, 0, 0, 0.8),
-      0 0 60px hsl(135 100% 50% / 0.2),
-      0 0 100px hsl(135 100% 50% / 0.1);
-    border-color: hsl(135 100% 50% / 0.3);
+      0 0 60px hsl(185 100% 50% / 0.2),
+      0 0 100px hsl(320 100% 55% / 0.1);
+    border-color: hsl(185 100% 50% / 0.3);
   }
 
-  /* Floating 3D Card for NFTs */
-  .nft-card-3d {
-    @apply relative overflow-hidden;
-    background: linear-gradient(
-      170deg,
-      hsl(220 25% 14% / 0.95) 0%,
-      hsl(220 25% 9% / 0.9) 50%,
-      hsl(220 25% 6% / 0.95) 100%
+  /* Magenta variant */
+  .cyber-card-magenta {
+    @apply cyber-card;
+    border-color: hsl(320 100% 55% / 0.2);
+  }
+  
+  .cyber-card-magenta::before {
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      hsl(320 100% 55% / 0.5) 20%, 
+      hsl(320 100% 55% / 0.8) 50%, 
+      hsl(320 100% 55% / 0.5) 80%, 
+      transparent 100%
     );
-    border: 1.5px solid hsl(160 84% 45% / 0.15);
-    border-radius: calc(var(--radius) + 4px);
-    transform: perspective(1000px) rotateX(0deg) translateZ(0);
-    transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1);
-    transform-style: preserve-3d;
+  }
+
+  /* Gold variant */
+  .cyber-card-gold {
+    @apply cyber-card;
+    border-color: hsl(45 100% 55% / 0.2);
+  }
+  
+  .cyber-card-gold::before {
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      hsl(45 100% 55% / 0.5) 20%, 
+      hsl(45 100% 55% / 0.8) 50%, 
+      hsl(45 100% 55% / 0.5) 80%, 
+      transparent 100%
+    );
+  }
+
+  /* ==================== CYBERPUNK BUTTONS ==================== */
+  
+  .btn-cyber-primary {
+    @apply relative font-bold uppercase tracking-widest px-8 py-4 rounded-xl overflow-hidden;
+    font-family: 'Orbitron', sans-serif;
+    background: linear-gradient(135deg, hsl(185 100% 45%) 0%, hsl(185 100% 55%) 100%);
+    color: hsl(230 25% 4%);
     box-shadow: 
-      0 20px 40px -10px rgba(0, 0, 0, 0.5),
-      0 0 0 1px hsl(160 84% 45% / 0.05),
-      inset 0 0 30px hsl(160 84% 45% / 0.03);
+      0 0 30px hsl(185 100% 50% / 0.4),
+      inset 0 1px 0 hsl(185 100% 70% / 0.3);
+    transition: all 0.3s ease;
   }
 
-  .nft-card-3d:hover {
-    transform: perspective(1000px) rotateX(6deg) rotateY(-3deg) translateY(-20px) translateZ(40px) scale(1.02);
-    border-color: hsl(160 84% 45% / 0.4);
+  .btn-cyber-primary:hover {
     box-shadow: 
-      0 60px 100px -30px rgba(0, 0, 0, 0.7),
-      0 0 80px hsl(160 84% 45% / 0.25),
-      0 0 120px hsl(175 80% 50% / 0.15),
-      inset 0 0 40px hsl(160 84% 45% / 0.08);
+      0 0 50px hsl(185 100% 50% / 0.6),
+      0 0 100px hsl(185 100% 50% / 0.3),
+      inset 0 1px 0 hsl(185 100% 70% / 0.5);
+    transform: translateY(-3px);
   }
 
-  .nft-card-3d::before {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    background: linear-gradient(
-      135deg,
-      hsl(160 84% 45% / 0.4) 0%,
-      transparent 30%,
-      transparent 70%,
-      hsl(175 80% 50% / 0.3) 100%
-    );
-    border-radius: inherit;
-    z-index: -1;
-    opacity: 0;
-    transition: opacity 0.6s ease;
+  .btn-cyber-outline {
+    @apply relative font-bold uppercase tracking-widest px-8 py-4 rounded-xl overflow-hidden;
+    font-family: 'Orbitron', sans-serif;
+    background: transparent;
+    color: hsl(185 100% 50%);
+    border: 2px solid hsl(185 100% 50% / 0.5);
+    transition: all 0.3s ease;
   }
 
-  .nft-card-3d:hover::before {
-    opacity: 1;
-  }
-
-  /* Premium metallic frame for NFT images */
-  .nft-frame {
-    @apply relative overflow-hidden;
-    border: 2px solid hsl(160 84% 45% / 0.2);
-    border-radius: var(--radius);
+  .btn-cyber-outline:hover {
+    background: hsl(185 100% 50% / 0.1);
+    border-color: hsl(185 100% 50%);
     box-shadow: 
-      inset 0 0 30px hsl(160 84% 45% / 0.1),
-      inset 0 2px 4px hsl(180 10% 98% / 0.05);
-    background: linear-gradient(180deg, hsl(220 20% 10%) 0%, hsl(220 20% 5%) 100%);
+      0 0 30px hsl(185 100% 50% / 0.3),
+      inset 0 0 20px hsl(185 100% 50% / 0.1);
+    transform: translateY(-3px);
   }
 
-  .nft-frame::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      180deg,
-      transparent 0%,
-      hsl(160 84% 45% / 0.05) 50%,
-      hsl(220 20% 4%) 100%
-    );
-    pointer-events: none;
+  .btn-cyber-gold {
+    @apply relative font-bold uppercase tracking-widest px-8 py-4 rounded-xl overflow-hidden;
+    font-family: 'Orbitron', sans-serif;
+    background: linear-gradient(135deg, hsl(45 100% 50%) 0%, hsl(45 100% 60%) 100%);
+    color: hsl(230 25% 4%);
+    box-shadow: 0 0 30px hsl(45 100% 55% / 0.4);
+    transition: all 0.3s ease;
   }
 
-  /* Holographic border effect */
-  .holo-border {
-    position: relative;
-    background: hsl(var(--card));
-    border-radius: var(--radius);
+  .btn-cyber-gold:hover {
+    box-shadow: 0 0 50px hsl(45 100% 55% / 0.6);
+    transform: translateY(-3px);
   }
 
-  .holo-border::before {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    background: linear-gradient(
-      120deg,
-      hsl(160 84% 45%),
-      hsl(175 80% 50%),
-      hsl(200 90% 55%),
-      hsl(270 60% 55%),
-      hsl(160 84% 45%)
-    );
-    background-size: 400% 100%;
-    border-radius: calc(var(--radius) + 2px);
-    z-index: -1;
-    animation: holoShift 6s linear infinite;
-    opacity: 0.6;
+  .btn-cyber-magenta {
+    @apply relative font-bold uppercase tracking-widest px-8 py-4 rounded-xl overflow-hidden;
+    font-family: 'Orbitron', sans-serif;
+    background: linear-gradient(135deg, hsl(320 100% 50%) 0%, hsl(320 100% 60%) 100%);
+    color: white;
+    box-shadow: 0 0 30px hsl(320 100% 55% / 0.4);
+    transition: all 0.3s ease;
+  }
+
+  .btn-cyber-magenta:hover {
+    box-shadow: 0 0 50px hsl(320 100% 55% / 0.6);
+    transform: translateY(-3px);
   }
 
   /* ==================== GLOW EFFECTS ==================== */
   
-  /* Soft emerald glow */
-  .neon-glow {
+  .glow-cyan {
     box-shadow: 
-      0 0 40px hsl(160 84% 45% / 0.35),
-      0 0 80px hsl(160 84% 45% / 0.15),
-      0 0 120px hsl(175 80% 50% / 0.08),
-      inset 0 0 30px hsl(160 84% 45% / 0.04);
+      0 0 40px hsl(185 100% 50% / 0.35),
+      0 0 80px hsl(185 100% 50% / 0.15);
   }
 
-  .neon-glow-text {
+  .glow-magenta {
+    box-shadow: 
+      0 0 40px hsl(320 100% 55% / 0.35),
+      0 0 80px hsl(320 100% 55% / 0.15);
+  }
+
+  .glow-gold {
+    box-shadow: 
+      0 0 40px hsl(45 100% 55% / 0.35),
+      0 0 80px hsl(45 100% 55% / 0.15);
+  }
+
+  .glow-text-cyan {
     text-shadow: 
-      0 0 15px hsl(160 84% 45% / 0.8),
-      0 0 35px hsl(160 84% 45% / 0.5),
-      0 0 60px hsl(175 80% 50% / 0.3);
+      0 0 15px hsl(185 100% 50% / 0.8),
+      0 0 35px hsl(185 100% 50% / 0.5);
   }
 
-  .neon-glow-cyan {
-    box-shadow: 
-      0 0 40px hsl(175 80% 50% / 0.4),
-      0 0 80px hsl(175 80% 50% / 0.2);
-  }
-
-  /* Gold glow */
-  .gold-glow {
-    box-shadow: 
-      0 0 40px hsl(45 93% 58% / 0.4),
-      0 0 80px hsl(45 93% 58% / 0.2);
-  }
-
-  .gold-glow-text {
+  .glow-text-magenta {
     text-shadow: 
-      0 0 20px hsl(45 93% 58% / 0.8),
-      0 0 40px hsl(45 93% 58% / 0.4);
+      0 0 15px hsl(320 100% 55% / 0.8),
+      0 0 35px hsl(320 100% 55% / 0.5);
   }
 
-  /* Pulse glow animation */
-  .pulse-glow {
-    animation: pulseGlow 3s ease-in-out infinite;
-  }
-
-  .pulse-glow-subtle {
-    animation: pulseGlowSubtle 4s ease-in-out infinite;
+  .glow-text-gold {
+    text-shadow: 
+      0 0 15px hsl(45 100% 55% / 0.8),
+      0 0 35px hsl(45 100% 55% / 0.5);
   }
 
   /* ==================== GRADIENT TEXT ==================== */
   
-  .gradient-text-emerald {
-    background: linear-gradient(
-      135deg, 
-      hsl(160 84% 55%) 0%, 
-      hsl(175 80% 60%) 50%, 
-      hsl(160 100% 70%) 100%
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .gradient-text-tech {
-    background: linear-gradient(
-      135deg, 
-      hsl(160 84% 55%) 0%, 
-      hsl(175 80% 58%) 40%, 
-      hsl(200 90% 60%) 100%
-    );
+  .gradient-text-cyber {
+    background: linear-gradient(135deg, hsl(185 100% 55%) 0%, hsl(320 100% 60%) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .gradient-text-gold {
-    background: linear-gradient(135deg, hsl(45 93% 60%), hsl(45 80% 72%));
+    background: linear-gradient(135deg, hsl(45 100% 55%), hsl(45 80% 70%));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  .gradient-text-cyber {
-    background: linear-gradient(135deg, hsl(270 60% 60%), hsl(175 80% 55%), hsl(160 84% 50%));
+  .gradient-text-magenta {
+    background: linear-gradient(135deg, hsl(320 100% 55%), hsl(280 80% 60%));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -499,408 +443,86 @@
 
   /* ==================== BACKGROUNDS ==================== */
   
-  /* Tech grid with perspective */
+  .cyber-grid-bg {
+    background-image: 
+      linear-gradient(hsl(185 100% 50% / 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(185 100% 50% / 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .particle-bg {
+    background: 
+      radial-gradient(ellipse at 20% 30%, hsl(185 100% 50% / 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 70%, hsl(320 100% 55% / 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, hsl(280 80% 55% / 0.05) 0%, transparent 60%);
+  }
+
   .tech-grid-bg {
     background-image: 
-      linear-gradient(hsl(160 40% 20% / 0.06) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(160 40% 20% / 0.06) 1px, transparent 1px),
-      radial-gradient(ellipse at 50% 0%, hsl(160 84% 45% / 0.1) 0%, transparent 50%);
-    background-size: 80px 80px, 80px 80px, 100% 100%;
-  }
-
-  /* Particle ambient background */
-  .particle-bg {
-    background-image: 
-      radial-gradient(circle at 15% 25%, hsl(160 84% 45% / 0.06) 0%, transparent 35%),
-      radial-gradient(circle at 85% 75%, hsl(175 80% 50% / 0.05) 0%, transparent 35%),
-      radial-gradient(circle at 50% 50%, hsl(200 90% 55% / 0.03) 0%, transparent 45%),
-      radial-gradient(circle at 90% 15%, hsl(270 60% 55% / 0.02) 0%, transparent 30%);
-  }
-
-  /* Circuit pattern overlay */
-  .circuit-pattern {
-    background-image: 
-      linear-gradient(90deg, hsl(160 84% 45% / 0.02) 1px, transparent 1px),
-      linear-gradient(hsl(175 80% 50% / 0.02) 1px, transparent 1px);
+      linear-gradient(hsl(185 100% 50% / 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(185 100% 50% / 0.02) 1px, transparent 1px);
     background-size: 40px 40px;
-  }
-
-  /* ==================== PREMIUM BUTTONS ==================== */
-  
-  .btn-primary-glow {
-    @apply relative overflow-hidden bg-primary text-primary-foreground font-semibold px-8 py-3 rounded-xl;
-    @apply transition-all duration-300 ease-out;
-    font-family: 'Space Grotesk', sans-serif;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-    font-size: 0.875rem;
-    box-shadow: 
-      0 12px 35px -8px hsl(160 84% 45% / 0.5),
-      0 0 0 1px hsl(160 100% 60% / 0.15),
-      inset 0 1px 0 hsl(180 10% 98% / 0.15);
-    transform: translateY(0) translateZ(0);
-  }
-
-  .btn-primary-glow::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, hsl(180 10% 98% / 0.15), transparent);
-    transition: left 0.6s ease;
-  }
-
-  .btn-primary-glow:hover {
-    transform: translateY(-4px) translateZ(10px);
-    box-shadow: 
-      0 25px 50px -12px hsl(160 84% 45% / 0.55),
-      0 0 80px hsl(160 84% 45% / 0.3),
-      0 0 0 1px hsl(160 100% 60% / 0.3),
-      inset 0 1px 0 hsl(180 10% 98% / 0.25);
-  }
-
-  .btn-primary-glow:hover::before {
-    left: 100%;
-  }
-
-  .btn-primary-glow:active {
-    transform: translateY(-2px) scale(0.98);
-  }
-
-  .btn-outline-glow {
-    @apply relative overflow-hidden border-2 border-primary text-primary bg-transparent font-semibold px-8 py-3 rounded-xl;
-    @apply transition-all duration-300 ease-out;
-    font-family: 'Space Grotesk', sans-serif;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-    font-size: 0.875rem;
-    box-shadow: 
-      0 0 25px hsl(160 84% 45% / 0.08),
-      inset 0 0 25px hsl(160 84% 45% / 0.04);
-  }
-
-  .btn-outline-glow:hover {
-    @apply bg-primary/10;
-    transform: translateY(-4px);
-    box-shadow: 
-      0 15px 40px -8px hsl(160 84% 45% / 0.35),
-      0 0 50px hsl(160 84% 45% / 0.2),
-      inset 0 0 35px hsl(160 84% 45% / 0.1);
-  }
-
-  .btn-gold {
-    background: linear-gradient(135deg, hsl(45 93% 58%), hsl(45 80% 50%));
-    @apply text-black font-bold px-8 py-3 rounded-xl;
-    @apply transition-all duration-300 ease-out;
-    font-family: 'Space Grotesk', sans-serif;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-    box-shadow: 0 12px 35px -8px hsl(45 93% 58% / 0.45);
-  }
-
-  .btn-gold:hover {
-    transform: translateY(-4px);
-    box-shadow: 
-      0 25px 50px -12px hsl(45 93% 58% / 0.5),
-      0 0 70px hsl(45 93% 58% / 0.25);
-  }
-
-  /* ==================== STAT CARDS ==================== */
-  
-  .stat-card {
-    @apply glass-card p-4 sm:p-6 relative overflow-hidden;
-    border-left: 3px solid hsl(160 84% 45%);
-  }
-
-  .stat-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-      135deg, 
-      hsl(160 84% 45% / 0.06) 0%, 
-      transparent 60%
-    );
-    pointer-events: none;
-  }
-
-  /* Premium icon container */
-  .icon-3d {
-    @apply relative flex items-center justify-center;
-    background: linear-gradient(
-      145deg, 
-      hsl(160 84% 45% / 0.2) 0%, 
-      hsl(175 80% 50% / 0.1) 100%
-    );
-    box-shadow: 
-      0 6px 20px hsl(160 84% 45% / 0.2),
-      inset 0 1px 0 hsl(180 10% 98% / 0.08),
-      inset 0 -1px 0 hsl(0 0% 0% / 0.1);
-    border: 1px solid hsl(160 84% 45% / 0.15);
-  }
-
-  /* Tech badge */
-  .badge-tech {
-    @apply inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium;
-    font-family: 'Space Grotesk', sans-serif;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    background: linear-gradient(
-      145deg, 
-      hsl(220 25% 14% / 0.9) 0%, 
-      hsl(220 25% 10% / 0.8) 100%
-    );
-    border: 1px solid hsl(160 84% 45% / 0.25);
-    box-shadow: 
-      0 6px 20px hsl(160 84% 45% / 0.1),
-      inset 0 1px 0 hsl(180 10% 98% / 0.05);
-  }
-
-  /* Section header glow line */
-  .section-glow-line {
-    @apply relative;
-  }
-
-  .section-glow-line::after {
-    content: '';
-    position: absolute;
-    bottom: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 120px;
-    height: 3px;
-    background: linear-gradient(
-      90deg, 
-      transparent 0%, 
-      hsl(160 84% 45%) 30%, 
-      hsl(175 80% 50%) 70%, 
-      transparent 100%
-    );
-    border-radius: 2px;
-    box-shadow: 0 0 25px hsl(160 84% 45% / 0.5);
-  }
-
-  /* ==================== NFT SPECIFIC ==================== */
-  
-  /* Legacy nft-card class for compatibility */
-  .nft-card {
-    @apply nft-card-3d p-1;
-  }
-
-  /* Active staking indicator */
-  .staking-active-glow {
-    box-shadow: 
-      0 0 20px hsl(160 84% 45% / 0.4),
-      inset 0 0 15px hsl(160 84% 45% / 0.1);
-    animation: pulseGlowSubtle 3s ease-in-out infinite;
-  }
-
-  /* Countdown display */
-  .countdown-box {
-    @apply relative overflow-hidden;
-    background: linear-gradient(
-      145deg,
-      hsl(220 25% 12% / 0.95) 0%,
-      hsl(220 25% 8% / 0.9) 100%
-    );
-    border: 1px solid hsl(160 84% 45% / 0.2);
-    box-shadow: inset 0 0 20px hsl(160 84% 45% / 0.05);
-  }
-
-  /* ==================== SCROLLBAR ==================== */
-  
-  ::-webkit-scrollbar {
-    width: 10px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: hsl(var(--background));
-    border-radius: 5px;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, hsl(160 84% 45% / 0.35), hsl(175 80% 50% / 0.25));
-    border-radius: 5px;
-    border: 2px solid hsl(var(--background));
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, hsl(160 84% 45% / 0.55), hsl(175 80% 50% / 0.4));
-  }
-
-  /* ==================== ANIMATIONS ==================== */
-  
-  .float-3d {
-    animation: float3d 8s ease-in-out infinite;
-    transform-style: preserve-3d;
-  }
-
-  .float-slow {
-    animation: floatSlow 12s ease-in-out infinite;
-  }
-
-  .float-delayed {
-    animation: float3d 8s ease-in-out infinite;
-    animation-delay: -4s;
   }
 }
 
-@layer utilities {
-  /* Animation keyframes */
-  @keyframes float3d {
-    0%, 100% {
-      transform: translateY(0px) rotateX(0deg) rotateY(0deg);
-    }
-    25% {
-      transform: translateY(-12px) rotateX(2deg) rotateY(1deg);
-    }
-    50% {
-      transform: translateY(-20px) rotateX(0deg) rotateY(-1deg);
-    }
-    75% {
-      transform: translateY(-12px) rotateX(-2deg) rotateY(1deg);
-    }
-  }
+/* ==================== ANIMATIONS ==================== */
+@keyframes shimmer {
+  0%, 100% { left: -150%; }
+  50% { left: 150%; }
+}
 
-  @keyframes floatSlow {
-    0%, 100% {
-      transform: translateY(0px) translateX(0px);
-    }
-    33% {
-      transform: translateY(-15px) translateX(8px);
-    }
-    66% {
-      transform: translateY(-8px) translateX(-5px);
-    }
+@keyframes pulseGlow {
+  0%, 100% { 
+    box-shadow: 0 0 20px hsl(185 100% 50% / 0.3), 0 0 40px hsl(185 100% 50% / 0.15);
   }
+  50% { 
+    box-shadow: 0 0 40px hsl(185 100% 50% / 0.5), 0 0 80px hsl(185 100% 50% / 0.3);
+  }
+}
 
-  @keyframes pulseGlow {
-    0%, 100% {
-      box-shadow: 0 0 35px hsl(160 84% 45% / 0.35), 0 0 70px hsl(175 80% 50% / 0.15);
-    }
-    50% {
-      box-shadow: 0 0 55px hsl(160 84% 45% / 0.55), 0 0 110px hsl(175 80% 50% / 0.3);
-    }
-  }
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+}
 
-  @keyframes pulseGlowSubtle {
-    0%, 100% {
-      box-shadow: 0 0 20px hsl(160 84% 45% / 0.25);
-    }
-    50% {
-      box-shadow: 0 0 35px hsl(160 84% 45% / 0.4);
-    }
-  }
+@keyframes dataFlow {
+  0% { transform: translateY(-100%); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateY(100%); opacity: 0; }
+}
 
-  @keyframes holoShift {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 400% 50%; }
-  }
+.animate-shimmer {
+  animation: shimmer 8s ease-in-out infinite;
+}
 
-  @keyframes shimmer {
-    0% { left: -150%; }
-    50% { left: 50%; }
-    100% { left: 150%; }
-  }
+.animate-pulse-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
 
-  @keyframes dataFlow {
-    0% {
-      background-position: 0% 50%;
-      opacity: 0.4;
-    }
-    50% {
-      opacity: 0.8;
-    }
-    100% {
-      background-position: 100% 50%;
-      opacity: 0.4;
-    }
-  }
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
 
-  @keyframes scanLine {
-    0% { transform: translateY(-100%); opacity: 0; }
-    50% { opacity: 0.4; }
-    100% { transform: translateY(100%); opacity: 0; }
-  }
+/* ==================== SCROLLBAR ==================== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
 
-  @keyframes orbFloat {
-    0%, 100% { 
-      transform: translate(0, 0) scale(1);
-      opacity: 0.25;
-    }
-    33% { 
-      transform: translate(40px, -60px) scale(1.1);
-      opacity: 0.45;
-    }
-    66% { 
-      transform: translate(-25px, -35px) scale(0.9);
-      opacity: 0.35;
-    }
-  }
+::-webkit-scrollbar-track {
+  background: hsl(230 25% 5%);
+}
 
-  @keyframes energyPulse {
-    0%, 100% {
-      opacity: 0.6;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 1;
-      transform: scale(1.05);
-    }
-  }
+::-webkit-scrollbar-thumb {
+  background: hsl(185 50% 25%);
+  border-radius: 4px;
+}
 
-  .animate-shimmer {
-    animation: shimmer 4s ease-in-out infinite;
-  }
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(185 100% 50% / 0.5);
+}
 
-  .animate-data-flow {
-    background: linear-gradient(90deg, transparent, hsl(160 84% 45% / 0.15), transparent);
-    background-size: 200% 100%;
-    animation: dataFlow 4s linear infinite;
-  }
-
-  .animate-scan-line {
-    animation: scanLine 4s linear infinite;
-  }
-
-  .animate-orb-float {
-    animation: orbFloat 15s ease-in-out infinite;
-  }
-
-  .animate-energy-pulse {
-    animation: energyPulse 2.5s ease-in-out infinite;
-  }
-
-  /* Text utilities */
-  .text-balance {
-    text-wrap: balance;
-  }
-
-  /* Backdrop for modals */
-  .backdrop-tech {
-    backdrop-filter: blur(24px) saturate(180%);
-    background: hsl(220 20% 4% / 0.85);
-  }
-
-  /* Number animation after render */
-  .animate-number-in {
-    animation: numberSlideIn 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-  }
-
-  @keyframes numberSlideIn {
-    0% {
-      opacity: 0;
-      transform: translateY(10px) scale(0.95);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
+::selection {
+  background: hsl(185 100% 50% / 0.3);
+  color: hsl(0 0% 100%);
 }
