@@ -29,6 +29,20 @@ export const NFT_SALE_ABI = [
     outputs: [{ type: 'address' }],
   },
   {
+    name: 'referralCount',
+    type: 'function',
+    stateMutability: 'view',
+    inputs: [{ name: 'user', type: 'address' }],
+    outputs: [{ type: 'uint256' }],
+  },
+  {
+    name: 'totalReferralEarnings',
+    type: 'function',
+    stateMutability: 'view',
+    inputs: [{ name: 'user', type: 'address' }],
+    outputs: [{ type: 'uint256' }],
+  },
+  {
     name: 'buyTree',
     type: 'function',
     stateMutability: 'nonpayable',

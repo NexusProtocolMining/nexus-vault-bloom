@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState } from 'react';
 import { useAccount, useReadContract, useReadContracts } from 'wagmi';
 import { formatUnits } from 'viem';
 import { motion } from 'framer-motion';
@@ -6,7 +6,7 @@ import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { 
   Wallet, Copy, Users, Coins, TrendingUp, Package, CheckCircle, 
-  Zap, Clock, Calendar, Gift, Link2, ExternalLink
+  Zap, Calendar, Gift, Link2, UserPlus, Award, BarChart3
 } from 'lucide-react';
 import { CONTRACTS } from '@/config/contracts';
 import { NFT_SALE_ABI, NFT_MINER_ABI, ERC20_ABI, STAKING_ABI } from '@/config/abis';
@@ -46,6 +46,24 @@ const Dashboard = () => {
     query: { enabled: !!address },
   });
 
+  // Read referral count (number of referred users)
+  const { data: referralCount } = useReadContract({
+    address: CONTRACTS.NFT_SALE,
+    abi: NFT_SALE_ABI,
+    functionName: 'referralCount',
+    args: address ? [address] : undefined,
+    query: { enabled: !!address },
+  });
+
+  // Read total referral earnings
+  const { data: totalReferralEarnings } = useReadContract({
+    address: CONTRACTS.NFT_SALE,
+    abi: NFT_SALE_ABI,
+    functionName: 'totalReferralEarnings',
+    args: address ? [address] : undefined,
+    query: { enabled: !!address },
+  });
+
   // Read owned NFTs
   const { data: tokenIds } = useReadContract({
     address: CONTRACTS.NFT_MINER,
@@ -78,23 +96,25 @@ const Dashboard = () => {
   const nftCount = tokenIds ? (tokenIds as bigint[]).length : 0;
   const nxpFormatted = nxpBalance ? formatUnits(nxpBalance as bigint, 18) : '0';
   const hasReferrer = referrer && referrer !== '0x0000000000000000000000000000000000000000';
+  const referralCountNum = referralCount ? Number(referralCount) : 0;
+  const referralEarningsFormatted = totalReferralEarnings ? formatUnits(totalReferralEarnings as bigint, 18) : '0';
 
   return (
     <div className="min-h-screen bg-background particle-bg">
       <Navbar />
       
-      <main className="pt-24 pb-16">
-        <div className="container mx-auto px-4">
+      <main className="pt-20 sm:pt-24 pb-16">
+        <div className="container mx-auto px-3 sm:px-4">
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-12"
+            className="text-center mb-8 sm:mb-12"
           >
-            <h1 className="font-display text-4xl sm:text-5xl font-bold mb-4">
+            <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
               <span className="gradient-text-emerald">Luxury Dashboard</span>
             </h1>
-            <p className="text-muted-foreground max-w-xl mx-auto">
+            <p className="text-muted-foreground text-sm sm:text-base max-w-xl mx-auto px-4">
               Track your NFTs, earnings, and referral performance
             </p>
           </motion.div>
@@ -104,10 +124,10 @@ const Dashboard = () => {
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="max-w-md mx-auto glass-card p-8 text-center neon-glow"
+              className="max-w-md mx-auto glass-card p-6 sm:p-8 text-center neon-glow"
             >
-              <Wallet className="w-16 h-16 text-primary mx-auto mb-4" />
-              <h2 className="font-display text-xl font-bold mb-2">Connect Wallet</h2>
+              <Wallet className="w-12 h-12 sm:w-16 sm:h-16 text-primary mx-auto mb-4" />
+              <h2 className="font-display text-lg sm:text-xl font-bold mb-2">Connect Wallet</h2>
               <p className="text-muted-foreground text-sm">
                 Please connect your wallet to view your dashboard.
               </p>
@@ -115,33 +135,33 @@ const Dashboard = () => {
           )}
 
           {isConnected && (
-            <div className="space-y-8">
+            <div className="space-y-6 sm:space-y-8">
               {/* Referral Link Card - Full Width */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="glass-card p-6 neon-glow"
+                className="glass-card p-4 sm:p-6 neon-glow"
               >
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center">
-                    <Link2 className="w-6 h-6 text-primary" />
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary/20 flex items-center justify-center flex-shrink-0">
+                    <Link2 className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
                   </div>
-                  <div>
-                    <h2 className="font-display text-xl font-bold">Your Referral Link</h2>
-                    <p className="text-sm text-muted-foreground">Auto-generated on-chain referral</p>
+                  <div className="min-w-0">
+                    <h2 className="font-display text-lg sm:text-xl font-bold">Your Referral Link</h2>
+                    <p className="text-xs sm:text-sm text-muted-foreground">Auto-generated on-chain referral</p>
                   </div>
                 </div>
-                <div className="flex flex-col sm:flex-row gap-3">
+                <div className="flex flex-col gap-3">
                   <input
                     type="text"
                     value={referralLink}
                     readOnly
-                    className="flex-1 bg-muted/50 border border-primary/30 rounded-lg px-4 py-3 text-sm font-mono text-muted-foreground focus:outline-none"
+                    className="w-full bg-muted/50 border border-primary/30 rounded-lg px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm font-mono text-muted-foreground focus:outline-none truncate"
                   />
                   <motion.button
                     onClick={copyReferralLink}
-                    className="btn-primary-glow flex items-center justify-center gap-2 min-w-[140px]"
+                    className="btn-primary-glow flex items-center justify-center gap-2 w-full sm:w-auto"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -163,30 +183,81 @@ const Dashboard = () => {
                 </p>
               </motion.div>
 
+              {/* Referral Analytics Section */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15 }}
+                className="glass-card p-4 sm:p-6"
+              >
+                <h2 className="font-display text-lg sm:text-xl font-bold mb-4 sm:mb-6 flex items-center gap-2">
+                  <BarChart3 className="w-5 h-5 text-primary" />
+                  Referral Analytics
+                </h2>
+                <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                  {/* Referred Users */}
+                  <div className="bg-card/50 border border-primary/20 rounded-xl p-4 sm:p-6 text-center">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                      <UserPlus className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
+                    </div>
+                    <p className="text-xs sm:text-sm text-muted-foreground mb-1 sm:mb-2">Referred Users</p>
+                    <motion.p 
+                      key={referralCountNum}
+                      initial={{ scale: 0.9 }}
+                      animate={{ scale: 1 }}
+                      className="font-display text-2xl sm:text-3xl font-bold text-primary"
+                    >
+                      {referralCountNum}
+                    </motion.p>
+                    <p className="text-[10px] sm:text-xs text-muted-foreground mt-1">Total Referrals</p>
+                  </div>
+
+                  {/* Total Referral Earnings */}
+                  <div className="bg-card/50 border border-primary/20 rounded-xl p-4 sm:p-6 text-center">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                      <Award className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
+                    </div>
+                    <p className="text-xs sm:text-sm text-muted-foreground mb-1 sm:mb-2">Referral Earnings</p>
+                    <motion.p 
+                      key={referralEarningsFormatted}
+                      initial={{ scale: 0.9 }}
+                      animate={{ scale: 1 }}
+                      className="font-display text-xl sm:text-3xl font-bold text-primary neon-glow-text"
+                    >
+                      {Number(referralEarningsFormatted).toLocaleString(undefined, { maximumFractionDigits: 2 })}
+                    </motion.p>
+                    <p className="text-[10px] sm:text-xs text-muted-foreground mt-1">USDT Earned</p>
+                  </div>
+                </div>
+                <p className="text-xs text-muted-foreground text-center mt-4">
+                  Data read directly from smart contract
+                </p>
+              </motion.div>
+
               {/* Stats Grid */}
-              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                 {/* NXP Balance */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
-                  className="glass-card p-6"
+                  className="glass-card p-4 sm:p-6"
                 >
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
-                      <Coins className="w-5 h-5 text-primary" />
+                  <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
+                      <Coins className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                     </div>
-                    <span className="text-sm text-muted-foreground">NXP Balance</span>
+                    <span className="text-xs sm:text-sm text-muted-foreground">NXP Balance</span>
                   </div>
                   <motion.p 
                     key={nxpFormatted}
                     initial={{ scale: 0.9 }}
                     animate={{ scale: 1 }}
-                    className="font-display text-2xl font-bold text-primary"
+                    className="font-display text-lg sm:text-2xl font-bold text-primary truncate"
                   >
-                    {Number(nxpFormatted).toLocaleString(undefined, { maximumFractionDigits: 4 })}
+                    {Number(nxpFormatted).toLocaleString(undefined, { maximumFractionDigits: 2 })}
                   </motion.p>
-                  <p className="text-xs text-muted-foreground">Total NXP Tokens</p>
+                  <p className="text-[10px] sm:text-xs text-muted-foreground">Total NXP</p>
                 </motion.div>
 
                 {/* Total NFTs */}
@@ -194,16 +265,16 @@ const Dashboard = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 }}
-                  className="glass-card p-6"
+                  className="glass-card p-4 sm:p-6"
                 >
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
-                      <Package className="w-5 h-5 text-primary" />
+                  <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
+                      <Package className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                     </div>
-                    <span className="text-sm text-muted-foreground">NFTs Owned</span>
+                    <span className="text-xs sm:text-sm text-muted-foreground">NFTs Owned</span>
                   </div>
-                  <p className="font-display text-2xl font-bold text-foreground">{nftCount}</p>
-                  <p className="text-xs text-muted-foreground">Total Collection</p>
+                  <p className="font-display text-lg sm:text-2xl font-bold text-foreground">{nftCount}</p>
+                  <p className="text-[10px] sm:text-xs text-muted-foreground">Total Collection</p>
                 </motion.div>
 
                 {/* Your Referrer */}
@@ -211,21 +282,21 @@ const Dashboard = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 }}
-                  className="glass-card p-6"
+                  className="glass-card p-4 sm:p-6"
                 >
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
-                      <Users className="w-5 h-5 text-primary" />
+                  <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
+                      <Users className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                     </div>
-                    <span className="text-sm text-muted-foreground">Your Referrer</span>
+                    <span className="text-xs sm:text-sm text-muted-foreground">Your Referrer</span>
                   </div>
-                  <p className="font-display text-sm font-bold text-foreground font-mono truncate">
+                  <p className="font-display text-xs sm:text-sm font-bold text-foreground font-mono truncate">
                     {hasReferrer 
                       ? `${(referrer as string).slice(0, 6)}...${(referrer as string).slice(-4)}`
                       : 'None'
                     }
                   </p>
-                  <p className="text-xs text-muted-foreground">Upline Address</p>
+                  <p className="text-[10px] sm:text-xs text-muted-foreground">Upline Address</p>
                 </motion.div>
 
                 {/* Network */}
@@ -233,16 +304,16 @@ const Dashboard = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 }}
-                  className="glass-card p-6"
+                  className="glass-card p-4 sm:p-6"
                 >
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
-                      <TrendingUp className="w-5 h-5 text-primary" />
+                  <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
+                      <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                     </div>
-                    <span className="text-sm text-muted-foreground">Network</span>
+                    <span className="text-xs sm:text-sm text-muted-foreground">Network</span>
                   </div>
-                  <p className="font-display text-2xl font-bold text-foreground">BSC</p>
-                  <p className="text-xs text-muted-foreground">Binance Smart Chain</p>
+                  <p className="font-display text-lg sm:text-2xl font-bold text-foreground">BSC</p>
+                  <p className="text-[10px] sm:text-xs text-muted-foreground">Binance Smart Chain</p>
                 </motion.div>
               </div>
 
@@ -251,17 +322,32 @@ const Dashboard = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
-                className="glass-card p-6"
+                className="glass-card p-4 sm:p-6"
               >
-                <h2 className="font-display text-xl font-bold mb-6 flex items-center gap-2">
+                <h2 className="font-display text-lg sm:text-xl font-bold mb-4 sm:mb-6 flex items-center gap-2">
                   <TrendingUp className="w-5 h-5 text-primary" />
                   Total Earning
                 </h2>
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <TotalEarningCard tokenIds={tokenIds as bigint[] | undefined} period="Monthly" />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <TotalEarningCard tokenIds={tokenIds as bigint[] | undefined} period="Staking Rewards" />
+                  <div className="bg-card/50 border border-primary/20 rounded-xl p-4 sm:p-6 text-center">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                      <Award className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
+                    </div>
+                    <p className="text-xs sm:text-sm text-muted-foreground mb-1 sm:mb-2">Referral Rewards</p>
+                    <motion.p 
+                      key={referralEarningsFormatted}
+                      initial={{ scale: 0.9 }}
+                      animate={{ scale: 1 }}
+                      className="font-display text-2xl sm:text-3xl font-bold text-primary neon-glow-text"
+                    >
+                      {Number(referralEarningsFormatted).toLocaleString(undefined, { maximumFractionDigits: 2 })}
+                    </motion.p>
+                    <p className="text-[10px] sm:text-xs text-muted-foreground mt-1">USDT</p>
+                  </div>
                 </div>
                 <p className="text-xs text-muted-foreground text-center mt-4">
-                  Earnings are calculated from on-chain staking rewards (totalClaimed per NFT)
+                  All earnings calculated from on-chain data
                 </p>
               </motion.div>
 
@@ -271,15 +357,15 @@ const Dashboard = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.7 }}
               >
-                <h2 className="font-display text-xl font-bold mb-6 flex items-center gap-2">
+                <h2 className="font-display text-lg sm:text-xl font-bold mb-4 sm:mb-6 flex items-center gap-2">
                   <Package className="w-5 h-5 text-primary" />
                   NFT Collection
                 </h2>
 
                 {nftCount === 0 ? (
-                  <div className="glass-card p-8 text-center">
-                    <Package className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-                    <p className="text-muted-foreground mb-4">You don't own any NFTs yet.</p>
+                  <div className="glass-card p-6 sm:p-8 text-center">
+                    <Package className="w-12 h-12 sm:w-16 sm:h-16 text-muted-foreground mx-auto mb-4" />
+                    <p className="text-muted-foreground mb-4 text-sm sm:text-base">You don't own any NFTs yet.</p>
                     <motion.a
                       href="/buy"
                       className="btn-primary-glow inline-flex items-center gap-2"
@@ -291,7 +377,7 @@ const Dashboard = () => {
                     </motion.a>
                   </div>
                 ) : (
-                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                  <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
                     {(tokenIds as bigint[]).map((tokenId, i) => (
                       <NFTCollectionCard key={tokenId.toString()} tokenId={tokenId} index={i} />
                     ))}
@@ -332,20 +418,20 @@ function TotalEarningCard({ tokenIds, period }: { tokenIds: bigint[] | undefined
   const totalFormatted = formatUnits(totalEarning, 18);
 
   return (
-    <div className="bg-card/50 border border-primary/20 rounded-xl p-6 text-center">
-      <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-4">
-        <Calendar className="w-6 h-6 text-primary" />
+    <div className="bg-card/50 border border-primary/20 rounded-xl p-4 sm:p-6 text-center">
+      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-3 sm:mb-4">
+        <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
       </div>
-      <p className="text-sm text-muted-foreground mb-2">{period} Earning</p>
+      <p className="text-xs sm:text-sm text-muted-foreground mb-1 sm:mb-2">{period}</p>
       <motion.p 
         key={totalFormatted}
         initial={{ scale: 0.9 }}
         animate={{ scale: 1 }}
-        className="font-display text-3xl font-bold text-primary neon-glow-text"
+        className="font-display text-2xl sm:text-3xl font-bold text-primary neon-glow-text"
       >
-        {Number(totalFormatted).toLocaleString(undefined, { maximumFractionDigits: 4 })}
+        {Number(totalFormatted).toLocaleString(undefined, { maximumFractionDigits: 2 })}
       </motion.p>
-      <p className="text-xs text-muted-foreground mt-1">NXP Tokens</p>
+      <p className="text-[10px] sm:text-xs text-muted-foreground mt-1">NXP</p>
     </div>
   );
 }
@@ -389,14 +475,14 @@ function NFTCollectionCard({ tokenId, index }: { tokenId: bigint; index: number 
     >
       <div className="relative overflow-hidden rounded-xl bg-card">
         {/* Status Badge */}
-        <div className="absolute top-3 right-3 z-10">
+        <div className="absolute top-2 right-2 sm:top-3 sm:right-3 z-10">
           {isActive ? (
-            <span className="px-2 py-1 text-xs font-semibold rounded-full bg-primary text-primary-foreground flex items-center gap-1">
-              <Zap className="w-3 h-3" />
+            <span className="px-1.5 py-0.5 sm:px-2 sm:py-1 text-[10px] sm:text-xs font-semibold rounded-full bg-primary text-primary-foreground flex items-center gap-1">
+              <Zap className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
               Active
             </span>
           ) : (
-            <span className="px-2 py-1 text-xs font-semibold rounded-full bg-muted text-muted-foreground">
+            <span className="px-1.5 py-0.5 sm:px-2 sm:py-1 text-[10px] sm:text-xs font-semibold rounded-full bg-muted text-muted-foreground">
               Inactive
             </span>
           )}
@@ -413,22 +499,22 @@ function NFTCollectionCard({ tokenId, index }: { tokenId: bigint; index: number 
         </div>
 
         {/* Info */}
-        <div className="p-4">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="font-display text-lg font-bold">{tierNames[tierNum]}</h3>
-            <span className="text-xs text-muted-foreground">#{tokenId.toString()}</span>
+        <div className="p-3 sm:p-4">
+          <div className="flex items-center justify-between mb-2 sm:mb-3">
+            <h3 className="font-display text-sm sm:text-lg font-bold">{tierNames[tierNum]}</h3>
+            <span className="text-[10px] sm:text-xs text-muted-foreground">#{tokenId.toString()}</span>
           </div>
 
           {/* Total Claimed */}
-          <div className="bg-primary/10 border border-primary/20 rounded-lg p-3 mb-3">
-            <p className="text-xs text-muted-foreground mb-1">Total Earned</p>
-            <p className="font-display font-bold text-lg text-primary">
-              {Number(totalClaimedFormatted).toLocaleString(undefined, { maximumFractionDigits: 4 })} NXP
+          <div className="bg-primary/10 border border-primary/20 rounded-lg p-2 sm:p-3 mb-2 sm:mb-3">
+            <p className="text-[10px] sm:text-xs text-muted-foreground mb-0.5 sm:mb-1">Total Earned</p>
+            <p className="font-display font-bold text-sm sm:text-lg text-primary">
+              {Number(totalClaimedFormatted).toLocaleString(undefined, { maximumFractionDigits: 2 })} NXP
             </p>
           </div>
 
           {/* Status Info */}
-          <div className="flex justify-between items-center text-sm">
+          <div className="flex justify-between items-center text-xs sm:text-sm">
             <span className="text-muted-foreground">Status</span>
             <span className={`font-medium ${isActive ? 'text-primary' : 'text-muted-foreground'}`}>
               {isActive ? 'Staking' : 'Not Staked'}
