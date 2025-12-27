@@ -1,20 +1,38 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useAccount, useReadContract, useReadContracts, useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
-import { formatUnits } from 'viem';
+import { formatUnits, parseUnits } from 'viem';
 import { motion } from 'framer-motion';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
-import { Loader2, Wallet, Clock, Coins, Lock, Unlock, Gift, Timer } from 'lucide-react';
+import { 
+  Loader2, Wallet, Clock, Coins, Lock, Unlock, Gift, Timer, 
+  Zap, TrendingUp, ArrowDown, Calendar, AlertCircle, CheckCircle
+} from 'lucide-react';
 import { CONTRACTS } from '@/config/contracts';
-import { NFT_MINER_ABI, STAKING_ABI } from '@/config/abis';
+import { NFT_MINER_ABI, STAKING_ABI, INTERNAL_POOL_ABI, ERC20_ABI } from '@/config/abis';
 import { toast } from '@/hooks/use-toast';
-import nexusStaking from '@/assets/nexus-staking.jpeg';
+
+import treeNFT from '@/assets/tree-nft.png';
+import diamondNFT from '@/assets/diamond-nft.png';
+import carbonNFT from '@/assets/carbon-nft.png';
+
+const tierImages: Record<number, string> = {
+  0: treeNFT,
+  1: diamondNFT,
+  2: carbonNFT,
+};
+
+const tierNames: Record<number, string> = {
+  0: 'TREE',
+  1: 'DIAMOND',
+  2: 'CARBON',
+};
 
 // Countdown Hook
 const useCountdown = (targetTimestamp: bigint | undefined) => {
   const calculateTimeLeft = useCallback(() => {
     if (!targetTimestamp) {
-      return { days: 0, hours: 0, minutes: 0, seconds: 0, isExpired: true };
+      return { days: 0, hours: 0, minutes: 0, seconds: 0, isExpired: true, totalSeconds: 0 };
     }
 
     const now = Math.floor(Date.now() / 1000);
@@ -22,7 +40,7 @@ const useCountdown = (targetTimestamp: bigint | undefined) => {
     const difference = target - now;
 
     if (difference <= 0) {
-      return { days: 0, hours: 0, minutes: 0, seconds: 0, isExpired: true };
+      return { days: 0, hours: 0, minutes: 0, seconds: 0, isExpired: true, totalSeconds: 0 };
     }
 
     return {
@@ -31,6 +49,7 @@ const useCountdown = (targetTimestamp: bigint | undefined) => {
       minutes: Math.floor((difference % (60 * 60)) / 60),
       seconds: difference % 60,
       isExpired: false,
+      totalSeconds: difference,
     };
   }, [targetTimestamp]);
 
@@ -49,88 +68,82 @@ const useCountdown = (targetTimestamp: bigint | undefined) => {
 const CountdownTimer = ({ 
   targetTimestamp, 
   label, 
-  icon: Icon = Timer 
+  variant = 'default'
 }: { 
   targetTimestamp: bigint | undefined; 
   label: string;
-  icon?: React.ElementType;
+  variant?: 'default' | 'large';
 }) => {
   const { days, hours, minutes, seconds, isExpired } = useCountdown(targetTimestamp);
 
   if (isExpired) {
     return (
-      <div className="glass-card p-3">
-        <div className="flex items-center gap-2 mb-1">
-          <Icon className="w-4 h-4 text-primary" />
-          <span className="text-xs text-muted-foreground">{label}</span>
-        </div>
-        <span className="text-sm font-bold text-primary">Ready!</span>
+      <div className="text-center">
+        <p className="text-xs text-muted-foreground mb-2">{label}</p>
+        <motion.div
+          initial={{ scale: 0.9 }}
+          animate={{ scale: 1 }}
+          className="inline-flex items-center gap-2 px-4 py-2 bg-primary/20 border border-primary/40 rounded-lg"
+        >
+          <CheckCircle className="w-4 h-4 text-primary" />
+          <span className="text-primary font-bold">Ready!</span>
+        </motion.div>
       </div>
     );
   }
 
+  const isLarge = variant === 'large';
+
   return (
-    <div className="glass-card p-3">
-      <div className="flex items-center gap-2 mb-2">
-        <Icon className="w-4 h-4 text-primary" />
-        <span className="text-xs text-muted-foreground">{label}</span>
-      </div>
-      <div className="flex gap-1 text-center">
+    <div className="text-center">
+      <p className="text-xs text-muted-foreground mb-2">{label}</p>
+      <div className="flex justify-center gap-1">
         {days > 0 && (
-          <div className="bg-background/50 rounded px-2 py-1">
-            <span className="text-sm font-bold text-primary">{days}</span>
-            <span className="text-[10px] text-muted-foreground block">D</span>
+          <div className={`bg-card/80 border border-primary/20 rounded-lg ${isLarge ? 'px-3 py-2' : 'px-2 py-1'}`}>
+            <motion.span 
+              key={days}
+              initial={{ opacity: 0, y: -5 }}
+              animate={{ opacity: 1, y: 0 }}
+              className={`font-bold text-primary font-mono ${isLarge ? 'text-xl' : 'text-sm'}`}
+            >
+              {days}
+            </motion.span>
+            <span className={`block text-muted-foreground ${isLarge ? 'text-xs' : 'text-[10px]'}`}>Days</span>
           </div>
         )}
-        <div className="bg-background/50 rounded px-2 py-1">
-          <span className="text-sm font-bold text-primary">{hours.toString().padStart(2, '0')}</span>
-          <span className="text-[10px] text-muted-foreground block">H</span>
+        <div className={`bg-card/80 border border-primary/20 rounded-lg ${isLarge ? 'px-3 py-2' : 'px-2 py-1'}`}>
+          <span className={`font-bold text-primary font-mono ${isLarge ? 'text-xl' : 'text-sm'}`}>
+            {hours.toString().padStart(2, '0')}
+          </span>
+          <span className={`block text-muted-foreground ${isLarge ? 'text-xs' : 'text-[10px]'}`}>Hrs</span>
         </div>
-        <div className="bg-background/50 rounded px-2 py-1">
-          <span className="text-sm font-bold text-primary">{minutes.toString().padStart(2, '0')}</span>
-          <span className="text-[10px] text-muted-foreground block">M</span>
+        <div className={`bg-card/80 border border-primary/20 rounded-lg ${isLarge ? 'px-3 py-2' : 'px-2 py-1'}`}>
+          <span className={`font-bold text-primary font-mono ${isLarge ? 'text-xl' : 'text-sm'}`}>
+            {minutes.toString().padStart(2, '0')}
+          </span>
+          <span className={`block text-muted-foreground ${isLarge ? 'text-xs' : 'text-[10px]'}`}>Min</span>
         </div>
-        <div className="bg-background/50 rounded px-2 py-1">
-          <span className="text-sm font-bold text-primary">{seconds.toString().padStart(2, '0')}</span>
-          <span className="text-[10px] text-muted-foreground block">S</span>
+        <div className={`bg-card/80 border border-primary/20 rounded-lg ${isLarge ? 'px-3 py-2' : 'px-2 py-1'}`}>
+          <motion.span 
+            key={seconds}
+            initial={{ opacity: 0.5 }}
+            animate={{ opacity: 1 }}
+            className={`font-bold text-primary font-mono ${isLarge ? 'text-xl' : 'text-sm'}`}
+          >
+            {seconds.toString().padStart(2, '0')}
+          </motion.span>
+          <span className={`block text-muted-foreground ${isLarge ? 'text-xs' : 'text-[10px]'}`}>Sec</span>
         </div>
       </div>
     </div>
   );
 };
 
-import treeNFT from '@/assets/tree-nft.png';
-import diamondNFT from '@/assets/diamond-nft.png';
-import carbonNFT from '@/assets/carbon-nft.png';
-
-const tierImages: Record<number, string> = {
-  0: treeNFT,
-  1: diamondNFT,
-  2: carbonNFT,
-};
-
-const tierNames: Record<number, string> = {
-  0: 'TREE',
-  1: 'DIAMOND',
-  2: 'CARBON',
-};
-
-interface NFTData {
-  tokenId: bigint;
-  tier: number;
-  stakeInfo?: {
-    staker: string;
-    stakedAt: bigint;
-    lastClaimAt: bigint;
-  };
-  pendingReward?: bigint;
-  isStaked: boolean;
-}
-
 const Staking = () => {
   const { address, isConnected } = useAccount();
-  const [nfts, setNfts] = useState<NFTData[]>([]);
   const [processingId, setProcessingId] = useState<bigint | null>(null);
+  const [sellAmount, setSellAmount] = useState('');
+  const [sellStep, setSellStep] = useState<'idle' | 'approve' | 'sell'>('idle');
 
   // Read owned NFTs
   const { data: tokenIds, refetch: refetchTokens } = useReadContract({
@@ -154,20 +167,54 @@ const Staking = () => {
     functionName: 'CLAIM_INTERVAL',
   });
 
+  // Read NXP balance for sell
+  const { data: nxpBalance, refetch: refetchNxpBalance } = useReadContract({
+    address: CONTRACTS.NXP,
+    abi: ERC20_ABI,
+    functionName: 'balanceOf',
+    args: address ? [address] : undefined,
+    query: { enabled: !!address },
+  });
+
+  // Read NXP allowance for Internal Pool
+  const { data: nxpAllowance, refetch: refetchAllowance } = useReadContract({
+    address: CONTRACTS.NXP,
+    abi: ERC20_ABI,
+    functionName: 'allowance',
+    args: address ? [address, CONTRACTS.INTERNAL_POOL] : undefined,
+    query: { enabled: !!address },
+  });
+
+  // Read pool data
+  const { data: pricePerNXP } = useReadContract({
+    address: CONTRACTS.INTERNAL_POOL,
+    abi: INTERNAL_POOL_ABI,
+    functionName: 'pricePerNXP',
+  });
+
+  const { data: sellEnabled } = useReadContract({
+    address: CONTRACTS.INTERNAL_POOL,
+    abi: INTERNAL_POOL_ABI,
+    functionName: 'sellEnabled',
+  });
+
   // Write contracts
   const { writeContract: stakeNFT, data: stakeTxHash, isPending: isStaking } = useWriteContract();
   const { writeContract: claimReward, data: claimTxHash, isPending: isClaiming } = useWriteContract();
   const { writeContract: unstakeNFT, data: unstakeTxHash, isPending: isUnstaking } = useWriteContract();
+  const { writeContract: approveNXP, data: approveTxHash, isPending: isApproving } = useWriteContract();
+  const { writeContract: sellNXP, data: sellTxHash, isPending: isSelling } = useWriteContract();
 
   // Transaction receipts
   const { isSuccess: isStakeSuccess } = useWaitForTransactionReceipt({ hash: stakeTxHash });
   const { isSuccess: isClaimSuccess } = useWaitForTransactionReceipt({ hash: claimTxHash });
   const { isSuccess: isUnstakeSuccess } = useWaitForTransactionReceipt({ hash: unstakeTxHash });
+  const { isSuccess: isApproveSuccess } = useWaitForTransactionReceipt({ hash: approveTxHash });
+  const { isSuccess: isSellSuccess } = useWaitForTransactionReceipt({ hash: sellTxHash });
 
   // Handle stake
-  const handleStake = async (tokenId: bigint) => {
+  const handleStake = (tokenId: bigint) => {
     setProcessingId(tokenId);
-    
     stakeNFT({
       address: CONTRACTS.STAKING,
       abi: STAKING_ABI,
@@ -198,6 +245,34 @@ const Staking = () => {
     } as any);
   };
 
+  // Sell reward handlers
+  const sellAmountWei = sellAmount ? parseUnits(sellAmount, 18) : BigInt(0);
+  const needsApproval = nxpAllowance !== undefined && sellAmountWei > BigInt(0)
+    ? (nxpAllowance as bigint) < sellAmountWei
+    : true;
+
+  const handleApprove = () => {
+    if (!sellAmountWei) return;
+    setSellStep('approve');
+    approveNXP({
+      address: CONTRACTS.NXP,
+      abi: ERC20_ABI,
+      functionName: 'approve',
+      args: [CONTRACTS.INTERNAL_POOL, sellAmountWei],
+    } as any);
+  };
+
+  const handleSell = () => {
+    if (!sellAmountWei) return;
+    setSellStep('sell');
+    sellNXP({
+      address: CONTRACTS.INTERNAL_POOL,
+      abi: INTERNAL_POOL_ABI,
+      functionName: 'sellNXP',
+      args: [sellAmountWei],
+    } as any);
+  };
+
   // Transaction success effects
   useEffect(() => {
     if (isStakeSuccess) {
@@ -210,9 +285,10 @@ const Staking = () => {
   useEffect(() => {
     if (isClaimSuccess) {
       toast({ title: 'Rewards Claimed!', description: 'NXP tokens have been sent to your wallet.' });
+      refetchNxpBalance();
       setProcessingId(null);
     }
-  }, [isClaimSuccess]);
+  }, [isClaimSuccess, refetchNxpBalance]);
 
   useEffect(() => {
     if (isUnstakeSuccess) {
@@ -222,117 +298,303 @@ const Staking = () => {
     }
   }, [isUnstakeSuccess, refetchTokens]);
 
+  useEffect(() => {
+    if (isApproveSuccess) {
+      toast({ title: 'Approval Successful', description: 'NXP approved for selling.' });
+      refetchAllowance();
+      setSellStep('idle');
+    }
+  }, [isApproveSuccess, refetchAllowance]);
+
+  useEffect(() => {
+    if (isSellSuccess) {
+      toast({ title: 'Sale Complete!', description: `Sold ${sellAmount} NXP successfully.` });
+      refetchNxpBalance();
+      refetchAllowance();
+      setSellAmount('');
+      setSellStep('idle');
+    }
+  }, [isSellSuccess, sellAmount, refetchNxpBalance, refetchAllowance]);
+
   // Format duration
   const formatDuration = (seconds: bigint): string => {
     const days = Number(seconds) / 86400;
-    if (days >= 365) return `${Math.floor(days / 365)} years`;
-    if (days >= 30) return `${Math.floor(days / 30)} months`;
-    return `${Math.floor(days)} days`;
+    if (days >= 365) return `${Math.floor(days / 365)} Years`;
+    if (days >= 30) return `${Math.floor(days / 30)} Months`;
+    return `${Math.floor(days)} Days`;
   };
 
+  const nxpBalanceFormatted = nxpBalance ? formatUnits(nxpBalance as bigint, 18) : '0';
+  const priceFormatted = pricePerNXP ? formatUnits(pricePerNXP as bigint, 18) : '0';
+  const isSellDisabled = !sellEnabled;
+  const isSellProcessing = isApproving || isSelling;
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background particle-bg">
       <Navbar />
       
       <main className="pt-24 pb-16">
-        {/* Hero */}
-        <div className="relative h-64 overflow-hidden mb-12">
-          <img
-            src={nexusStaking}
-            alt="Nexus Staking"
-            className="w-full h-full object-cover opacity-40"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-center"
-            >
-              <h1 className="font-display text-4xl sm:text-5xl font-bold mb-4">
-                NFT <span className="text-primary">Staking</span>
-              </h1>
-              <p className="text-muted-foreground">Stake your NFTs and earn NXP rewards</p>
-            </motion.div>
-          </div>
-        </div>
-
         <div className="container mx-auto px-4">
-          {/* Staking Info Cards */}
-          {lockDuration && claimInterval && (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
-              <div className="glass-card p-4 text-center">
-                <Lock className="w-6 h-6 text-primary mx-auto mb-2" />
-                <p className="text-xs text-muted-foreground">Lock Duration</p>
-                <p className="font-display font-bold text-lg">{formatDuration(lockDuration as bigint)}</p>
-              </div>
-              <div className="glass-card p-4 text-center">
-                <Clock className="w-6 h-6 text-primary mx-auto mb-2" />
-                <p className="text-xs text-muted-foreground">Claim Interval</p>
-                <p className="font-display font-bold text-lg">{formatDuration(claimInterval as bigint)}</p>
-              </div>
-              <div className="glass-card p-4 text-center">
-                <Coins className="w-6 h-6 text-primary mx-auto mb-2" />
-                <p className="text-xs text-muted-foreground">Reward Token</p>
-                <p className="font-display font-bold text-lg">NXP</p>
-              </div>
-              <div className="glass-card p-4 text-center">
-                <Gift className="w-6 h-6 text-primary mx-auto mb-2" />
-                <p className="text-xs text-muted-foreground">Your NFTs</p>
-                <p className="font-display font-bold text-lg">{tokenIds ? (tokenIds as bigint[]).length : 0}</p>
-              </div>
-            </div>
-          )}
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center mb-12"
+          >
+            <h1 className="font-display text-4xl sm:text-5xl font-bold mb-4">
+              <span className="gradient-text-emerald">Luxury Staking</span>
+            </h1>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              Stake your NFTs, earn rewards, and sell your NXP tokens
+            </p>
+          </motion.div>
 
           {/* Connect Wallet Message */}
           {!isConnected && (
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="max-w-md mx-auto glass-card p-8 text-center"
+              className="max-w-md mx-auto glass-card p-8 text-center neon-glow"
             >
-              <Wallet className="w-12 h-12 text-primary mx-auto mb-4" />
+              <Wallet className="w-16 h-16 text-primary mx-auto mb-4" />
               <h2 className="font-display text-xl font-bold mb-2">Connect Wallet</h2>
               <p className="text-muted-foreground text-sm">
-                Please connect your wallet to view and stake your NFTs.
+                Please connect your wallet to access staking features.
               </p>
             </motion.div>
           )}
 
-          {/* No NFTs Message */}
-          {isConnected && tokenIds && (tokenIds as bigint[]).length === 0 && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="max-w-md mx-auto glass-card p-8 text-center"
-            >
-              <Gift className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-              <h2 className="font-display text-xl font-bold mb-2">No NFTs Found</h2>
-              <p className="text-muted-foreground text-sm">
-                You don't own any Nexus NFTs yet. Purchase one to start staking.
-              </p>
-            </motion.div>
-          )}
+          {isConnected && (
+            <div className="grid lg:grid-cols-3 gap-8">
+              {/* Left Column - NFT Staking */}
+              <div className="lg:col-span-2 space-y-6">
+                {/* Staking Info Cards */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="grid grid-cols-2 md:grid-cols-4 gap-4"
+                >
+                  <div className="glass-card p-4 text-center">
+                    <Lock className="w-6 h-6 text-primary mx-auto mb-2" />
+                    <p className="text-xs text-muted-foreground">Lock Duration</p>
+                    <p className="font-display font-bold text-lg text-foreground">
+                      {lockDuration ? formatDuration(lockDuration as bigint) : '-'}
+                    </p>
+                  </div>
+                  <div className="glass-card p-4 text-center">
+                    <Clock className="w-6 h-6 text-primary mx-auto mb-2" />
+                    <p className="text-xs text-muted-foreground">Claim Interval</p>
+                    <p className="font-display font-bold text-lg text-foreground">
+                      {claimInterval ? formatDuration(claimInterval as bigint) : '-'}
+                    </p>
+                  </div>
+                  <div className="glass-card p-4 text-center">
+                    <Coins className="w-6 h-6 text-primary mx-auto mb-2" />
+                    <p className="text-xs text-muted-foreground">Reward Token</p>
+                    <p className="font-display font-bold text-lg text-foreground">NXP</p>
+                  </div>
+                  <div className="glass-card p-4 text-center">
+                    <Gift className="w-6 h-6 text-primary mx-auto mb-2" />
+                    <p className="text-xs text-muted-foreground">Your NFTs</p>
+                    <p className="font-display font-bold text-lg text-foreground">
+                      {tokenIds ? (tokenIds as bigint[]).length : 0}
+                    </p>
+                  </div>
+                </motion.div>
 
-          {/* NFT Grid */}
-          {isConnected && tokenIds && (tokenIds as bigint[]).length > 0 && (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {(tokenIds as bigint[]).map((tokenId, i) => (
-                <NFTStakingCard
-                  key={tokenId.toString()}
-                  tokenId={tokenId}
-                  index={i}
-                  processingId={processingId}
-                  isStaking={isStaking}
-                  isClaiming={isClaiming}
-                  isUnstaking={isUnstaking}
-                  lockDuration={lockDuration as bigint | undefined}
-                  claimInterval={claimInterval as bigint | undefined}
-                  onStake={handleStake}
-                  onClaim={handleClaim}
-                  onUnstake={handleUnstake}
-                />
-              ))}
+                {/* Available NFTs to Stake */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 }}
+                  className="glass-card p-6"
+                >
+                  <h2 className="font-display text-xl font-bold mb-4 flex items-center gap-2">
+                    <Zap className="w-5 h-5 text-primary" />
+                    Stake NFT
+                  </h2>
+
+                  {tokenIds && (tokenIds as bigint[]).length === 0 ? (
+                    <div className="text-center py-8">
+                      <Gift className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+                      <p className="text-muted-foreground">No NFTs available. Purchase one to start staking.</p>
+                    </div>
+                  ) : (
+                    <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+                      {tokenIds && (tokenIds as bigint[]).map((tokenId, i) => (
+                        <NFTStakingCard
+                          key={tokenId.toString()}
+                          tokenId={tokenId}
+                          index={i}
+                          processingId={processingId}
+                          isStaking={isStaking}
+                          isClaiming={isClaiming}
+                          isUnstaking={isUnstaking}
+                          lockDuration={lockDuration as bigint | undefined}
+                          claimInterval={claimInterval as bigint | undefined}
+                          onStake={handleStake}
+                          onClaim={handleClaim}
+                          onUnstake={handleUnstake}
+                        />
+                      ))}
+                    </div>
+                  )}
+                </motion.div>
+              </div>
+
+              {/* Right Column - Sell Rewards */}
+              <div className="space-y-6">
+                {/* NXP Balance Card */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="glass-card p-6 neon-glow"
+                >
+                  <h2 className="font-display text-lg font-bold mb-4 flex items-center gap-2">
+                    <Coins className="w-5 h-5 text-primary" />
+                    Your NXP Balance
+                  </h2>
+                  <div className="text-center py-4">
+                    <motion.p 
+                      key={nxpBalanceFormatted}
+                      initial={{ scale: 0.9 }}
+                      animate={{ scale: 1 }}
+                      className="font-display text-3xl font-bold text-primary neon-glow-text"
+                    >
+                      {Number(nxpBalanceFormatted).toLocaleString(undefined, { maximumFractionDigits: 4 })}
+                    </motion.p>
+                    <p className="text-muted-foreground text-sm">NXP Tokens</p>
+                  </div>
+                </motion.div>
+
+                {/* Sell Reward Card */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="glass-card p-6"
+                >
+                  <h2 className="font-display text-lg font-bold mb-4 flex items-center gap-2">
+                    <TrendingUp className="w-5 h-5 text-primary" />
+                    Sell Reward
+                  </h2>
+
+                  {/* Pool Status */}
+                  <div className={`flex items-center justify-center gap-2 mb-4 py-2 px-4 rounded-lg ${
+                    isSellDisabled ? 'bg-destructive/10 border border-destructive/30' : 'bg-primary/10 border border-primary/30'
+                  }`}>
+                    {isSellDisabled ? (
+                      <>
+                        <AlertCircle className="w-4 h-4 text-destructive" />
+                        <span className="text-destructive text-sm">Selling Disabled</span>
+                      </>
+                    ) : (
+                      <>
+                        <CheckCircle className="w-4 h-4 text-primary" />
+                        <span className="text-primary text-sm">Selling Enabled</span>
+                      </>
+                    )}
+                  </div>
+
+                  {/* Price Info */}
+                  <div className="bg-card/50 rounded-lg p-3 mb-4 text-center">
+                    <p className="text-xs text-muted-foreground">Price per NXP</p>
+                    <p className="font-display font-bold text-lg text-foreground">
+                      ${Number(priceFormatted).toFixed(6)} USDT
+                    </p>
+                  </div>
+
+                  {/* Sell Input */}
+                  <div className="mb-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <label className="text-sm text-muted-foreground">Amount to sell</label>
+                      <button
+                        onClick={() => setSellAmount(nxpBalanceFormatted)}
+                        className="text-xs text-primary hover:underline"
+                      >
+                        Max
+                      </button>
+                    </div>
+                    <input
+                      type="number"
+                      value={sellAmount}
+                      onChange={(e) => setSellAmount(e.target.value)}
+                      placeholder="0.00"
+                      disabled={isSellDisabled || isSellProcessing}
+                      className="w-full bg-muted/50 border border-primary/20 rounded-lg px-4 py-3 text-lg font-mono text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 disabled:opacity-50"
+                    />
+                  </div>
+
+                  {/* Arrow */}
+                  <div className="flex justify-center my-3">
+                    <ArrowDown className="w-5 h-5 text-primary" />
+                  </div>
+
+                  {/* Estimate */}
+                  <div className="bg-card/50 rounded-lg p-3 mb-4">
+                    <p className="text-xs text-muted-foreground mb-1">You receive (estimate)</p>
+                    <p className="font-display font-bold text-xl text-foreground">
+                      {sellAmount ? (Number(sellAmount) * Number(priceFormatted)).toFixed(4) : '0.00'} USDT
+                    </p>
+                  </div>
+
+                  {/* Action Button */}
+                  {needsApproval && sellAmount ? (
+                    <motion.button
+                      onClick={handleApprove}
+                      disabled={isSellDisabled || isSellProcessing}
+                      className="w-full btn-outline-glow flex items-center justify-center gap-2"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      {isApproving ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
+                      Approve NXP
+                    </motion.button>
+                  ) : (
+                    <motion.button
+                      onClick={handleSell}
+                      disabled={isSellDisabled || isSellProcessing || !sellAmount}
+                      className="w-full btn-primary-glow flex items-center justify-center gap-2"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      {isSelling ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
+                      {isSellDisabled ? 'Selling Disabled' : 'Sell NXP'}
+                    </motion.button>
+                  )}
+                </motion.div>
+
+                {/* Daily/Monthly Reward Info */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  className="glass-card p-6"
+                >
+                  <h2 className="font-display text-lg font-bold mb-4 flex items-center gap-2">
+                    <Calendar className="w-5 h-5 text-primary" />
+                    Reward Schedule
+                  </h2>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center p-3 bg-card/50 rounded-lg">
+                      <span className="text-muted-foreground text-sm">Claim Period</span>
+                      <span className="font-display font-bold text-foreground">
+                        {claimInterval ? formatDuration(claimInterval as bigint) : '-'}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center p-3 bg-card/50 rounded-lg">
+                      <span className="text-muted-foreground text-sm">Lock Period</span>
+                      <span className="font-display font-bold text-foreground">
+                        {lockDuration ? formatDuration(lockDuration as bigint) : '-'}
+                      </span>
+                    </div>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-4 text-center">
+                    Rewards are calculated on-chain based on NFT tier
+                  </p>
+                </motion.div>
+              </div>
             </div>
           )}
         </div>
@@ -394,6 +656,14 @@ function NFTStakingCard({
     args: [tokenId],
   });
 
+  // Read total claimed
+  const { data: totalClaimed } = useReadContract({
+    address: CONTRACTS.STAKING,
+    abi: STAKING_ABI,
+    functionName: 'totalClaimed',
+    args: [tokenId],
+  });
+
   const tierNum = tier !== undefined ? Number(tier) : 0;
   const stakeData = stakeInfo as [string, bigint, bigint] | undefined;
   const isStaked = stakeData && stakeData[0] !== '0x0000000000000000000000000000000000000000';
@@ -406,6 +676,9 @@ function NFTStakingCard({
   const nextClaimTime = isStaked && claimInterval ? lastClaimAt + claimInterval : undefined;
   const unlockTime = isStaked && lockDuration ? stakedAt + lockDuration : undefined;
 
+  const pendingFormatted = pendingReward ? formatUnits(pendingReward as bigint, 18) : '0';
+  const totalClaimedFormatted = totalClaimed ? formatUnits(totalClaimed as bigint, 18) : '0';
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -417,8 +690,8 @@ function NFTStakingCard({
         {/* Status badge */}
         <div className="absolute top-3 right-3 z-10">
           {isStaked ? (
-            <span className="px-2 py-1 text-xs font-semibold rounded-full bg-primary text-primary-foreground">
-              Staking
+            <span className="px-2 py-1 text-xs font-semibold rounded-full bg-primary text-primary-foreground animate-pulse">
+              Active
             </span>
           ) : (
             <span className="px-2 py-1 text-xs font-semibold rounded-full bg-muted text-muted-foreground">
@@ -428,7 +701,7 @@ function NFTStakingCard({
         </div>
 
         {/* NFT Image */}
-        <div className="aspect-[3/4] relative overflow-hidden">
+        <div className="aspect-square relative overflow-hidden">
           <img
             src={tierImages[tierNum]}
             alt={tierNames[tierNum]}
@@ -439,74 +712,84 @@ function NFTStakingCard({
 
         {/* Info */}
         <div className="p-4">
-          <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center justify-between mb-3">
             <h3 className="font-display text-lg font-bold">{tierNames[tierNum]}</h3>
             <span className="text-xs text-muted-foreground">#{tokenId.toString()}</span>
           </div>
 
           {isStaked && (
-            <div className="space-y-2 mb-3">
+            <div className="space-y-3 mb-4">
               {/* Pending Reward */}
-              {pendingReward && (
-                <div className="glass-card p-3">
-                  <p className="text-xs text-muted-foreground">Pending Reward</p>
-                  <p className="font-display font-bold text-primary">
-                    {formatUnits(pendingReward as bigint, 18)} NXP
-                  </p>
-                </div>
-              )}
+              <div className="bg-primary/10 border border-primary/30 rounded-lg p-3">
+                <p className="text-xs text-muted-foreground mb-1">Pending Reward</p>
+                <p className="font-display font-bold text-lg text-primary">
+                  {Number(pendingFormatted).toLocaleString(undefined, { maximumFractionDigits: 4 })} NXP
+                </p>
+              </div>
+
+              {/* Total Claimed */}
+              <div className="flex justify-between text-sm px-1">
+                <span className="text-muted-foreground">Total Claimed</span>
+                <span className="text-foreground font-medium">
+                  {Number(totalClaimedFormatted).toLocaleString(undefined, { maximumFractionDigits: 2 })} NXP
+                </span>
+              </div>
               
-              {/* Claim Countdown */}
-              <CountdownTimer 
-                targetTimestamp={nextClaimTime} 
-                label="Next Claim In"
-                icon={Clock}
-              />
+              {/* Claim Countdown (30 Days) */}
+              <div className="bg-card/80 rounded-lg p-3 border border-border/50">
+                <CountdownTimer 
+                  targetTimestamp={nextClaimTime} 
+                  label="⏰ Claim Countdown (30 Days)"
+                />
+              </div>
               
-              {/* Unstake Countdown */}
-              <CountdownTimer 
-                targetTimestamp={unlockTime} 
-                label="Unstake Unlocks In"
-                icon={Lock}
-              />
+              {/* Unstake Countdown (3 Years) */}
+              <div className="bg-card/80 rounded-lg p-3 border border-border/50">
+                <CountdownTimer 
+                  targetTimestamp={unlockTime} 
+                  label="🔒 Unstake Countdown (3 Years)"
+                />
+              </div>
             </div>
           )}
 
           {/* Actions */}
-          <div className="flex gap-2">
+          <div className="space-y-2">
             {!isStaked ? (
               <motion.button
                 onClick={() => onStake(tokenId)}
                 disabled={isProcessing && isStaking}
-                className="flex-1 btn-primary-glow text-sm py-2"
+                className="w-full btn-primary-glow text-sm py-3 flex items-center justify-center gap-2"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
                 {isProcessing && isStaking ? (
-                  <Loader2 className="w-4 h-4 animate-spin mx-auto" />
+                  <Loader2 className="w-4 h-4 animate-spin" />
                 ) : (
-                  'Stake'
+                  <Zap className="w-4 h-4" />
                 )}
+                Stake NFT
               </motion.button>
             ) : (
               <>
                 <motion.button
                   onClick={() => onClaim(tokenId)}
                   disabled={isProcessing && isClaiming}
-                  className="flex-1 btn-primary-glow text-sm py-2"
+                  className="w-full btn-primary-glow text-sm py-2 flex items-center justify-center gap-2"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   {isProcessing && isClaiming ? (
-                    <Loader2 className="w-4 h-4 animate-spin mx-auto" />
+                    <Loader2 className="w-4 h-4 animate-spin" />
                   ) : (
-                    'Claim'
+                    <Gift className="w-4 h-4" />
                   )}
+                  Claim Reward
                 </motion.button>
                 <motion.button
                   onClick={() => onUnstake(tokenId)}
                   disabled={isProcessing && isUnstaking}
-                  className="btn-outline-glow text-sm py-2 px-3"
+                  className="w-full btn-outline-glow text-sm py-2 flex items-center justify-center gap-2 border-destructive/50 text-destructive hover:bg-destructive/10"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -515,6 +798,7 @@ function NFTStakingCard({
                   ) : (
                     <Unlock className="w-4 h-4" />
                   )}
+                  Unstake
                 </motion.button>
               </>
             )}
