@@ -1,14 +1,103 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useAccount, useReadContract, useReadContracts, useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
 import { formatUnits } from 'viem';
 import { motion } from 'framer-motion';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
-import { Loader2, Wallet, Clock, Coins, Lock, Unlock, Gift } from 'lucide-react';
+import { Loader2, Wallet, Clock, Coins, Lock, Unlock, Gift, Timer } from 'lucide-react';
 import { CONTRACTS } from '@/config/contracts';
 import { NFT_MINER_ABI, STAKING_ABI } from '@/config/abis';
 import { toast } from '@/hooks/use-toast';
 import nexusStaking from '@/assets/nexus-staking.jpeg';
+
+// Countdown Hook
+const useCountdown = (targetTimestamp: bigint | undefined) => {
+  const calculateTimeLeft = useCallback(() => {
+    if (!targetTimestamp) {
+      return { days: 0, hours: 0, minutes: 0, seconds: 0, isExpired: true };
+    }
+
+    const now = Math.floor(Date.now() / 1000);
+    const target = Number(targetTimestamp);
+    const difference = target - now;
+
+    if (difference <= 0) {
+      return { days: 0, hours: 0, minutes: 0, seconds: 0, isExpired: true };
+    }
+
+    return {
+      days: Math.floor(difference / (60 * 60 * 24)),
+      hours: Math.floor((difference % (60 * 60 * 24)) / (60 * 60)),
+      minutes: Math.floor((difference % (60 * 60)) / 60),
+      seconds: difference % 60,
+      isExpired: false,
+    };
+  }, [targetTimestamp]);
+
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft);
+
+  useEffect(() => {
+    setTimeLeft(calculateTimeLeft());
+    const timer = setInterval(() => setTimeLeft(calculateTimeLeft()), 1000);
+    return () => clearInterval(timer);
+  }, [calculateTimeLeft]);
+
+  return timeLeft;
+};
+
+// Countdown Timer Component
+const CountdownTimer = ({ 
+  targetTimestamp, 
+  label, 
+  icon: Icon = Timer 
+}: { 
+  targetTimestamp: bigint | undefined; 
+  label: string;
+  icon?: React.ElementType;
+}) => {
+  const { days, hours, minutes, seconds, isExpired } = useCountdown(targetTimestamp);
+
+  if (isExpired) {
+    return (
+      <div className="glass-card p-3">
+        <div className="flex items-center gap-2 mb-1">
+          <Icon className="w-4 h-4 text-primary" />
+          <span className="text-xs text-muted-foreground">{label}</span>
+        </div>
+        <span className="text-sm font-bold text-primary">Ready!</span>
+      </div>
+    );
+  }
+
+  return (
+    <div className="glass-card p-3">
+      <div className="flex items-center gap-2 mb-2">
+        <Icon className="w-4 h-4 text-primary" />
+        <span className="text-xs text-muted-foreground">{label}</span>
+      </div>
+      <div className="flex gap-1 text-center">
+        {days > 0 && (
+          <div className="bg-background/50 rounded px-2 py-1">
+            <span className="text-sm font-bold text-primary">{days}</span>
+            <span className="text-[10px] text-muted-foreground block">D</span>
+          </div>
+        )}
+        <div className="bg-background/50 rounded px-2 py-1">
+          <span className="text-sm font-bold text-primary">{hours.toString().padStart(2, '0')}</span>
+          <span className="text-[10px] text-muted-foreground block">H</span>
+        </div>
+        <div className="bg-background/50 rounded px-2 py-1">
+          <span className="text-sm font-bold text-primary">{minutes.toString().padStart(2, '0')}</span>
+          <span className="text-[10px] text-muted-foreground block">M</span>
+        </div>
+        <div className="bg-background/50 rounded px-2 py-1">
+          <span className="text-sm font-bold text-primary">{seconds.toString().padStart(2, '0')}</span>
+          <span className="text-[10px] text-muted-foreground block">S</span>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 import treeNFT from '@/assets/tree-nft.png';
 import diamondNFT from '@/assets/diamond-nft.png';
@@ -237,6 +326,8 @@ const Staking = () => {
                   isStaking={isStaking}
                   isClaiming={isClaiming}
                   isUnstaking={isUnstaking}
+                  lockDuration={lockDuration as bigint | undefined}
+                  claimInterval={claimInterval as bigint | undefined}
                   onStake={handleStake}
                   onClaim={handleClaim}
                   onUnstake={handleUnstake}
@@ -259,6 +350,8 @@ interface NFTStakingCardProps {
   isStaking: boolean;
   isClaiming: boolean;
   isUnstaking: boolean;
+  lockDuration: bigint | undefined;
+  claimInterval: bigint | undefined;
   onStake: (tokenId: bigint) => void;
   onClaim: (tokenId: bigint) => void;
   onUnstake: (tokenId: bigint) => void;
@@ -271,6 +364,8 @@ function NFTStakingCard({
   isStaking,
   isClaiming,
   isUnstaking,
+  lockDuration,
+  claimInterval,
   onStake,
   onClaim,
   onUnstake,
@@ -300,8 +395,16 @@ function NFTStakingCard({
   });
 
   const tierNum = tier !== undefined ? Number(tier) : 0;
-  const isStaked = stakeInfo && (stakeInfo as [string, bigint, bigint])[0] !== '0x0000000000000000000000000000000000000000';
+  const stakeData = stakeInfo as [string, bigint, bigint] | undefined;
+  const isStaked = stakeData && stakeData[0] !== '0x0000000000000000000000000000000000000000';
   const isProcessing = processingId === tokenId;
+
+  // Calculate countdown timestamps
+  const stakedAt = stakeData?.[1] ?? BigInt(0);
+  const lastClaimAt = stakeData?.[2] ?? BigInt(0);
+  
+  const nextClaimTime = isStaked && claimInterval ? lastClaimAt + claimInterval : undefined;
+  const unlockTime = isStaked && lockDuration ? stakedAt + lockDuration : undefined;
 
   return (
     <motion.div
@@ -341,12 +444,31 @@ function NFTStakingCard({
             <span className="text-xs text-muted-foreground">#{tokenId.toString()}</span>
           </div>
 
-          {isStaked && pendingReward && (
-            <div className="glass-card p-3 mb-3">
-              <p className="text-xs text-muted-foreground">Pending Reward</p>
-              <p className="font-display font-bold text-primary">
-                {formatUnits(pendingReward as bigint, 18)} NXP
-              </p>
+          {isStaked && (
+            <div className="space-y-2 mb-3">
+              {/* Pending Reward */}
+              {pendingReward && (
+                <div className="glass-card p-3">
+                  <p className="text-xs text-muted-foreground">Pending Reward</p>
+                  <p className="font-display font-bold text-primary">
+                    {formatUnits(pendingReward as bigint, 18)} NXP
+                  </p>
+                </div>
+              )}
+              
+              {/* Claim Countdown */}
+              <CountdownTimer 
+                targetTimestamp={nextClaimTime} 
+                label="Next Claim In"
+                icon={Clock}
+              />
+              
+              {/* Unstake Countdown */}
+              <CountdownTimer 
+                targetTimestamp={unlockTime} 
+                label="Unstake Unlocks In"
+                icon={Lock}
+              />
             </div>
           )}
 
