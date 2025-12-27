@@ -32,13 +32,13 @@ export function Footer() {
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent" />
               </motion.div>
               <div>
-                <span className="font-display text-xl font-bold text-foreground block">
-                  NEXUS<span className="gradient-text-tech">PROTOCOL</span>
+                <span className="nexus-card-title text-xl block">
+                  NEXUS<span className="nexus-highlight">PROTOCOL</span>
                 </span>
-                <span className="text-[10px] text-muted-foreground tracking-widest uppercase">Blockchain Ecosystem</span>
+                <span className="nexus-label">Blockchain Ecosystem</span>
               </div>
             </Link>
-            <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
+            <p className="nexus-body text-sm mb-6">
               One Nexus, One Tree. A Green Blockchain for a Sustainable Future powered by SocialFi.
             </p>
             <div className="flex items-center gap-3">

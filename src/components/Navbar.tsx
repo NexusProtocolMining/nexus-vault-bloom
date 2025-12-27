@@ -54,10 +54,10 @@ export function Navbar() {
               />
             </motion.div>
             <div className="hidden sm:flex flex-col">
-              <span className="font-display text-lg font-bold text-foreground leading-tight tracking-wider">
-                NEXUS<span className="gradient-text-tech">PROTOCOL</span>
+              <span className="nexus-card-title text-lg leading-tight">
+                NEXUS<span className="nexus-highlight">PROTOCOL</span>
               </span>
-              <span className="text-[10px] text-muted-foreground tracking-widest uppercase">Green • Social • Fi</span>
+              <span className="nexus-label">Green • Social • Fi</span>
             </div>
           </Link>
 

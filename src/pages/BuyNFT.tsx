@@ -162,22 +162,24 @@ const BuyNFT = () => {
         <div className="container mx-auto px-4">
           {/* Header */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
             className="text-center mb-12"
           >
             <motion.div 
               className="inline-flex items-center gap-2 badge-tech mb-6"
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6 }}
             >
-              <Wallet className="w-4 h-4 text-primary" />
-              <span className="text-sm">NFT Marketplace</span>
+              <Wallet className="w-4 h-4 text-emerald-400" />
+              <span className="nexus-label text-white/75">NFT MARKETPLACE</span>
             </motion.div>
-            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold mb-4 tracking-tight">
-              Buy <span className="gradient-text-tech">NFT</span>
+            <h1 className="nexus-section-title text-4xl sm:text-5xl md:text-6xl mb-4">
+              Buy <span className="nexus-highlight">NFT</span>
             </h1>
-            <p className="text-muted-foreground max-w-xl mx-auto text-lg">
+            <p className="nexus-body max-w-xl mx-auto text-lg">
               Choose your NFT tier and start mining NXP tokens. Higher tiers earn more rewards.
             </p>
             {referrer !== '0x0000000000000000000000000000000000000000' && (

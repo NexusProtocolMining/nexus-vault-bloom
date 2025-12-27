@@ -55,13 +55,13 @@ export function AboutSection() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
           className="text-center mb-16"
         >
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-            About <span className="text-primary">Nexus Protocol</span>
+          <h2 className="nexus-section-title text-3xl sm:text-4xl md:text-5xl mb-4">
+            About <span className="nexus-highlight">Nexus Protocol</span>
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="nexus-body max-w-2xl mx-auto">
             Pioneering the intersection of blockchain technology and environmental sustainability
           </p>
         </motion.div>
@@ -73,13 +73,13 @@ export function AboutSection() {
               key={item.title}
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: i * 0.15 }}
-              className="glass-card p-8 hover:border-primary/40 transition-colors"
+              transition={{ duration: 0.7, delay: i * 0.15, ease: "easeOut" }}
+              className="glass-card p-8 hover:border-emerald-500/30 transition-colors"
             >
-              <h3 className="font-display text-xl font-semibold text-foreground mb-4">
+              <h3 className="nexus-card-title text-xl mb-4">
                 {item.title}
               </h3>
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="nexus-body">
                 {item.text}
               </p>
             </motion.div>
@@ -91,18 +91,18 @@ export function AboutSection() {
           {features.map((feature, i) => (
             <motion.div
               key={feature.title}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.5, delay: 0.4 + i * 0.1 }}
-              className="glass-card p-6 group hover:border-primary/50 transition-all hover:shadow-nexus"
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.4 + i * 0.1, ease: "easeOut" }}
+              className="glass-card p-6 group hover:border-emerald-500/40 transition-all"
             >
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                <feature.icon className="w-6 h-6 text-primary" />
+              <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-4 group-hover:bg-emerald-500/20 transition-colors">
+                <feature.icon className="w-6 h-6 text-emerald-400" />
               </div>
-              <h4 className="font-display text-lg font-semibold text-foreground mb-2">
+              <h4 className="nexus-card-title text-lg mb-2">
                 {feature.title}
               </h4>
-              <p className="text-sm text-muted-foreground">
+              <p className="nexus-muted text-sm">
                 {feature.description}
               </p>
             </motion.div>
