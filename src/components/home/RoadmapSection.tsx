@@ -8,9 +8,9 @@ const phases = [
     title: 'Foundation',
     quarter: 'Q1',
     items: [
-      'Final Tokenomic & NFTnomic',
-      'Smart Contract NFT Mining',
-      'Wallet Basic',
+      'NFT Launch',
+      'Smart Contracts',
+      'Wallet Integration',
       'NFT Tree Release',
       'NFT Diamond Release',
       'NFT Carbon Release',
@@ -24,9 +24,8 @@ const phases = [
     quarter: 'Q2',
     items: [
       'NXP Token Launch',
-      'White Paper Release',
-      'Dapps Liquidity',
-      'DEX Liquidity',
+      'Mining & Rewards',
+      'DEX/CEX Liquidity',
       'NFT Reward Distribution',
     ],
     active: false,
@@ -34,14 +33,14 @@ const phases = [
   },
   {
     phase: 'Phase 3',
-    title: 'RWA Activation',
+    title: 'RWA Integration',
     quarter: 'Q3',
     items: [
-      'Carbon Project Onboarding',
+      'Carbon Credit Integration',
       'NFT RWA Launch',
       'Carbon Credit Tokenization',
-      'Revenue Pertama (USD)',
-      'Treasury RWA Aktif',
+      'Revenue Generation (USD)',
+      'Treasury RWA Active',
     ],
     active: false,
     color: 'accent',
@@ -54,7 +53,7 @@ const phases = [
       'Carbon Marketplace',
       'Enterprise Partnerships',
       'Governance System',
-      'CEX Listing',
+      'Global Partnerships',
     ],
     active: false,
     color: 'primary',
@@ -104,7 +103,7 @@ export function RoadmapSection() {
             ROADMAP
           </h2>
           <p className="cyber-body max-w-2xl mx-auto">
-            Our journey to build a sustainable blockchain ecosystem
+            Our journey to build a sustainable green blockchain ecosystem
           </p>
         </motion.div>
 

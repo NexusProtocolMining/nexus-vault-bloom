@@ -15,31 +15,34 @@ const tokenomicData = {
 
 const nftTiers = [
   { 
-    name: 'TREE', 
+    name: 'TREE NFT', 
     supply: '2,070,000', 
     percentage: '98.57%', 
     price: '$10 USDT',
     image: treeNft,
     color: 'primary',
-    reward: '0.5%/day'
+    reward: 'Mining Rewards',
+    description: 'Represents real tree planting and long-term carbon offset.'
   },
   { 
-    name: 'DIAMOND', 
+    name: 'DIAMOND NFT', 
     supply: '20,000', 
     percentage: '0.95%', 
     price: '$100 USDT',
     image: diamondNft,
     color: 'secondary',
-    reward: '0.75%/day'
+    reward: 'Enhanced Rewards',
+    description: 'Premium tier with enhanced rewards and ecosystem privileges.'
   },
   { 
-    name: 'CARBON', 
+    name: 'CARBON NFT', 
     supply: '10,000', 
     percentage: '0.45%', 
     price: '$1,000 USDT',
     image: carbonNft,
     color: 'accent',
-    reward: '1%/day'
+    reward: 'Premium Rewards',
+    description: 'Directly linked to verified carbon credit mechanisms.'
   },
 ];
 
@@ -63,7 +66,7 @@ export function TokenomicsSection() {
             TOKENOMICS
           </h2>
           <p className="cyber-body max-w-2xl mx-auto">
-            Fixed supply with sustainable distribution model
+            Fixed supply with sustainable distribution model - Token value supported by real environmental activities
           </p>
         </motion.div>
 
@@ -98,8 +101,11 @@ export function TokenomicsSection() {
               <p className="font-display text-4xl font-bold text-primary glow-text-cyan mb-6">
                 {tokenomicData.totalSupply}
               </p>
-              <p className="cyber-muted text-sm mb-8">
+              <p className="cyber-muted text-sm mb-4">
                 Fixed Supply - No Inflation
+              </p>
+              <p className="cyber-body text-sm mb-8">
+                Used for NFT mining rewards, ecosystem incentives, and DEX/CEX liquidity. Value supported by real environmental activities, revenue from green projects, and ecosystem growth.
               </p>
 
               <div className="space-y-6">
@@ -134,7 +140,7 @@ export function TokenomicsSection() {
           </motion.div>
         </div>
 
-        {/* NFTnomics */}
+        {/* NFT Utility */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -142,10 +148,10 @@ export function TokenomicsSection() {
           className="text-center mb-16"
         >
           <h2 className="cyber-headline text-3xl sm:text-4xl md:text-5xl mb-4">
-            NFT TIERS
+            NFT UTILITY
           </h2>
           <p className="cyber-body max-w-2xl mx-auto">
-            Three tiers of NFTs powering the mining ecosystem
+            Nexus NFTs are productive assets, not collectibles. NFT holders participate in mining rewards and ecosystem revenue distribution.
           </p>
         </motion.div>
 
@@ -166,7 +172,7 @@ export function TokenomicsSection() {
               <div className="relative aspect-square overflow-hidden">
                 <img
                   src={tier.image}
-                  alt={`${tier.name} NFT`}
+                  alt={`${tier.name}`}
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
@@ -183,6 +189,9 @@ export function TokenomicsSection() {
 
               {/* Content */}
               <div className="p-6 space-y-4">
+                <p className="cyber-muted text-sm">
+                  {tier.description}
+                </p>
                 <div className="flex justify-between items-center">
                   <span className="cyber-muted text-sm">Price</span>
                   <span className={`font-display font-bold ${
@@ -193,7 +202,7 @@ export function TokenomicsSection() {
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="cyber-muted text-sm">Daily Reward</span>
+                  <span className="cyber-muted text-sm">Reward Type</span>
                   <span className={`font-display font-bold ${
                     tier.color === 'primary' ? 'text-primary' : 
                     tier.color === 'secondary' ? 'text-secondary' : 'text-accent'
