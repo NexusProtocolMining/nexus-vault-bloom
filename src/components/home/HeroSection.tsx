@@ -13,42 +13,42 @@ export function HeroSection() {
           src={backgroundHero}
           alt="Nexus Protocol Background"
           className="w-full h-full object-cover"
-          style={{ opacity: 0.4, filter: 'brightness(0.6) saturate(1.3)' }}
+          style={{ opacity: 0.5, filter: 'brightness(0.5) saturate(1.4) hue-rotate(-10deg)' }}
         />
         {/* Dark overlay with gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/80 to-background" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/50" />
-        {/* Cyberpunk radial glow */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/70 to-background" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/40" />
+        {/* Neon green radial glow */}
         <div 
           className="absolute inset-0" 
           style={{ 
-            background: 'radial-gradient(ellipse at 30% 40%, hsl(185 100% 50% / 0.1) 0%, transparent 50%), radial-gradient(ellipse at 70% 60%, hsl(320 100% 55% / 0.08) 0%, transparent 50%)'
+            background: 'radial-gradient(ellipse at 30% 40%, hsl(120 100% 50% / 0.12) 0%, transparent 50%), radial-gradient(ellipse at 70% 60%, hsl(150 80% 50% / 0.08) 0%, transparent 50%)'
           }} 
         />
       </div>
 
       {/* Grid overlay */}
-      <div className="absolute inset-0 z-5 cyber-grid-bg opacity-40" />
+      <div className="absolute inset-0 z-5 matrix-grid-bg opacity-50" />
 
-      {/* Floating particles */}
+      {/* Floating particles - Neon Green */}
       <div className="absolute inset-0 z-10 overflow-hidden pointer-events-none">
-        {[...Array(30)].map((_, i) => (
+        {[...Array(40)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute w-1 h-1 rounded-full"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              background: i % 3 === 0 ? 'hsl(185 100% 50%)' : i % 3 === 1 ? 'hsl(320 100% 55%)' : 'hsl(45 100% 55%)',
-              boxShadow: `0 0 6px ${i % 3 === 0 ? 'hsl(185 100% 50%)' : i % 3 === 1 ? 'hsl(320 100% 55%)' : 'hsl(45 100% 55%)'}`,
+              background: i % 2 === 0 ? 'hsl(120 100% 50%)' : 'hsl(150 80% 55%)',
+              boxShadow: `0 0 8px ${i % 2 === 0 ? 'hsl(120 100% 50%)' : 'hsl(150 80% 55%)'}`,
             }}
             animate={{
-              y: [-20, -120],
-              opacity: [0, 0.8, 0],
-              scale: [0, 1.2, 0],
+              y: [-20, -150],
+              opacity: [0, 0.9, 0],
+              scale: [0, 1.5, 0],
             }}
             transition={{
-              duration: 5 + Math.random() * 3,
+              duration: 4 + Math.random() * 3,
               repeat: Infinity,
               delay: Math.random() * 4,
             }}
@@ -77,27 +77,27 @@ export function HeroSection() {
                 alt="Nexus Logo" 
                 className="w-full h-full object-cover rounded-2xl"
                 style={{
-                  boxShadow: '0 0 40px hsl(185 100% 50% / 0.4), 0 0 80px hsl(320 100% 55% / 0.2)'
+                  boxShadow: '0 0 50px hsl(120 100% 50% / 0.5), 0 0 100px hsl(120 100% 50% / 0.25)'
                 }}
               />
               {/* Glow ring */}
               <motion.div
-                className="absolute inset-0 rounded-2xl border-2 border-primary/50"
+                className="absolute inset-0 rounded-2xl border-2 border-primary/60"
                 animate={{ 
                   boxShadow: [
-                    '0 0 20px hsl(185 100% 50% / 0.3)',
-                    '0 0 40px hsl(185 100% 50% / 0.5)',
-                    '0 0 20px hsl(185 100% 50% / 0.3)'
+                    '0 0 25px hsl(120 100% 50% / 0.4)',
+                    '0 0 50px hsl(120 100% 50% / 0.7)',
+                    '0 0 25px hsl(120 100% 50% / 0.4)'
                   ]
                 }}
                 transition={{ duration: 2, repeat: Infinity }}
               />
-              {/* Magenta accent ring */}
+              {/* Outer glow ring */}
               <motion.div
-                className="absolute -inset-2 rounded-3xl border border-secondary/30"
+                className="absolute -inset-3 rounded-3xl border border-primary/30"
                 animate={{ 
-                  opacity: [0.3, 0.6, 0.3],
-                  scale: [1, 1.02, 1]
+                  opacity: [0.3, 0.7, 0.3],
+                  scale: [1, 1.03, 1]
                 }}
                 transition={{ duration: 3, repeat: Infinity }}
               />
@@ -109,23 +109,22 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="cyber-subtitle text-lg sm:text-xl mb-6"
-            style={{ letterSpacing: '0.25em' }}
+            className="neon-subtitle text-lg sm:text-xl mb-6"
           >
             ONE NEXUS. ONE TREE. ONE FUTURE.
           </motion.p>
 
-          {/* Hero Headline - CYBERPUNK Style */}
+          {/* Hero Headline - NEON GREEN Style */}
           <motion.h1
             initial={{ opacity: 0, y: 40, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 1.1, delay: 0.3, ease: "easeOut" }}
             className="mb-8"
           >
-            <span className="cyber-headline text-5xl sm:text-6xl md:text-7xl lg:text-8xl block leading-tight">
+            <span className="neon-title text-5xl sm:text-6xl md:text-7xl lg:text-8xl block leading-tight">
               NEXUS
             </span>
-            <span className="cyber-headline text-5xl sm:text-6xl md:text-7xl lg:text-8xl block leading-tight">
+            <span className="neon-title text-5xl sm:text-6xl md:text-7xl lg:text-8xl block leading-tight">
               PROTOCOL
             </span>
           </motion.h1>
@@ -135,7 +134,7 @@ export function HeroSection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6, duration: 0.8 }}
-            className="cyber-body text-lg sm:text-xl mb-14 max-w-3xl mx-auto leading-relaxed"
+            className="matrix-body text-lg sm:text-xl mb-14 max-w-3xl mx-auto leading-relaxed"
           >
             Stake NFT. Earn Rewards. Build the Future of Decentralized Finance.
           </motion.p>
@@ -149,7 +148,7 @@ export function HeroSection() {
           >
             <Link to="/buy">
               <motion.button
-                className="btn-cyber-primary flex items-center gap-3 text-sm"
+                className="btn-neon-primary flex items-center gap-3 text-sm"
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -161,7 +160,7 @@ export function HeroSection() {
 
             <Link to="/staking">
               <motion.button
-                className="btn-cyber-outline flex items-center gap-3 text-sm"
+                className="btn-neon-outline flex items-center gap-3 text-sm"
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -172,7 +171,7 @@ export function HeroSection() {
 
             <Link to="/dashboard">
               <motion.button
-                className="cyber-cta px-10 py-4 text-white/50 hover:text-primary transition-all duration-300 text-sm flex items-center gap-2 hover:bg-primary/5 rounded-xl border border-primary/20 hover:border-primary/40"
+                className="neon-cta px-10 py-4 text-white/50 hover:text-primary transition-all duration-300 text-sm flex items-center gap-2 hover:bg-primary/5 rounded-xl border border-primary/25 hover:border-primary/50"
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -191,29 +190,23 @@ export function HeroSection() {
           >
             <div className="grid grid-cols-3 gap-4 sm:gap-8 max-w-2xl mx-auto">
               {[
-                { label: 'TOTAL SUPPLY', value: '210M', icon: Zap, color: 'primary' },
-                { label: 'NFT TIERS', value: '3', icon: Shield, color: 'secondary' },
-                { label: 'NETWORK', value: 'BSC', icon: Leaf, color: 'accent' },
+                { label: 'TOTAL SUPPLY', value: '210M', icon: Zap },
+                { label: 'NFT TIERS', value: '3', icon: Shield },
+                { label: 'NETWORK', value: 'BSC', icon: Leaf },
               ].map((stat, i) => (
                 <motion.div 
                   key={i} 
-                  className="cyber-card-3d p-5 sm:p-7 text-center"
+                  className="matrix-card-3d p-5 sm:p-7 text-center"
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 1 + i * 0.1, duration: 0.7 }}
                   whileHover={{ y: -8 }}
                 >
-                  <stat.icon className={`w-6 h-6 mx-auto mb-3 ${
-                    stat.color === 'primary' ? 'text-primary' : 
-                    stat.color === 'secondary' ? 'text-secondary' : 'text-accent'
-                  }`} />
-                  <p className={`font-display text-2xl sm:text-3xl font-bold ${
-                    stat.color === 'primary' ? 'text-primary glow-text-cyan' : 
-                    stat.color === 'secondary' ? 'text-secondary glow-text-magenta' : 'text-accent glow-text-gold'
-                  }`}>
+                  <stat.icon className="w-6 h-6 mx-auto mb-3 text-primary" />
+                  <p className="font-display neon-metric text-2xl sm:text-3xl">
                     {stat.value}
                   </p>
-                  <p className="cyber-label mt-1">{stat.label}</p>
+                  <p className="neon-label mt-1">{stat.label}</p>
                 </motion.div>
               ))}
             </div>
@@ -231,14 +224,14 @@ export function HeroSection() {
         <motion.div
           animate={{ y: [0, 12, 0] }}
           transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-          className="relative w-8 h-14 rounded-full border-2 border-primary/40 flex items-start justify-center p-2"
-          style={{ boxShadow: '0 0 15px hsl(185 100% 50% / 0.2)' }}
+          className="relative w-8 h-14 rounded-full border-2 border-primary/50 flex items-start justify-center p-2"
+          style={{ boxShadow: '0 0 20px hsl(120 100% 50% / 0.25)' }}
         >
           <motion.div
             animate={{ opacity: [1, 0.3, 1], y: [0, 8, 0] }}
             transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
             className="w-2 h-3 bg-primary rounded-full"
-            style={{ boxShadow: '0 0 10px hsl(185 100% 50% / 0.5)' }}
+            style={{ boxShadow: '0 0 12px hsl(120 100% 50% / 0.6)' }}
           />
         </motion.div>
       </motion.div>

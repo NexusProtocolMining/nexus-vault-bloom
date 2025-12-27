@@ -14,7 +14,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Space Grotesk', 'system-ui', 'sans-serif'],
+        sans: ['Rajdhani', 'system-ui', 'sans-serif'],
         display: ['Orbitron', 'monospace'],
         mono: ['JetBrains Mono', 'monospace'],
       },
@@ -62,14 +62,14 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        // Cyberpunk custom colors
-        cyber: {
-          cyan: "hsl(var(--cyber-cyan))",
-          magenta: "hsl(var(--cyber-magenta))",
-          gold: "hsl(var(--cyber-gold))",
-          purple: "hsl(var(--cyber-purple))",
-          green: "hsl(var(--cyber-green))",
-          dark: "hsl(var(--cyber-dark))",
+        // Neon Matrix custom colors
+        neon: {
+          green: "hsl(var(--neon-green))",
+          lime: "hsl(var(--neon-lime))",
+          mint: "hsl(var(--neon-mint))",
+          cyan: "hsl(var(--neon-cyan))",
+          dark: "hsl(var(--matrix-dark))",
+          glow: "hsl(var(--matrix-glow))",
         },
       },
       borderRadius: {
@@ -98,12 +98,12 @@ export default {
         },
         "glow-pulse": {
           "0%, 100%": { 
-            boxShadow: "0 0 30px hsl(185 100% 50% / 0.4), 0 0 60px hsl(320 100% 55% / 0.2)",
-            borderColor: "hsl(185 100% 50% / 0.6)"
+            boxShadow: "0 0 30px hsl(120 100% 50% / 0.4), 0 0 60px hsl(120 100% 50% / 0.2)",
+            borderColor: "hsl(120 100% 50% / 0.6)"
           },
           "50%": { 
-            boxShadow: "0 0 50px hsl(185 100% 50% / 0.6), 0 0 100px hsl(320 100% 55% / 0.4)",
-            borderColor: "hsl(185 100% 50% / 1)"
+            boxShadow: "0 0 60px hsl(120 100% 50% / 0.7), 0 0 120px hsl(120 100% 50% / 0.4)",
+            borderColor: "hsl(120 100% 50% / 1)"
           },
         },
         "float": {
@@ -118,7 +118,7 @@ export default {
           "0%": { transform: "scale(1)", opacity: "1" },
           "100%": { transform: "scale(1.5)", opacity: "0" },
         },
-        "cyber-glitch": {
+        "matrix-glitch": {
           "0%, 100%": { transform: "translate(0)" },
           "20%": { transform: "translate(-2px, 2px)" },
           "40%": { transform: "translate(-2px, -2px)" },
@@ -135,20 +135,19 @@ export default {
         "float": "float 6s ease-in-out infinite",
         "spin-slow": "spin-slow 20s linear infinite",
         "pulse-ring": "pulse-ring 1.5s ease-out infinite",
-        "cyber-glitch": "cyber-glitch 0.3s ease-in-out",
+        "matrix-glitch": "matrix-glitch 0.3s ease-in-out",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "cyber-gradient": "linear-gradient(135deg, hsl(185 100% 50%), hsl(320 100% 55%), hsl(45 100% 55%))",
-        "gold-gradient": "linear-gradient(135deg, hsl(45 100% 55%), hsl(45 80% 70%))",
-        "magenta-gradient": "linear-gradient(135deg, hsl(320 100% 55%), hsl(280 80% 60%))",
-        "dark-gradient": "linear-gradient(180deg, hsl(230 25% 8%), hsl(230 25% 4%))",
+        "neon-gradient": "linear-gradient(135deg, hsl(120 100% 50%), hsl(150 80% 50%), hsl(90 100% 55%))",
+        "matrix-gradient": "linear-gradient(180deg, hsl(150 100% 70%), hsl(120 100% 50%), hsl(140 80% 35%))",
+        "dark-gradient": "linear-gradient(180deg, hsl(140 40% 6%), hsl(140 40% 2%))",
       },
       boxShadow: {
-        "cyber": "0 0 60px hsl(185 100% 50% / 0.5), 0 0 120px hsl(185 100% 50% / 0.2)",
-        "magenta": "0 0 40px hsl(320 100% 55% / 0.4)",
-        "gold": "0 0 40px hsl(45 100% 55% / 0.4)",
-        "glass": "0 25px 50px -12px rgba(0, 0, 0, 0.5)",
+        "neon": "0 0 60px hsl(120 100% 50% / 0.5), 0 0 120px hsl(120 100% 50% / 0.25)",
+        "mint": "0 0 40px hsl(150 80% 50% / 0.4)",
+        "lime": "0 0 40px hsl(90 100% 55% / 0.4)",
+        "glass": "0 25px 50px -12px rgba(0, 0, 0, 0.6)",
       },
     },
   },
