@@ -44,7 +44,7 @@ export function Navbar() {
               whileHover={{ scale: 1.1 }}
               transition={{ type: "spring", stiffness: 400 }}
               style={{ 
-                boxShadow: '0 0 20px hsl(135 100% 50% / 0.3)'
+                boxShadow: '0 0 20px hsl(185 100% 50% / 0.3)'
               }}
             >
               <img src={logoNexus} alt="Nexus Protocol" className="w-full h-full object-cover" />
@@ -58,21 +58,22 @@ export function Navbar() {
               className="hidden sm:block text-xl font-bold tracking-widest"
               style={{ 
                 fontFamily: 'Orbitron, sans-serif',
-                color: 'hsl(135 100% 50%)',
-                textShadow: '0 0 10px hsl(135 100% 50% / 0.5)'
+                background: 'linear-gradient(135deg, hsl(185 100% 50%) 0%, hsl(320 100% 55%) 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
               }}
             >
               NEXUS
             </span>
           </Link>
 
-          {/* Desktop Navigation - Neon Style */}
+          {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
-                className={`nav-link-neon ${location.pathname === link.path ? 'active' : ''}`}
+                className={`nav-link-cyber ${location.pathname === link.path ? 'active' : ''}`}
               >
                 {link.name}
               </Link>
@@ -93,7 +94,7 @@ export function Navbar() {
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="lg:hidden p-2.5 rounded-xl bg-card/50 border border-primary/30 hover:border-primary/60 transition-colors"
               whileTap={{ scale: 0.95 }}
-              style={{ boxShadow: '0 0 15px hsl(135 100% 50% / 0.1)' }}
+              style={{ boxShadow: '0 0 15px hsl(185 100% 50% / 0.1)' }}
             >
               {isMobileMenuOpen ? (
                 <X className="w-6 h-6 text-primary" />
@@ -135,7 +136,7 @@ export function Navbar() {
                       style={{ 
                         fontFamily: 'Orbitron, sans-serif',
                         boxShadow: location.pathname === link.path 
-                          ? '0 0 20px hsl(135 100% 50% / 0.4)' 
+                          ? '0 0 20px hsl(185 100% 50% / 0.4)' 
                           : 'none'
                       }}
                     >

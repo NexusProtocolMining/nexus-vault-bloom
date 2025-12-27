@@ -16,6 +16,7 @@ const phases = [
       'NFT Carbon Release',
     ],
     active: true,
+    color: 'primary',
   },
   {
     phase: 'Phase 2',
@@ -29,6 +30,7 @@ const phases = [
       'NFT Reward Distribution',
     ],
     active: false,
+    color: 'secondary',
   },
   {
     phase: 'Phase 3',
@@ -42,6 +44,7 @@ const phases = [
       'Treasury RWA Aktif',
     ],
     active: false,
+    color: 'accent',
   },
   {
     phase: 'Phase 4',
@@ -54,6 +57,7 @@ const phases = [
       'CEX Listing',
     ],
     active: false,
+    color: 'primary',
   },
   {
     phase: 'Phase 5',
@@ -66,6 +70,7 @@ const phases = [
       'Institutional Onboarding',
     ],
     active: false,
+    color: 'secondary',
   },
 ];
 
@@ -80,10 +85,12 @@ export function RoadmapSection() {
         <img
           src={nexusRoadmap}
           alt="Nexus Roadmap"
-          className="w-full h-full object-cover opacity-20"
+          className="w-full h-full object-cover opacity-15"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background" />
       </div>
+      
+      <div className="absolute inset-0 cyber-grid-bg opacity-20" />
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
@@ -93,10 +100,10 @@ export function RoadmapSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="neon-headline text-3xl sm:text-4xl md:text-5xl mb-4">
+          <h2 className="cyber-headline text-3xl sm:text-4xl md:text-5xl mb-4">
             ROADMAP
           </h2>
-          <p className="nexus-body max-w-2xl mx-auto">
+          <p className="cyber-body max-w-2xl mx-auto">
             Our journey to build a sustainable blockchain ecosystem
           </p>
         </motion.div>
@@ -118,9 +125,13 @@ export function RoadmapSection() {
                 {/* Timeline dot */}
                 <div className="hidden lg:flex absolute -top-2 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full border-2 items-center justify-center z-10"
                   style={{
-                    borderColor: phase.active ? 'hsl(135 100% 50%)' : 'hsl(135 50% 25%)',
-                    backgroundColor: phase.active ? 'hsl(135 100% 50%)' : 'transparent',
-                    boxShadow: phase.active ? '0 0 20px hsl(135 100% 50% / 0.6)' : 'none',
+                    borderColor: phase.active 
+                      ? 'hsl(185 100% 50%)' 
+                      : phase.color === 'primary' ? 'hsl(185 50% 30%)' 
+                      : phase.color === 'secondary' ? 'hsl(320 50% 30%)'
+                      : 'hsl(45 50% 30%)',
+                    backgroundColor: phase.active ? 'hsl(185 100% 50%)' : 'transparent',
+                    boxShadow: phase.active ? '0 0 20px hsl(185 100% 50% / 0.6)' : 'none',
                   }}
                 >
                   {phase.active && (
@@ -132,11 +143,18 @@ export function RoadmapSection() {
                   )}
                 </div>
 
-                <div className={`glass-card p-6 mt-8 lg:mt-12 h-full transition-all ${
-                  phase.active ? 'border-primary/50 neon-glow' : 'hover:border-primary/30'
+                <div className={`cyber-card p-6 mt-8 lg:mt-12 h-full transition-all ${
+                  phase.active ? 'border-primary/50 glow-cyan' : 
+                  phase.color === 'primary' ? 'hover:border-primary/30' :
+                  phase.color === 'secondary' ? 'cyber-card-magenta hover:border-secondary/30' :
+                  'cyber-card-gold hover:border-accent/30'
                 }`}>
                   <div className="flex items-center gap-2 mb-3">
-                    <span className="text-xs font-semibold px-2 py-1 rounded-full bg-primary/20 text-primary border border-primary/30">
+                    <span className={`text-xs font-semibold px-2 py-1 rounded-full border ${
+                      phase.color === 'primary' ? 'bg-primary/20 text-primary border-primary/30' :
+                      phase.color === 'secondary' ? 'bg-secondary/20 text-secondary border-secondary/30' :
+                      'bg-accent/20 text-accent border-accent/30'
+                    }`}>
                       {phase.quarter}
                     </span>
                     {phase.active && (
@@ -146,17 +164,26 @@ export function RoadmapSection() {
                     )}
                   </div>
                   
-                  <h3 className="nexus-card-title text-lg text-primary mb-1">
+                  <h3 className={`cyber-card-title text-lg mb-1 ${
+                    phase.color === 'primary' ? 'text-primary' :
+                    phase.color === 'secondary' ? 'text-secondary' : 'text-accent'
+                  }`}>
                     {phase.phase}
                   </h3>
-                  <h4 className="text-primary font-semibold mb-4">
+                  <h4 className={`font-semibold mb-4 ${
+                    phase.color === 'primary' ? 'text-primary' :
+                    phase.color === 'secondary' ? 'text-secondary' : 'text-accent'
+                  }`}>
                     {phase.title}
                   </h4>
 
                   <ul className="space-y-2">
                     {phase.items.map((item, j) => (
-                      <li key={j} className="nexus-muted text-xs flex items-start gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary/50 mt-1.5 flex-shrink-0" />
+                      <li key={j} className="cyber-muted text-xs flex items-start gap-2">
+                        <span className={`w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0 ${
+                          phase.color === 'primary' ? 'bg-primary/50' :
+                          phase.color === 'secondary' ? 'bg-secondary/50' : 'bg-accent/50'
+                        }`} />
                         {item}
                       </li>
                     ))}
