@@ -113,18 +113,88 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'Space Grotesk', system-ui, sans-serif;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+    font-weight: 400;
   }
 
+  /* Space Grotesk for ALL headings - institutional, not gaming */
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Orbitron', monospace;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+    letter-spacing: 0.04em;
   }
 
   code, .mono {
     font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* ==================== NEXUS TYPOGRAPHY SYSTEM ==================== */
+@layer components {
+  /* HERO / MAIN HEADLINE - Weight 800 */
+  .nexus-title {
+    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+    @apply font-extrabold tracking-wide text-white;
+    text-shadow: 
+      0 0 20px rgba(34, 197, 94, 0.35),
+      0 0 40px rgba(34, 197, 94, 0.15);
+  }
+
+  /* SECTION TITLE - Weight 700 */
+  .nexus-section-title {
+    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+    @apply font-bold tracking-wide text-white;
+    text-shadow: 
+      0 0 15px rgba(34, 197, 94, 0.25),
+      0 0 30px rgba(34, 197, 94, 0.1);
+  }
+
+  /* HIGHLIGHT WORD - Emerald only */
+  .nexus-highlight {
+    color: #22c55e;
+    text-shadow: 0 0 25px rgba(34, 197, 94, 0.5);
+  }
+
+  /* SUBTITLE - Weight 500 */
+  .nexus-subtitle {
+    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+    @apply font-medium text-white/75 tracking-wider;
+  }
+
+  /* BODY TEXT - Weight 400 */
+  .nexus-body {
+    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+    @apply font-normal text-white/65 leading-relaxed;
+  }
+
+  /* CTA TEXT - Weight 700, Uppercase */
+  .nexus-cta {
+    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+    @apply font-bold uppercase tracking-widest;
+  }
+
+  /* MUTED TEXT */
+  .nexus-muted {
+    @apply text-white/60;
+  }
+
+  /* CARD TITLE - Weight 600 */
+  .nexus-card-title {
+    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+    @apply font-semibold text-white tracking-wide;
+  }
+
+  /* NUMBER/METRIC DISPLAY */
+  .nexus-metric {
+    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+    @apply font-bold text-white;
+    text-shadow: 0 0 15px rgba(34, 197, 94, 0.3);
+  }
+
+  /* LABEL TEXT */
+  .nexus-label {
+    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+    @apply font-medium text-white/60 tracking-wider uppercase text-xs;
   }
 }
 

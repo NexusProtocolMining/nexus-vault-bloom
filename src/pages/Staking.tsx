@@ -342,22 +342,24 @@ const Staking = () => {
         <div className="container mx-auto px-3 sm:px-4">
           {/* Header */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
             className="text-center mb-8 sm:mb-12"
           >
             <motion.div 
               className="inline-flex items-center gap-2 badge-tech mb-6"
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6 }}
             >
-              <Zap className="w-4 h-4 text-primary" />
-              <span className="text-sm">Premium Staking</span>
+              <Zap className="w-4 h-4 text-emerald-400" />
+              <span className="nexus-label text-white/75">PREMIUM STAKING</span>
             </motion.div>
-            <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 tracking-tight">
-              <span className="gradient-text-tech">Luxury Staking</span>
+            <h1 className="nexus-section-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-3 sm:mb-4">
+              <span className="nexus-highlight">Luxury Staking</span>
             </h1>
-            <p className="text-muted-foreground text-sm sm:text-base max-w-xl mx-auto px-4">
+            <p className="nexus-body text-sm sm:text-base max-w-xl mx-auto px-4">
               Stake your NFTs, earn rewards, and sell your NXP tokens
             </p>
           </motion.div>
