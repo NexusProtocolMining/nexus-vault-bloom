@@ -152,7 +152,7 @@ const Staking = () => {
   const [sellStep, setSellStep] = useState<'idle' | 'approve' | 'sell'>('idle');
   const [claimHistory, setClaimHistory] = useState<ClaimHistoryItem[]>([]);
   const [claimingTokenInfo, setClaimingTokenInfo] = useState<{ tokenId: bigint; tier: number } | null>(null);
-  const [nftRewardsMap, setNftRewardsMap] = useState<Map<string, { pendingReward: bigint; totalClaimed: bigint; isStaked: boolean }>>(new Map());
+  const [nftRewardsMap, setNftRewardsMap] = useState<Map<string, { pendingReward: bigint; monthlyReward: bigint; yearlyReward: bigint; totalClaimed: bigint; isStaked: boolean }>>(new Map());
 
   // Read owned NFTs
   const { data: tokenIds, refetch: refetchTokens } = useReadContract({
@@ -427,6 +427,8 @@ const Staking = () => {
                       const newMap = new Map(prev);
                       newMap.set(tokenId.toString(), {
                         pendingReward: data.pendingReward,
+                        monthlyReward: data.monthlyReward,
+                        yearlyReward: data.yearlyReward,
                         totalClaimed: data.totalClaimed,
                         isStaked: data.isStaked,
                       });
@@ -776,18 +778,21 @@ function ActiveStakingCard({
   }, [refetchReward]);
 
   const tierNum = tier !== undefined ? Number(tier) : 0;
-  const stakeData = stakeInfo as [string, bigint, bigint] | undefined;
-  const isStaked = stakeData && stakeData[0] !== '0x0000000000000000000000000000000000000000';
+  // stakeInfo returns: [staked, stakeOwner, startTime, lastClaim, unlockTime]
+  const stakeData = stakeInfo as [boolean, string, bigint, bigint, bigint] | undefined;
+  const isStaked = stakeData ? stakeData[0] : false;
   const isProcessing = processingId === tokenId;
 
   // Calculate countdown timestamps
-  const stakedAt = stakeData?.[1] ?? BigInt(0);
-  const lastClaimAt = stakeData?.[2] ?? BigInt(0);
+  const lastClaimAt = stakeData?.[3] ?? BigInt(0);
+  const unlockTimeFromContract = stakeData?.[4] ?? BigInt(0);
   
   const nextClaimTime = isStaked && claimInterval ? lastClaimAt + claimInterval : undefined;
-  const unlockTime = isStaked && lockDuration ? stakedAt + lockDuration : undefined;
+  const unlockTime = isStaked ? unlockTimeFromContract : undefined;
 
-  const pendingFormatted = pendingReward ? formatUnits(pendingReward as bigint, 18) : '0';
+  // pendingReward returns: [pending, monthly, year, claimed]
+  const rewardData = pendingReward as [bigint, bigint, bigint, bigint] | undefined;
+  const pendingFormatted = rewardData ? formatUnits(rewardData[0], 18) : '0';
   const totalClaimedFormatted = totalClaimed ? formatUnits(totalClaimed as bigint, 18) : '0';
 
   // Don't render if not staked
@@ -998,8 +1003,9 @@ function AvailableNFTCard({
   });
 
   const tierNum = tier !== undefined ? Number(tier) : 0;
-  const stakeData = stakeInfo as [string, bigint, bigint] | undefined;
-  const isStaked = stakeData && stakeData[0] !== '0x0000000000000000000000000000000000000000';
+  // stakeInfo returns: [staked, stakeOwner, startTime, lastClaim, unlockTime]
+  const stakeData = stakeInfo as [boolean, string, bigint, bigint, bigint] | undefined;
+  const isStaked = stakeData ? stakeData[0] : false;
   const isProcessing = processingId === tokenId;
 
   // Don't render if already staked

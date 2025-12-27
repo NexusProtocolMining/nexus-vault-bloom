@@ -1,44 +1,48 @@
 import { motion } from 'framer-motion';
 import { BarChart3, Leaf, Diamond, Flame, TrendingUp } from 'lucide-react';
+import { useReadContract } from 'wagmi';
+import { formatUnits } from 'viem';
+import { CONTRACTS } from '@/config/contracts';
+import { NFT_SALE_ABI } from '@/config/abis';
 
 import treeNFT from '@/assets/tree-nft.png';
 import diamondNFT from '@/assets/diamond-nft.png';
 import carbonNFT from '@/assets/carbon-nft.png';
 
-// Tier reward data (based on typical staking reward structures)
-const tierData = [
+// Tier configuration
+const tierConfig = [
   {
+    id: 0,
     name: 'TREE',
     image: treeNFT,
     icon: Leaf,
-    price: 10,
+    priceFunction: 'priceTree',
     dailyReward: 0.5,
     monthlyReward: 15,
-    yearlyReward: 180,
     apy: '~180%',
     color: 'emerald',
     barHeight: 30,
   },
   {
+    id: 1,
     name: 'DIAMOND',
     image: diamondNFT,
     icon: Diamond,
-    price: 100,
+    priceFunction: 'priceDiamond',
     dailyReward: 6,
     monthlyReward: 180,
-    yearlyReward: 2160,
     apy: '~216%',
     color: 'cyan',
     barHeight: 60,
   },
   {
+    id: 2,
     name: 'CARBON',
     image: carbonNFT,
     icon: Flame,
-    price: 1000,
+    priceFunction: 'priceCarbon',
     dailyReward: 70,
     monthlyReward: 2100,
-    yearlyReward: 25200,
     apy: '~252%',
     color: 'amber',
     barHeight: 100,
@@ -46,6 +50,37 @@ const tierData = [
 ];
 
 export function TierComparisonChart() {
+  // Fetch prices from smart contract
+  const { data: priceTree } = useReadContract({
+    address: CONTRACTS.NFT_SALE,
+    abi: NFT_SALE_ABI,
+    functionName: 'priceTree',
+  });
+
+  const { data: priceDiamond } = useReadContract({
+    address: CONTRACTS.NFT_SALE,
+    abi: NFT_SALE_ABI,
+    functionName: 'priceDiamond',
+  });
+
+  const { data: priceCarbon } = useReadContract({
+    address: CONTRACTS.NFT_SALE,
+    abi: NFT_SALE_ABI,
+    functionName: 'priceCarbon',
+  });
+
+  // Format prices (USDT has 18 decimals)
+  const formatPrice = (price: bigint | undefined) => {
+    if (!price) return 0;
+    return Number(formatUnits(price, 18));
+  };
+
+  const prices = {
+    TREE: formatPrice(priceTree as bigint | undefined),
+    DIAMOND: formatPrice(priceDiamond as bigint | undefined),
+    CARBON: formatPrice(priceCarbon as bigint | undefined),
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -67,7 +102,7 @@ export function TierComparisonChart() {
       {/* Visual Bar Chart */}
       <div className="mb-6">
         <div className="flex items-end justify-around gap-4 h-40 px-4">
-          {tierData.map((tier, index) => (
+          {tierConfig.map((tier, index) => (
             <motion.div
               key={tier.name}
               initial={{ height: 0 }}
@@ -129,7 +164,7 @@ export function TierComparisonChart() {
         </div>
         
         {/* Rows */}
-        {tierData.map((tier, index) => (
+        {tierConfig.map((tier, index) => (
           <motion.div
             key={tier.name}
             initial={{ opacity: 0, x: -20 }}
@@ -149,7 +184,9 @@ export function TierComparisonChart() {
               }`} />
               <span className="font-bold text-xs sm:text-sm">{tier.name}</span>
             </div>
-            <span className="text-center font-mono text-xs sm:text-sm text-foreground">${tier.price}</span>
+            <span className="text-center font-mono text-xs sm:text-sm text-foreground">
+              ${prices[tier.name as keyof typeof prices] || tier.dailyReward * 20}
+            </span>
             <span className="text-center font-mono text-xs sm:text-sm text-primary">{tier.dailyReward} NXP</span>
             <span className="text-center font-mono text-xs sm:text-sm text-primary">{tier.monthlyReward} NXP</span>
           </motion.div>
