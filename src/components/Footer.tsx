@@ -13,11 +13,11 @@ export function Footer() {
   ];
 
   return (
-    <footer className="relative border-t border-primary/10 bg-background/80 backdrop-blur-xl overflow-hidden">
+    <footer className="relative border-t border-primary/15 bg-background/90 backdrop-blur-xl overflow-hidden">
       {/* Background effects */}
-      <div className="absolute inset-0 tech-grid-bg opacity-30 pointer-events-none" />
-      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute top-0 right-1/4 w-64 h-64 bg-secondary/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute inset-0 tech-lines-bg opacity-40 pointer-events-none" />
+      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-primary/8 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-0 right-1/4 w-64 h-64 bg-secondary/6 rounded-full blur-3xl pointer-events-none" />
 
       <div className="container mx-auto px-4 py-16 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
@@ -25,33 +25,33 @@ export function Footer() {
           <div className="lg:col-span-1">
             <Link to="/" className="flex items-center gap-3 mb-6 group">
               <motion.div 
-                className="w-12 h-12 rounded-xl overflow-hidden relative border border-primary/30"
+                className="w-12 h-12 rounded-xl overflow-hidden relative border border-primary/40"
                 whileHover={{ scale: 1.1, rotate: 5 }}
                 style={{
-                  boxShadow: '0 0 20px hsl(185 100% 50% / 0.3)',
+                  boxShadow: '0 0 25px hsl(120 100% 50% / 0.4)',
                 }}
               >
                 <img src={logoNexus} alt="Nexus Protocol" className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/25 to-transparent" />
               </motion.div>
               <div>
-                <span className="cyber-headline text-xl block">
+                <span className="neon-title text-xl block">
                   NEXUS
                 </span>
-                <span className="cyber-label">Blockchain Ecosystem</span>
+                <span className="neon-label">Blockchain Ecosystem</span>
               </div>
             </Link>
-            <p className="cyber-body text-sm mb-6">
+            <p className="matrix-body text-sm mb-6">
               One Nexus, One Tree. A Green Blockchain for a Sustainable Future powered by SocialFi.
             </p>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center border border-primary/30 hover:bg-primary/20 transition-colors">
+              <div className="w-10 h-10 rounded-lg bg-primary/15 flex items-center justify-center border border-primary/40 hover:bg-primary/25 transition-colors hover:shadow-neon">
                 <Leaf className="w-5 h-5 text-primary" />
               </div>
-              <div className="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center border border-secondary/30 hover:bg-secondary/20 transition-colors">
+              <div className="w-10 h-10 rounded-lg bg-secondary/15 flex items-center justify-center border border-secondary/40 hover:bg-secondary/25 transition-colors">
                 <Zap className="w-5 h-5 text-secondary" />
               </div>
-              <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center border border-accent/30 hover:bg-accent/20 transition-colors">
+              <div className="w-10 h-10 rounded-lg bg-accent/15 flex items-center justify-center border border-accent/40 hover:bg-accent/25 transition-colors">
                 <Globe className="w-5 h-5 text-accent" />
               </div>
             </div>
@@ -59,7 +59,7 @@ export function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="cyber-card-title text-sm mb-6 flex items-center gap-2">
+            <h4 className="neon-card-title text-sm mb-6 flex items-center gap-2">
               <Shield className="w-4 h-4 text-primary" />
               Quick Links
             </h4>
@@ -74,9 +74,9 @@ export function Footer() {
                 <li key={link.path}>
                   <Link 
                     to={link.path} 
-                    className="cyber-muted text-sm hover:text-primary transition-all duration-300 flex items-center gap-2 group"
+                    className="matrix-muted text-sm hover:text-primary transition-all duration-300 flex items-center gap-2 group"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary/50 group-hover:bg-primary group-hover:shadow-lg group-hover:shadow-primary/50 transition-all" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary/50 group-hover:bg-primary group-hover:shadow-lg group-hover:shadow-primary/60 transition-all" />
                     {link.name}
                   </Link>
                 </li>
@@ -86,7 +86,7 @@ export function Footer() {
 
           {/* Smart Contracts */}
           <div className="lg:col-span-2">
-            <h4 className="cyber-card-title text-sm mb-6 flex items-center gap-2">
+            <h4 className="neon-card-title text-sm mb-6 flex items-center gap-2">
               <Zap className="w-4 h-4 text-primary" />
               Smart Contracts (BSC)
             </h4>
@@ -97,7 +97,7 @@ export function Footer() {
                   href={getExplorerUrl('address', contract.address)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="cyber-card p-3 flex items-center justify-between gap-3 group hover:border-primary/40 transition-all duration-300"
+                  className="matrix-card p-3 flex items-center justify-between gap-3 group hover:border-primary/50 transition-all duration-300"
                 >
                   <div className="min-w-0">
                     <span className="text-sm text-foreground block">{contract.name}</span>
@@ -113,12 +113,12 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-primary/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="cyber-muted text-xs text-center sm:text-left flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" style={{ boxShadow: '0 0 10px hsl(185 100% 50% / 0.5)' }} />
+        <div className="mt-12 pt-8 border-t border-primary/15 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="matrix-muted text-xs text-center sm:text-left flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" style={{ boxShadow: '0 0 12px hsl(120 100% 50% / 0.6)' }} />
             © 2024 Nexus Protocol. Built on BSC.
           </p>
-          <p className="cyber-muted text-xs text-center sm:text-right max-w-lg opacity-60">
+          <p className="matrix-muted text-xs text-center sm:text-right max-w-lg opacity-60">
             This website uses real on-chain data only. All balances, rewards, and staking information are read directly from smart contracts.
           </p>
         </div>
