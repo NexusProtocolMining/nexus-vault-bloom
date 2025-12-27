@@ -157,7 +157,7 @@ const InternalPool = () => {
       {/* Background effects */}
       <div className="fixed inset-0 tech-grid-bg opacity-40 pointer-events-none" />
       <div className="fixed top-1/3 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="fixed bottom-1/3 right-1/4 w-80 h-80 bg-accent/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="fixed bottom-1/3 right-1/4 w-80 h-80 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
       
       <Navbar />
       
@@ -175,12 +175,12 @@ const InternalPool = () => {
               animate={{ opacity: 1, scale: 1 }}
             >
               <TrendingDown className="w-4 h-4 text-primary" />
-              <span className="text-sm">Liquidity Pool</span>
+              <span className="nexus-label">Liquidity Pool</span>
             </motion.div>
-            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold mb-4 tracking-tight">
-              Internal <span className="gradient-text-tech">Pool</span>
+            <h1 className="neon-headline text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-4">
+              INTERNAL POOL
             </h1>
-            <p className="text-muted-foreground max-w-xl mx-auto text-lg">
+            <p className="nexus-body max-w-xl mx-auto text-lg">
               Sell your NXP tokens directly to the internal liquidity pool
             </p>
           </motion.div>
@@ -218,29 +218,29 @@ const InternalPool = () => {
           >
             <div className="glass-card p-5 text-center">
               <TrendingDown className="w-6 h-6 text-primary mx-auto mb-2" />
-              <p className="text-xs text-muted-foreground mb-1">Price per NXP</p>
-              <p className="font-display text-xl font-bold text-foreground">
+              <p className="nexus-label mb-1">Price per NXP</p>
+              <p className="nexus-metric text-xl">
                 ${Number(priceFormatted).toFixed(6)}
               </p>
-              <p className="text-xs text-muted-foreground">USDT</p>
+              <p className="nexus-muted text-xs">USDT</p>
             </div>
 
             <div className="glass-card p-5 text-center">
               <Info className="w-6 h-6 text-primary mx-auto mb-2" />
-              <p className="text-xs text-muted-foreground mb-1">Sell Fee</p>
-              <p className="font-display text-xl font-bold text-foreground">
+              <p className="nexus-label mb-1">Sell Fee</p>
+              <p className="nexus-metric text-xl">
                 {feePercentage}%
               </p>
-              <p className="text-xs text-muted-foreground">On-chain fee</p>
+              <p className="nexus-muted text-xs">On-chain fee</p>
             </div>
 
             <div className="glass-card p-5 text-center">
               <Wallet className="w-6 h-6 text-primary mx-auto mb-2" />
-              <p className="text-xs text-muted-foreground mb-1">Your NXP</p>
-              <p className="font-display text-xl font-bold text-foreground">
+              <p className="nexus-label mb-1">Your NXP</p>
+              <p className="nexus-metric text-xl">
                 {Number(nxpBalanceFormatted).toLocaleString(undefined, { maximumFractionDigits: 2 })}
               </p>
-              <p className="text-xs text-muted-foreground">Balance</p>
+              <p className="nexus-muted text-xs">Balance</p>
             </div>
           </motion.div>
 
@@ -249,11 +249,11 @@ const InternalPool = () => {
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="max-w-md mx-auto glass-card p-8 text-center"
+              className="max-w-md mx-auto glass-card p-8 text-center neon-glow"
             >
               <Wallet className="w-12 h-12 text-primary mx-auto mb-4" />
-              <h2 className="font-display text-xl font-bold mb-2">Connect Wallet</h2>
-              <p className="text-muted-foreground text-sm">
+              <h2 className="nexus-card-title text-xl mb-2">Connect Wallet</h2>
+              <p className="nexus-muted text-sm">
                 Please connect your wallet to sell NXP tokens.
               </p>
             </motion.div>
@@ -268,7 +268,7 @@ const InternalPool = () => {
               className="max-w-lg mx-auto"
             >
               <div className="glass-card p-6">
-                <h2 className="font-display text-lg font-bold mb-6 flex items-center gap-2">
+                <h2 className="nexus-card-title text-lg mb-6 flex items-center gap-2">
                   <TrendingDown className="w-5 h-5 text-primary" />
                   Sell NXP
                 </h2>
@@ -276,7 +276,7 @@ const InternalPool = () => {
                 {/* Input */}
                 <div className="mb-4">
                   <div className="flex items-center justify-between mb-2">
-                    <label className="text-sm text-muted-foreground">Amount to sell</label>
+                    <label className="nexus-label">Amount to sell</label>
                     <button
                       onClick={handleSetMax}
                       className="text-xs text-primary hover:underline"
@@ -291,9 +291,9 @@ const InternalPool = () => {
                       onChange={(e) => setSellAmount(e.target.value)}
                       placeholder="0.00"
                       disabled={isSellDisabled || isProcessing}
-                      className="w-full bg-muted/50 border border-primary/20 rounded-lg px-4 py-4 pr-20 text-lg font-mono text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 disabled:opacity-50"
+                      className="w-full bg-background/50 border border-primary/30 rounded-lg px-4 py-4 pr-20 text-lg font-mono text-primary placeholder:text-primary/30 focus:outline-none focus:border-primary/50 disabled:opacity-50"
                     />
-                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-muted-foreground font-medium">
+                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm nexus-muted font-medium">
                       NXP
                     </span>
                   </div>
@@ -301,24 +301,24 @@ const InternalPool = () => {
 
                 {/* Arrow */}
                 <div className="flex justify-center my-4">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center border border-primary/30">
                     <ArrowDown className="w-5 h-5 text-primary" />
                   </div>
                 </div>
 
                 {/* Output estimate - informational only */}
                 <div className="mb-6">
-                  <label className="text-sm text-muted-foreground mb-2 block">You will receive (before fee)</label>
+                  <label className="nexus-label mb-2 block">You will receive (before fee)</label>
                   <div className="glass-card p-4 flex items-center justify-between">
-                    <span className="font-display text-xl font-bold text-foreground">
+                    <span className="nexus-metric text-xl">
                       {sellAmount && pricePerNXP 
                         ? (Number(sellAmount) * Number(priceFormatted)).toFixed(4)
                         : '0.00'
                       }
                     </span>
-                    <span className="text-sm text-muted-foreground font-medium">USDT</span>
+                    <span className="nexus-muted text-sm font-medium">USDT</span>
                   </div>
-                  <p className="text-xs text-muted-foreground mt-2 flex items-center gap-1">
+                  <p className="nexus-muted text-xs mt-2 flex items-center gap-1">
                     <Info className="w-3 h-3" />
                     Final amount determined by smart contract after {feePercentage}% fee
                   </p>
@@ -374,7 +374,7 @@ const InternalPool = () => {
 
               {/* Info Box */}
               <div className="mt-6 p-4 rounded-lg bg-primary/5 border border-primary/10">
-                <p className="text-xs text-muted-foreground text-center">
+                <p className="nexus-muted text-xs text-center">
                   All prices and fees are read directly from the smart contract. 
                   The final USDT amount is calculated on-chain.
                 </p>

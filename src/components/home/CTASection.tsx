@@ -37,18 +37,22 @@ export function CTASection() {
             initial={{ scale: 0 }}
             animate={isInView ? { scale: 1 } : {}}
             transition={{ duration: 0.6, type: 'spring' }}
-            className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-8"
+            className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-8 border border-primary/30"
+            style={{
+              boxShadow: '0 0 30px hsl(135 100% 50% / 0.3)',
+            }}
           >
             <TreePine className="w-10 h-10 text-primary" />
           </motion.div>
 
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
-            Grow the <span className="text-primary">Forest</span>.
-            <br />
-            Secure the <span className="gradient-text-gold">Future</span>.
+          <h2 className="neon-headline text-3xl sm:text-4xl md:text-5xl mb-6">
+            GROW THE FOREST
           </h2>
+          <h3 className="nexus-subtitle text-xl sm:text-2xl mb-6">
+            Secure the <span className="text-primary">Future</span>
+          </h3>
 
-          <p className="text-lg text-muted-foreground mb-10 max-w-xl mx-auto">
+          <p className="nexus-body text-lg mb-10 max-w-xl mx-auto">
             Join thousands of holders building a sustainable blockchain ecosystem. 
             Every NFT staked contributes to a greener tomorrow.
           </p>
@@ -67,7 +71,7 @@ export function CTASection() {
 
             <Link to="/staking">
               <motion.button
-                className="btn-gold flex items-center gap-2 text-lg"
+                className="btn-outline-glow flex items-center gap-2 text-lg"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
               >
