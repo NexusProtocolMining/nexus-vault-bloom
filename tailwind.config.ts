@@ -14,8 +14,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Space Grotesk', 'system-ui', 'sans-serif'],
         display: ['Orbitron', 'monospace'],
+        mono: ['JetBrains Mono', 'monospace'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -61,21 +62,27 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        // Custom Nexus colors
+        // Custom Nexus Tech colors
         nexus: {
           emerald: "hsl(var(--nexus-emerald))",
           "emerald-glow": "hsl(var(--nexus-emerald-glow))",
           "emerald-dark": "hsl(var(--nexus-emerald-dark))",
+          cyan: "hsl(var(--nexus-cyan))",
+          "cyan-glow": "hsl(var(--nexus-cyan-glow))",
           gold: "hsl(var(--nexus-gold))",
           "gold-soft": "hsl(var(--nexus-gold-soft))",
           carbon: "hsl(var(--nexus-carbon))",
           "carbon-light": "hsl(var(--nexus-carbon-light))",
+          purple: "hsl(var(--nexus-purple))",
+          blue: "hsl(var(--nexus-blue))",
         },
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        xl: "calc(var(--radius) + 4px)",
+        "2xl": "calc(var(--radius) + 8px)",
       },
       keyframes: {
         "accordion-down": {
@@ -104,17 +111,21 @@ export default {
         },
         "glow-pulse": {
           "0%, 100%": { 
-            boxShadow: "0 0 20px hsl(142 76% 42% / 0.4)",
-            borderColor: "hsl(142 76% 42% / 0.6)"
+            boxShadow: "0 0 30px hsl(160 84% 45% / 0.4), 0 0 60px hsl(175 80% 50% / 0.2)",
+            borderColor: "hsl(160 84% 45% / 0.6)"
           },
           "50%": { 
-            boxShadow: "0 0 40px hsl(142 76% 42% / 0.7)",
-            borderColor: "hsl(142 76% 42% / 1)"
+            boxShadow: "0 0 50px hsl(160 84% 45% / 0.6), 0 0 100px hsl(175 80% 50% / 0.4)",
+            borderColor: "hsl(160 84% 45% / 1)"
           },
         },
         "float": {
           "0%, 100%": { transform: "translateY(0px)" },
           "50%": { transform: "translateY(-15px)" },
+        },
+        "float-3d": {
+          "0%, 100%": { transform: "translateY(0px) rotateX(0deg)" },
+          "50%": { transform: "translateY(-20px) rotateX(5deg)" },
         },
         "spin-slow": {
           "0%": { transform: "rotate(0deg)" },
@@ -122,21 +133,28 @@ export default {
         },
         "particle-float": {
           "0%, 100%": { 
-            transform: "translateY(0) translateX(0)",
+            transform: "translateY(0) translateX(0) scale(1)",
             opacity: "0.3"
           },
-          "25%": { 
-            transform: "translateY(-20px) translateX(10px)",
-            opacity: "0.8"
-          },
-          "50%": { 
-            transform: "translateY(-10px) translateX(-5px)",
-            opacity: "0.5"
-          },
-          "75%": { 
-            transform: "translateY(-25px) translateX(15px)",
+          "33%": { 
+            transform: "translateY(-30px) translateX(20px) scale(1.2)",
             opacity: "0.7"
           },
+          "66%": { 
+            transform: "translateY(-15px) translateX(-15px) scale(0.8)",
+            opacity: "0.5"
+          },
+        },
+        "pulse-ring": {
+          "0%": { transform: "scale(1)", opacity: "1" },
+          "100%": { transform: "scale(1.5)", opacity: "0" },
+        },
+        "cyber-glitch": {
+          "0%, 100%": { transform: "translate(0)" },
+          "20%": { transform: "translate(-2px, 2px)" },
+          "40%": { transform: "translate(-2px, -2px)" },
+          "60%": { transform: "translate(2px, 2px)" },
+          "80%": { transform: "translate(2px, -2px)" },
         },
       },
       animation: {
@@ -148,20 +166,28 @@ export default {
         "slide-in-right": "slide-in-right 0.3s ease-out",
         "glow-pulse": "glow-pulse 2s ease-in-out infinite",
         "float": "float 6s ease-in-out infinite",
+        "float-3d": "float-3d 8s ease-in-out infinite",
         "spin-slow": "spin-slow 20s linear infinite",
-        "particle-float": "particle-float 8s ease-in-out infinite",
+        "particle-float": "particle-float 10s ease-in-out infinite",
+        "pulse-ring": "pulse-ring 1.5s ease-out infinite",
+        "cyber-glitch": "cyber-glitch 0.3s ease-in-out",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-        "nexus-gradient": "linear-gradient(135deg, hsl(142 76% 42%), hsl(142 90% 55%))",
+        "nexus-gradient": "linear-gradient(135deg, hsl(160 84% 45%), hsl(175 80% 50%), hsl(200 90% 55%))",
         "gold-gradient": "linear-gradient(135deg, hsl(45 93% 58%), hsl(45 80% 70%))",
+        "cyber-gradient": "linear-gradient(135deg, hsl(270 60% 55%), hsl(175 80% 50%))",
+        "dark-gradient": "linear-gradient(180deg, hsl(220 25% 8%), hsl(220 20% 4%))",
       },
       boxShadow: {
-        "nexus": "0 0 40px hsl(142 76% 42% / 0.4)",
-        "nexus-lg": "0 0 80px hsl(142 76% 42% / 0.5)",
-        "gold": "0 0 30px hsl(45 93% 58% / 0.3)",
-        "glass": "0 8px 32px rgba(0, 0, 0, 0.3)",
+        "nexus": "0 0 60px hsl(160 84% 45% / 0.5), 0 0 120px hsl(160 84% 45% / 0.2)",
+        "nexus-lg": "0 0 100px hsl(160 84% 45% / 0.6), 0 0 200px hsl(160 84% 45% / 0.3)",
+        "cyan": "0 0 40px hsl(175 80% 50% / 0.4)",
+        "gold": "0 0 40px hsl(45 93% 58% / 0.4)",
+        "glass": "0 25px 50px -12px rgba(0, 0, 0, 0.5)",
+        "3d": "0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 0 60px hsl(160 84% 45% / 0.15)",
+        "3d-hover": "0 35px 70px -15px rgba(0, 0, 0, 0.7), 0 0 80px hsl(160 84% 45% / 0.25)",
       },
     },
   },

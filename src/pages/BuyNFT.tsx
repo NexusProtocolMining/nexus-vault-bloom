@@ -150,10 +150,15 @@ const BuyNFT = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background particle-bg">
+      {/* Background effects */}
+      <div className="fixed inset-0 tech-grid-bg opacity-40 pointer-events-none" />
+      <div className="fixed top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="fixed bottom-1/4 right-1/4 w-80 h-80 bg-accent/5 rounded-full blur-3xl pointer-events-none" />
+      
       <Navbar />
       
-      <main className="pt-24 pb-16">
+      <main className="pt-24 pb-16 relative z-10">
         <div className="container mx-auto px-4">
           {/* Header */}
           <motion.div
@@ -161,17 +166,29 @@ const BuyNFT = () => {
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-12"
           >
-            <h1 className="font-display text-4xl sm:text-5xl font-bold mb-4">
-              Buy <span className="text-primary">NFT</span>
+            <motion.div 
+              className="inline-flex items-center gap-2 badge-tech mb-6"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+            >
+              <Wallet className="w-4 h-4 text-primary" />
+              <span className="text-sm">NFT Marketplace</span>
+            </motion.div>
+            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold mb-4 tracking-tight">
+              Buy <span className="gradient-text-tech">NFT</span>
             </h1>
-            <p className="text-muted-foreground max-w-xl mx-auto">
+            <p className="text-muted-foreground max-w-xl mx-auto text-lg">
               Choose your NFT tier and start mining NXP tokens. Higher tiers earn more rewards.
             </p>
             {referrer !== '0x0000000000000000000000000000000000000000' && (
-              <div className="mt-4 inline-flex items-center gap-2 glass-card px-4 py-2 text-sm">
+              <motion.div 
+                className="mt-6 inline-flex items-center gap-2 glass-card px-5 py-3 text-sm neon-glow"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+              >
                 <CheckCircle className="w-4 h-4 text-primary" />
-                <span>Referrer: {referrer.slice(0, 6)}...{referrer.slice(-4)}</span>
-              </div>
+                <span className="text-foreground">Referrer: <span className="font-mono text-primary">{referrer.slice(0, 6)}...{referrer.slice(-4)}</span></span>
+              </motion.div>
             )}
           </motion.div>
 

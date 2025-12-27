@@ -331,9 +331,14 @@ const Staking = () => {
 
   return (
     <div className="min-h-screen bg-background particle-bg">
+      {/* Background effects */}
+      <div className="fixed inset-0 tech-grid-bg opacity-40 pointer-events-none" />
+      <div className="fixed top-1/3 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="fixed bottom-1/3 left-1/4 w-80 h-80 bg-accent/5 rounded-full blur-3xl pointer-events-none" />
+      
       <Navbar />
       
-      <main className="pt-20 sm:pt-24 pb-16">
+      <main className="pt-20 sm:pt-24 pb-16 relative z-10">
         <div className="container mx-auto px-3 sm:px-4">
           {/* Header */}
           <motion.div
@@ -341,8 +346,16 @@ const Staking = () => {
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-8 sm:mb-12"
           >
-            <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
-              <span className="gradient-text-emerald">Luxury Staking</span>
+            <motion.div 
+              className="inline-flex items-center gap-2 badge-tech mb-6"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+            >
+              <Zap className="w-4 h-4 text-primary" />
+              <span className="text-sm">Premium Staking</span>
+            </motion.div>
+            <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 tracking-tight">
+              <span className="gradient-text-tech">Luxury Staking</span>
             </h1>
             <p className="text-muted-foreground text-sm sm:text-base max-w-xl mx-auto px-4">
               Stake your NFTs, earn rewards, and sell your NXP tokens
