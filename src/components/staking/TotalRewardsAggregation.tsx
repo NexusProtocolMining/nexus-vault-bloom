@@ -1,69 +1,37 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { useReadContract } from 'wagmi';
 import { formatUnits } from 'viem';
 import { Sparkles, TrendingUp, Coins, Wallet, RefreshCw } from 'lucide-react';
-import { CONTRACTS } from '@/config/contracts';
-import { STAKING_ABI, NFT_MINER_ABI } from '@/config/abis';
+import type { StakedNFTData } from '@/hooks/useStakedNFTs';
 
 interface TotalRewardsAggregationProps {
-  tokenIds: bigint[] | undefined;
+  stakedNFTs: StakedNFTData[];
   nxpBalance: string;
-  nftRewardsMap: Map<string, { 
-    pendingReward: bigint; 
-    monthlyReward: bigint;
-    yearlyReward: bigint;
-    totalClaimed: bigint; 
-    isStaked: boolean 
-  }>;
+  lastUpdate: Date;
+  onRefresh: () => void;
+  isRefreshing: boolean;
 }
 
-export interface StakedNFTReward {
-  tokenId: bigint;
-  tier: number;
-  pendingReward: bigint;
-  monthlyReward: bigint;
-  yearlyReward: bigint;
-  totalClaimed: bigint;
-  isStaked: boolean;
-  unlockTime: bigint;
-  lastClaim: bigint;
-}
-
-export function TotalRewardsAggregation({ tokenIds, nxpBalance, nftRewardsMap }: TotalRewardsAggregationProps) {
-  const [isRefreshing, setIsRefreshing] = useState(false);
-  const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
-
-  // Aggregate rewards from the map
-  const totalPendingReward = Array.from(nftRewardsMap.values()).reduce((acc, nft) => {
-    if (nft.isStaked) {
-      return acc + nft.pendingReward;
-    }
-    return acc;
+export function TotalRewardsAggregation({ 
+  stakedNFTs, 
+  nxpBalance, 
+  lastUpdate, 
+  onRefresh, 
+  isRefreshing 
+}: TotalRewardsAggregationProps) {
+  // Aggregate rewards from staked NFTs
+  const totalPendingReward = stakedNFTs.reduce((acc, nft) => {
+    return acc + nft.pendingReward;
   }, BigInt(0));
 
-  const totalClaimedReward = Array.from(nftRewardsMap.values()).reduce((acc, nft) => {
+  const totalClaimedReward = stakedNFTs.reduce((acc, nft) => {
     return acc + nft.totalClaimed;
   }, BigInt(0));
 
-  const stakedCount = Array.from(nftRewardsMap.values()).filter(nft => nft.isStaked).length;
+  const stakedCount = stakedNFTs.length;
 
   const pendingFormatted = formatUnits(totalPendingReward, 18);
   const claimedFormatted = formatUnits(totalClaimedReward, 18);
-
-  const handleRefresh = () => {
-    setIsRefreshing(true);
-    setLastUpdate(new Date());
-    setTimeout(() => setIsRefreshing(false), 1000);
-  };
-
-  // Auto refresh every 15 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setLastUpdate(new Date());
-    }, 15000);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <motion.div
@@ -84,7 +52,7 @@ export function TotalRewardsAggregation({ tokenIds, nxpBalance, nftRewardsMap }:
               Total Staking Rewards
             </h2>
             <motion.button
-              onClick={handleRefresh}
+              onClick={onRefresh}
               className="p-2 rounded-lg bg-primary/10 hover:bg-primary/20 transition-colors"
               whileTap={{ scale: 0.95 }}
             >
@@ -153,70 +121,4 @@ export function TotalRewardsAggregation({ tokenIds, nxpBalance, nftRewardsMap }:
       </div>
     </motion.div>
   );
-}
-
-// Individual NFT reward fetcher component
-interface NFTRewardFetcherProps {
-  tokenId: bigint;
-  onDataLoaded: (data: StakedNFTReward) => void;
-}
-
-export function NFTRewardFetcher({ tokenId, onDataLoaded }: NFTRewardFetcherProps) {
-  const { data: tier } = useReadContract({
-    address: CONTRACTS.NFT_MINER,
-    abi: NFT_MINER_ABI,
-    functionName: 'tokenTier',
-    args: [tokenId],
-  });
-
-  const { data: stakeInfo } = useReadContract({
-    address: CONTRACTS.STAKING,
-    abi: STAKING_ABI,
-    functionName: 'getStakeCore',
-    args: [tokenId],
-  });
-
-  const { data: rewardData, refetch } = useReadContract({
-    address: CONTRACTS.STAKING,
-    abi: STAKING_ABI,
-    functionName: 'getStakeReward',
-    args: [tokenId],
-  });
-
-  useEffect(() => {
-    // stakeInfo returns: [staked, stakeOwner, startTime, lastClaim, unlockTime]
-    const stakeData = stakeInfo as [boolean, string, bigint, bigint, bigint] | undefined;
-    const isStaked = stakeData ? stakeData[0] : false;
-    const lastClaim = stakeData ? stakeData[3] : BigInt(0);
-    const unlockTime = stakeData ? stakeData[4] : BigInt(0);
-
-    // rewardData returns: [pending, monthly, year, claimed]
-    const rewards = rewardData as [bigint, bigint, bigint, bigint] | undefined;
-    const pending = rewards ? rewards[0] : BigInt(0);
-    const monthly = rewards ? rewards[1] : BigInt(0);
-    const yearly = rewards ? rewards[2] : BigInt(0);
-    const claimed = rewards ? rewards[3] : BigInt(0);
-
-    onDataLoaded({
-      tokenId,
-      tier: tier !== undefined ? Number(tier) : 0,
-      pendingReward: pending,
-      monthlyReward: monthly,
-      yearlyReward: yearly,
-      totalClaimed: claimed,
-      isStaked,
-      unlockTime,
-      lastClaim,
-    });
-  }, [tokenId, tier, stakeInfo, rewardData, onDataLoaded]);
-
-  // Auto-refresh every 15 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      refetch();
-    }, 15000);
-    return () => clearInterval(interval);
-  }, [refetch]);
-
-  return null;
 }
