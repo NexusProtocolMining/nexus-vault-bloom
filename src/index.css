@@ -6,104 +6,96 @@
 
 @layer base {
   :root {
-    /* Futuristic Carbon Black Theme with Emerald Green & Cyan Tech */
-    --background: 220 20% 4%;
-    --foreground: 180 10% 98%;
+    /* NEON MATRIX GREEN THEME - Ultra Dark with Bright Green */
+    --background: 120 10% 3%;
+    --foreground: 0 0% 98%;
 
-    --card: 220 25% 8%;
-    --card-foreground: 180 10% 98%;
+    --card: 120 15% 5%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 220 25% 8%;
-    --popover-foreground: 180 10% 98%;
+    --popover: 120 15% 5%;
+    --popover-foreground: 0 0% 98%;
 
-    /* Emerald Green Primary with Cyan accent */
-    --primary: 160 84% 45%;
-    --primary-foreground: 220 20% 4%;
+    /* NEON GREEN PRIMARY - #00FF41 inspired */
+    --primary: 135 100% 50%;
+    --primary-foreground: 120 10% 3%;
 
-    /* Dark secondary with subtle teal */
-    --secondary: 200 30% 12%;
-    --secondary-foreground: 180 10% 98%;
+    /* Dark green secondary */
+    --secondary: 120 20% 8%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 220 20% 15%;
-    --muted-foreground: 180 10% 55%;
+    --muted: 120 10% 12%;
+    --muted-foreground: 120 10% 55%;
 
-    /* Cyan accent for tech feel */
-    --accent: 175 80% 45%;
-    --accent-foreground: 220 20% 4%;
+    /* Bright green accent */
+    --accent: 135 100% 45%;
+    --accent-foreground: 120 10% 3%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 180 10% 98%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 175 40% 20%;
-    --input: 220 20% 18%;
-    --ring: 160 84% 45%;
+    --border: 135 50% 15%;
+    --input: 120 15% 10%;
+    --ring: 135 100% 50%;
 
-    --radius: 1rem;
+    --radius: 0.75rem;
 
-    /* Custom Nexus Tech colors */
-    --nexus-emerald: 160 84% 45%;
-    --nexus-emerald-glow: 160 100% 60%;
-    --nexus-emerald-dark: 160 70% 25%;
-    --nexus-cyan: 175 80% 50%;
-    --nexus-cyan-glow: 175 100% 65%;
+    /* NEXUS NEON Colors */
+    --nexus-neon: 135 100% 50%;
+    --nexus-neon-glow: 135 100% 60%;
+    --nexus-neon-dark: 135 80% 25%;
+    --nexus-matrix: 120 100% 40%;
     --nexus-gold: 45 93% 58%;
-    --nexus-gold-soft: 45 80% 70%;
-    --nexus-carbon: 220 20% 5%;
-    --nexus-carbon-light: 220 20% 12%;
-    --nexus-purple: 270 60% 55%;
-    --nexus-blue: 210 90% 55%;
+    --nexus-carbon: 120 10% 3%;
+    --nexus-carbon-light: 120 10% 8%;
 
-    /* Glass effects */
-    --glass-bg: 175 50% 50% / 0.05;
-    --glass-border: 160 50% 40% / 0.25;
-    --glass-shimmer: 175 100% 70% / 0.1;
+    /* Glass effects - green tint */
+    --glass-bg: 135 50% 50% / 0.03;
+    --glass-border: 135 100% 50% / 0.15;
+    --glass-shimmer: 135 100% 60% / 0.1;
 
-    /* 3D Premium Gradients */
-    --gradient-tech: linear-gradient(135deg, hsl(160 84% 45%), hsl(175 80% 50%), hsl(200 90% 55%));
-    --gradient-gold: linear-gradient(135deg, hsl(45 93% 58%), hsl(45 80% 70%));
-    --gradient-dark: linear-gradient(180deg, hsl(220 20% 8%), hsl(220 20% 3%));
-    --gradient-radial-glow: radial-gradient(ellipse at center, hsl(160 84% 45% / 0.2), transparent 70%);
-    --gradient-cyber: linear-gradient(135deg, hsl(270 60% 55%), hsl(175 80% 50%));
+    /* NEON Gradients */
+    --gradient-neon: linear-gradient(135deg, hsl(135 100% 50%), hsl(120 100% 40%));
+    --gradient-dark: linear-gradient(180deg, hsl(120 10% 5%), hsl(120 10% 2%));
+    --gradient-radial-glow: radial-gradient(ellipse at center, hsl(135 100% 50% / 0.25), transparent 60%);
 
-    /* 3D Shadows */
-    --shadow-emerald: 0 0 60px hsl(160 84% 45% / 0.5), 0 0 120px hsl(160 84% 45% / 0.2);
-    --shadow-emerald-lg: 0 0 100px hsl(160 84% 45% / 0.6), 0 0 200px hsl(160 84% 45% / 0.3);
-    --shadow-cyan: 0 0 40px hsl(175 80% 50% / 0.4);
-    --shadow-gold: 0 0 40px hsl(45 93% 58% / 0.4);
-    --shadow-3d: 0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 0 60px hsl(160 84% 45% / 0.15);
-    --shadow-3d-hover: 0 35px 70px -15px rgba(0, 0, 0, 0.7), 0 0 80px hsl(160 84% 45% / 0.25);
+    /* NEON Shadows - Strong glow */
+    --shadow-neon: 0 0 30px hsl(135 100% 50% / 0.6), 0 0 60px hsl(135 100% 50% / 0.3), 0 0 100px hsl(135 100% 50% / 0.15);
+    --shadow-neon-lg: 0 0 50px hsl(135 100% 50% / 0.7), 0 0 100px hsl(135 100% 50% / 0.4), 0 0 150px hsl(135 100% 50% / 0.2);
+    --shadow-neon-text: 0 0 10px hsl(135 100% 50% / 0.8), 0 0 20px hsl(135 100% 50% / 0.5), 0 0 40px hsl(135 100% 50% / 0.3);
+    --shadow-3d: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 40px hsl(135 100% 50% / 0.1);
 
     /* Sidebar */
-    --sidebar-background: 220 20% 6%;
-    --sidebar-foreground: 180 10% 98%;
-    --sidebar-primary: 160 84% 45%;
-    --sidebar-primary-foreground: 220 20% 4%;
-    --sidebar-accent: 220 20% 12%;
-    --sidebar-accent-foreground: 180 10% 98%;
-    --sidebar-border: 175 40% 20%;
-    --sidebar-ring: 160 84% 45%;
+    --sidebar-background: 120 10% 4%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 135 100% 50%;
+    --sidebar-primary-foreground: 120 10% 3%;
+    --sidebar-accent: 120 15% 8%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 135 50% 15%;
+    --sidebar-ring: 135 100% 50%;
   }
 
   .dark {
-    --background: 220 20% 4%;
-    --foreground: 180 10% 98%;
-    --card: 220 25% 8%;
-    --card-foreground: 180 10% 98%;
-    --popover: 220 25% 8%;
-    --popover-foreground: 180 10% 98%;
-    --primary: 160 84% 45%;
-    --primary-foreground: 220 20% 4%;
-    --secondary: 200 30% 12%;
-    --secondary-foreground: 180 10% 98%;
-    --muted: 220 20% 15%;
-    --muted-foreground: 180 10% 55%;
-    --accent: 175 80% 45%;
-    --accent-foreground: 220 20% 4%;
+    --background: 120 10% 3%;
+    --foreground: 0 0% 98%;
+    --card: 120 15% 5%;
+    --card-foreground: 0 0% 98%;
+    --popover: 120 15% 5%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 135 100% 50%;
+    --primary-foreground: 120 10% 3%;
+    --secondary: 120 20% 8%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 120 10% 12%;
+    --muted-foreground: 120 10% 55%;
+    --accent: 135 100% 45%;
+    --accent-foreground: 120 10% 3%;
     --destructive: 0 62% 30%;
-    --destructive-foreground: 180 10% 98%;
-    --border: 175 40% 20%;
-    --input: 220 20% 18%;
-    --ring: 160 84% 45%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 135 50% 15%;
+    --input: 120 15% 10%;
+    --ring: 135 100% 50%;
   }
 }
 
@@ -116,10 +108,16 @@
     @apply bg-background text-foreground antialiased;
     font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
     font-weight: 400;
+    background: hsl(120 10% 3%);
   }
 
-  /* Space Grotesk for ALL headings - institutional, not gaming */
-  h1, h2, h3, h4, h5, h6 {
+  /* Orbitron for HERO headings - Futuristic Matrix style */
+  h1 {
+    font-family: 'Orbitron', 'Space Grotesk', system-ui, sans-serif;
+    letter-spacing: 0.08em;
+  }
+  
+  h2, h3, h4, h5, h6 {
     font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
     letter-spacing: 0.04em;
   }
@@ -129,53 +127,74 @@
   }
 }
 
-/* ==================== NEXUS TYPOGRAPHY SYSTEM ==================== */
+/* ==================== NEON MATRIX TYPOGRAPHY ==================== */
 @layer components {
-  /* HERO / MAIN HEADLINE - Weight 800 */
+  /* HERO / MAIN HEADLINE - Orbitron with STRONG neon glow */
   .nexus-title {
-    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
-    @apply font-extrabold tracking-wide text-white;
+    font-family: 'Orbitron', 'Space Grotesk', system-ui, sans-serif;
+    @apply font-extrabold tracking-widest text-primary uppercase;
     text-shadow: 
-      0 0 20px rgba(34, 197, 94, 0.35),
-      0 0 40px rgba(34, 197, 94, 0.15);
+      0 0 10px hsl(135 100% 50% / 0.9),
+      0 0 20px hsl(135 100% 50% / 0.7),
+      0 0 40px hsl(135 100% 50% / 0.5),
+      0 0 80px hsl(135 100% 50% / 0.3);
   }
 
-  /* SECTION TITLE - Weight 700 */
+  /* SECTION TITLE - Orbitron with glow */
   .nexus-section-title {
-    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
-    @apply font-bold tracking-wide text-white;
+    font-family: 'Orbitron', 'Space Grotesk', system-ui, sans-serif;
+    @apply font-bold tracking-wider text-white uppercase;
     text-shadow: 
-      0 0 15px rgba(34, 197, 94, 0.25),
-      0 0 30px rgba(34, 197, 94, 0.1);
+      0 0 10px hsl(135 100% 50% / 0.5),
+      0 0 20px hsl(135 100% 50% / 0.3);
   }
 
-  /* HIGHLIGHT WORD - Emerald only */
+  /* HIGHLIGHT WORD - Bright Neon Green */
   .nexus-highlight {
-    color: #22c55e;
-    text-shadow: 0 0 25px rgba(34, 197, 94, 0.5);
+    color: hsl(135 100% 50%);
+    text-shadow: 
+      0 0 10px hsl(135 100% 50% / 0.9),
+      0 0 20px hsl(135 100% 50% / 0.7),
+      0 0 40px hsl(135 100% 50% / 0.5),
+      0 0 80px hsl(135 100% 50% / 0.3);
+  }
+
+  /* NEON HEADLINE - For hero text like reference */
+  .neon-headline {
+    font-family: 'Orbitron', 'Space Grotesk', system-ui, sans-serif;
+    @apply font-black tracking-widest uppercase;
+    color: hsl(135 100% 50%);
+    text-shadow: 
+      0 0 5px hsl(135 100% 50%),
+      0 0 10px hsl(135 100% 50%),
+      0 0 20px hsl(135 100% 50%),
+      0 0 40px hsl(135 100% 50% / 0.8),
+      0 0 80px hsl(135 100% 50% / 0.6),
+      0 0 120px hsl(135 100% 50% / 0.4);
   }
 
   /* SUBTITLE - Weight 500 */
   .nexus-subtitle {
     font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
-    @apply font-medium text-white/75 tracking-wider;
+    @apply font-medium text-white/80 tracking-widest uppercase;
+    text-shadow: 0 0 10px hsl(135 100% 50% / 0.3);
   }
 
   /* BODY TEXT - Weight 400 */
   .nexus-body {
     font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
-    @apply font-normal text-white/65 leading-relaxed;
+    @apply font-normal text-white/70 leading-relaxed;
   }
 
   /* CTA TEXT - Weight 700, Uppercase */
   .nexus-cta {
-    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+    font-family: 'Orbitron', 'Space Grotesk', system-ui, sans-serif;
     @apply font-bold uppercase tracking-widest;
   }
 
   /* MUTED TEXT */
   .nexus-muted {
-    @apply text-white/60;
+    @apply text-white/50;
   }
 
   /* CARD TITLE - Weight 600 */
@@ -184,42 +203,61 @@
     @apply font-semibold text-white tracking-wide;
   }
 
-  /* NUMBER/METRIC DISPLAY */
+  /* NUMBER/METRIC DISPLAY - Neon glow */
   .nexus-metric {
-    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
-    @apply font-bold text-white;
-    text-shadow: 0 0 15px rgba(34, 197, 94, 0.3);
+    font-family: 'Orbitron', 'Space Grotesk', system-ui, sans-serif;
+    @apply font-bold text-primary;
+    text-shadow: 
+      0 0 10px hsl(135 100% 50% / 0.8),
+      0 0 20px hsl(135 100% 50% / 0.5);
   }
 
   /* LABEL TEXT */
   .nexus-label {
     font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
-    @apply font-medium text-white/60 tracking-wider uppercase text-xs;
+    @apply font-medium text-white/50 tracking-widest uppercase text-xs;
+  }
+
+  /* NAV LINK - Like reference with underline */
+  .nav-link-neon {
+    font-family: 'Orbitron', 'Space Grotesk', system-ui, sans-serif;
+    @apply font-medium tracking-widest uppercase text-sm text-white/80 transition-all duration-300;
+  }
+  
+  .nav-link-neon:hover,
+  .nav-link-neon.active {
+    color: hsl(135 100% 50%);
+    text-shadow: 0 0 10px hsl(135 100% 50% / 0.5);
+  }
+  
+  .nav-link-neon.active {
+    text-decoration: underline;
+    text-underline-offset: 8px;
+    text-decoration-color: hsl(135 100% 50%);
+    text-decoration-thickness: 2px;
   }
 }
 
 @layer components {
-  /* ==================== 3D PREMIUM GLASS SYSTEM ==================== */
+  /* ==================== NEON GLASS SYSTEM ==================== */
   
-  /* Enhanced Glass Card with Depth */
+  /* Enhanced Glass Card with Neon Border */
   .glass-card {
     @apply relative overflow-hidden;
     background: linear-gradient(
       165deg,
-      hsl(220 25% 12% / 0.9) 0%,
-      hsl(220 25% 8% / 0.85) 30%,
-      hsl(220 25% 6% / 0.9) 100%
+      hsl(120 15% 8% / 0.95) 0%,
+      hsl(120 15% 5% / 0.9) 50%,
+      hsl(120 10% 3% / 0.95) 100%
     );
-    backdrop-filter: blur(24px) saturate(150%);
-    border: 1px solid hsl(160 84% 45% / 0.12);
+    backdrop-filter: blur(20px);
+    border: 1px solid hsl(135 100% 50% / 0.15);
     border-radius: var(--radius);
     box-shadow: 
-      0 30px 60px -15px rgba(0, 0, 0, 0.6),
-      0 0 0 1px hsl(160 84% 45% / 0.04),
-      inset 0 1px 0 hsl(180 10% 98% / 0.06),
-      inset 0 -1px 0 hsl(0 0% 0% / 0.3);
+      0 20px 50px -15px rgba(0, 0, 0, 0.7),
+      0 0 0 1px hsl(135 100% 50% / 0.05),
+      inset 0 1px 0 hsl(135 100% 50% / 0.05);
     transform: translateZ(0);
-    will-change: transform;
   }
 
   .glass-card::before {
@@ -231,9 +269,9 @@
     height: 1px;
     background: linear-gradient(90deg, 
       transparent 0%, 
-      hsl(160 84% 45% / 0.5) 20%, 
-      hsl(175 80% 50% / 0.4) 50%, 
-      hsl(160 84% 45% / 0.5) 80%, 
+      hsl(135 100% 50% / 0.5) 20%, 
+      hsl(135 100% 50% / 0.8) 50%, 
+      hsl(135 100% 50% / 0.5) 80%, 
       transparent 100%
     );
   }
@@ -248,28 +286,28 @@
     background: linear-gradient(
       90deg, 
       transparent 0%, 
-      hsl(175 100% 70% / 0.04) 50%, 
+      hsl(135 100% 50% / 0.03) 50%, 
       transparent 100%
     );
-    animation: shimmer 6s ease-in-out infinite;
+    animation: shimmer 8s ease-in-out infinite;
     pointer-events: none;
   }
 
-  /* Premium 3D Card with Z-axis hover */
+  /* Premium 3D Card with Neon Glow */
   .card-3d {
     @apply glass-card;
     transform: perspective(1200px) rotateX(0deg) rotateY(0deg) translateZ(0);
-    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
     transform-style: preserve-3d;
   }
 
   .card-3d:hover {
-    transform: perspective(1200px) rotateX(4deg) rotateY(-2deg) translateY(-12px) translateZ(30px);
+    transform: perspective(1200px) rotateX(3deg) rotateY(-2deg) translateY(-10px) translateZ(20px);
     box-shadow: 
-      0 50px 80px -20px rgba(0, 0, 0, 0.7),
-      0 0 100px hsl(160 84% 45% / 0.2),
-      inset 0 1px 0 hsl(180 10% 98% / 0.1);
-    border-color: hsl(160 84% 45% / 0.3);
+      0 40px 70px -20px rgba(0, 0, 0, 0.8),
+      0 0 60px hsl(135 100% 50% / 0.2),
+      0 0 100px hsl(135 100% 50% / 0.1);
+    border-color: hsl(135 100% 50% / 0.3);
   }
 
   /* Floating 3D Card for NFTs */
