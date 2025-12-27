@@ -6,26 +6,26 @@ import nftnomicNexus from '@/assets/nftnomic.jpeg';
 const features = [
   {
     icon: Leaf,
-    title: 'Sustainable Mining',
-    description: 'NFT-based mining that supports environmental sustainability through carbon credit integration.',
+    title: 'Green Mining',
+    description: 'NFT-based mining backed by real environmental activities including tree planting and carbon credits.',
     color: 'primary',
   },
   {
     icon: Shield,
-    title: 'Secure Staking',
-    description: 'Lock your NFTs and earn NXP rewards with our audited smart contract system on BSC.',
+    title: 'Transparent & Immutable',
+    description: 'All environmental data recorded on-chain, ensuring trust and verifiability for every contribution.',
     color: 'secondary',
   },
   {
     icon: Coins,
     title: 'Token Rewards',
-    description: 'Earn NXP tokens monthly from your staked NFTs with transparent on-chain reward distribution.',
+    description: 'Earn NXP tokens from your NFTs with reward mechanisms backed by real environmental activity.',
     color: 'accent',
   },
   {
     icon: Globe,
-    title: 'Global Ecosystem',
-    description: 'Join a worldwide community building a greener future through blockchain technology.',
+    title: 'Real-World Impact',
+    description: 'Connect blockchain innovation with tangible environmental projects including reforestation and renewable energy.',
     color: 'primary',
   },
 ];
@@ -33,17 +33,17 @@ const features = [
 const aboutContent = [
   {
     title: 'The Vision',
-    text: 'Nexus Protocol emerges as a revolutionary bridge between blockchain technology and environmental sustainability. We believe that the future of finance must be green, transparent, and accessible to all.',
+    text: 'To position blockchain as a tool for global environmental restoration, not merely financial speculation. Nexus envisions a future where technology and nature grow together.',
     color: 'primary',
   },
   {
-    title: 'The Mission',
-    text: 'Our mission is to create a decentralized ecosystem where digital assets contribute to real-world environmental impact. Through NFT mining and carbon credit tokenization, we are pioneering a new era of sustainable blockchain solutions.',
+    title: 'The Problem',
+    text: 'Traditional environmental and carbon credit systems face major challenges: lack of transparency, centralized inefficient processes, and limited value distribution. Many blockchain projects remain speculative with no real-world impact.',
     color: 'secondary',
   },
   {
-    title: 'The Technology',
-    text: 'Built on Binance Smart Chain, Nexus Protocol leverages smart contracts to ensure trustless, transparent, and efficient operations. Every transaction, every reward, every stake is recorded immutably on-chain.',
+    title: 'The Solution',
+    text: 'Nexus Protocol introduces a blockchain-based framework that records environmental data immutably on-chain, tokenizes real-world green assets (RWA), and creates a circular green economy with sustainable incentives.',
     color: 'accent',
   },
 ];
@@ -70,7 +70,7 @@ export function AboutSection() {
             ABOUT NEXUS
           </h2>
           <p className="cyber-body max-w-2xl mx-auto">
-            Pioneering the intersection of blockchain technology and environmental sustainability
+            A green blockchain ecosystem connecting real-world environmental assets into verifiable on-chain digital assets
           </p>
         </motion.div>
 

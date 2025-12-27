@@ -8,7 +8,7 @@ import logoNexus from '@/assets/logo-nexus.jpeg';
 const navLinks = [
   { name: 'HOME', path: '/' },
   { name: 'BUY NFT', path: '/buy' },
-  { name: 'STAKING', path: '/staking' },
+  { name: 'MINING', path: '/staking' },
   { name: 'DASHBOARD', path: '/dashboard' },
 ];
 

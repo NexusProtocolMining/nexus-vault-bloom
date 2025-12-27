@@ -220,7 +220,7 @@ export function HeroSection() {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="neon-subtitle text-lg sm:text-xl mb-6"
           >
-            ONE NEXUS. ONE TREE. ONE FUTURE.
+            ONE NEXUS. ONE TREE.
           </motion.p>
 
           {/* Hero Headline - NEON GREEN Style with 3D depth */}
@@ -260,7 +260,7 @@ export function HeroSection() {
             transition={{ delay: 0.7, duration: 0.8 }}
             className="matrix-body text-lg sm:text-xl mb-14 max-w-3xl mx-auto leading-relaxed"
           >
-            Stake NFT. Earn Rewards. Build the Future of Decentralized Finance.
+            A Green Blockchain Ecosystem for Real-World Impact
           </motion.p>
 
           {/* CTAs with hover 3D effect */}
@@ -303,7 +303,7 @@ export function HeroSection() {
                 >
                   <Zap className="w-5 h-5" />
                 </motion.div>
-                STAKING
+                GREEN MINING
               </motion.button>
             </Link>
 
@@ -333,7 +333,7 @@ export function HeroSection() {
           >
             <div className="grid grid-cols-3 gap-4 sm:gap-8 max-w-2xl mx-auto">
               {[
-                { label: 'TOTAL SUPPLY', value: '210M', icon: Zap },
+                { label: 'FIXED SUPPLY', value: '210M', icon: Zap },
                 { label: 'NFT TIERS', value: '3', icon: Shield },
                 { label: 'NETWORK', value: 'BSC', icon: Leaf },
               ].map((stat, i) => (

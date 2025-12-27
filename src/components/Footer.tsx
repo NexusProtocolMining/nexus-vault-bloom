@@ -8,7 +8,7 @@ export function Footer() {
   const contractLinks = [
     { name: 'NFT Sale', address: CONTRACTS.NFT_SALE },
     { name: 'NFT Miner', address: CONTRACTS.NFT_MINER },
-    { name: 'Staking', address: CONTRACTS.STAKING },
+    { name: 'Mining', address: CONTRACTS.STAKING },
     { name: 'NXP Token', address: CONTRACTS.NXP },
   ];
 
@@ -38,11 +38,11 @@ export function Footer() {
                 <span className="neon-title text-xl block">
                   NEXUS
                 </span>
-                <span className="neon-label">Blockchain Ecosystem</span>
+                <span className="neon-label">Green Blockchain</span>
               </div>
             </Link>
             <p className="matrix-body text-sm mb-6">
-              One Nexus, One Tree. A Green Blockchain for a Sustainable Future powered by SocialFi.
+              One Nexus, One Tree. A Green Blockchain Ecosystem for Real-World Impact.
             </p>
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-primary/15 flex items-center justify-center border border-primary/40 hover:bg-primary/25 transition-colors hover:shadow-neon">
@@ -67,7 +67,7 @@ export function Footer() {
               {[
                 { path: '/', name: 'Home' },
                 { path: '/buy', name: 'Buy NFT' },
-                { path: '/staking', name: 'Staking' },
+                { path: '/staking', name: 'Mining' },
                 { path: '/pool', name: 'Sell NXP' },
                 { path: '/dashboard', name: 'Dashboard' },
               ].map((link) => (
@@ -119,7 +119,7 @@ export function Footer() {
             © 2024 Nexus Protocol. Built on BSC.
           </p>
           <p className="matrix-muted text-xs text-center sm:text-right max-w-lg opacity-60">
-            This website uses real on-chain data only. All balances, rewards, and staking information are read directly from smart contracts.
+            This website uses real on-chain data only. All balances, rewards, and mining information are read directly from smart contracts.
           </p>
         </div>
       </div>

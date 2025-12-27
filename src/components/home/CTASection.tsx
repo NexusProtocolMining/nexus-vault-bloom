@@ -14,7 +14,7 @@ export function CTASection() {
       <div className="absolute inset-0 z-0">
         <img
           src={nexusStaking}
-          alt="Staking Background"
+          alt="Mining Background"
           className="w-full h-full object-cover opacity-20"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
@@ -66,8 +66,8 @@ export function CTASection() {
           </h3>
 
           <p className="cyber-body text-lg mb-10 max-w-xl mx-auto">
-            Join thousands of holders building a sustainable blockchain ecosystem. 
-            Every NFT staked contributes to a greener tomorrow.
+            Join the green blockchain ecosystem where every transaction creates positive environmental impact. 
+            Technology and nature growing together.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -78,7 +78,7 @@ export function CTASection() {
                 whileTap={{ scale: 0.98 }}
               >
                 <Zap className="w-5 h-5" />
-                Start Mining
+                Buy NFT
                 <ArrowRight className="w-5 h-5" />
               </motion.button>
             </Link>
@@ -89,7 +89,7 @@ export function CTASection() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
               >
-                Stake Now
+                Start Mining
               </motion.button>
             </Link>
           </div>
