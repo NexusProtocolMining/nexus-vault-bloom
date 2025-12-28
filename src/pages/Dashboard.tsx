@@ -6,7 +6,7 @@ import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { 
   Wallet, Copy, Users, Coins, TrendingUp, Package, CheckCircle, 
-  Zap, Calendar, Gift, Link2, UserPlus, Award, BarChart3
+  Zap, Gift, Link2, UserPlus, Award, BarChart3
 } from 'lucide-react';
 import { CONTRACTS } from '@/config/contracts';
 import { NFT_SALE_ABI, NFT_MINER_ABI, ERC20_ABI, STAKING_ABI } from '@/config/abis';
@@ -16,80 +16,25 @@ import treeNFT from '@/assets/tree-nft.png';
 import diamondNFT from '@/assets/diamond-nft.png';
 import carbonNFT from '@/assets/carbon-nft.png';
 
-const tierImages: Record<number, string> = {
-  0: treeNFT,
-  1: diamondNFT,
-  2: carbonNFT,
-};
-
-const tierNames: Record<number, string> = {
-  0: 'TREE',
-  1: 'DIAMOND',
-  2: 'CARBON',
-};
+const tierImages: Record<number, string> = { 0: treeNFT, 1: diamondNFT, 2: carbonNFT };
+const tierNames: Record<number, string> = { 0: 'TREE', 1: 'DIAMOND', 2: 'CARBON' };
 
 const Dashboard = () => {
   const { address, isConnected } = useAccount();
   const [copied, setCopied] = useState(false);
 
-  // Generate referral link (on-chain referral)
-  const referralLink = address 
-    ? `${window.location.origin}/buy?ref=${address}` 
-    : '';
+  const referralLink = address ? `${window.location.origin}/buy?ref=${address}` : '';
 
-  // Read referrer
-  const { data: referrer } = useReadContract({
-    address: CONTRACTS.NFT_SALE,
-    abi: NFT_SALE_ABI,
-    functionName: 'referrer',
-    args: address ? [address] : undefined,
-    query: { enabled: !!address },
-  });
+  const { data: referrer } = useReadContract({ address: CONTRACTS.NFT_SALE, abi: NFT_SALE_ABI, functionName: 'referrer', args: address ? [address] : undefined, query: { enabled: !!address } });
+  const { data: referralCount } = useReadContract({ address: CONTRACTS.NFT_SALE, abi: NFT_SALE_ABI, functionName: 'referralCount', args: address ? [address] : undefined, query: { enabled: !!address } });
+  const { data: totalReferralEarnings } = useReadContract({ address: CONTRACTS.NFT_SALE, abi: NFT_SALE_ABI, functionName: 'totalReferralEarnings', args: address ? [address] : undefined, query: { enabled: !!address } });
+  const { data: tokenIds } = useReadContract({ address: CONTRACTS.NFT_MINER, abi: NFT_MINER_ABI, functionName: 'tokensOfOwner', args: address ? [address] : undefined, query: { enabled: !!address } });
+  const { data: nxpBalance } = useReadContract({ address: CONTRACTS.NXP, abi: ERC20_ABI, functionName: 'balanceOf', args: address ? [address] : undefined, query: { enabled: !!address } });
 
-  // Read referral count (number of referred users)
-  const { data: referralCount } = useReadContract({
-    address: CONTRACTS.NFT_SALE,
-    abi: NFT_SALE_ABI,
-    functionName: 'referralCount',
-    args: address ? [address] : undefined,
-    query: { enabled: !!address },
-  });
-
-  // Read total referral earnings
-  const { data: totalReferralEarnings } = useReadContract({
-    address: CONTRACTS.NFT_SALE,
-    abi: NFT_SALE_ABI,
-    functionName: 'totalReferralEarnings',
-    args: address ? [address] : undefined,
-    query: { enabled: !!address },
-  });
-
-  // Read owned NFTs
-  const { data: tokenIds } = useReadContract({
-    address: CONTRACTS.NFT_MINER,
-    abi: NFT_MINER_ABI,
-    functionName: 'tokensOfOwner',
-    args: address ? [address] : undefined,
-    query: { enabled: !!address },
-  });
-
-  // Read NXP balance
-  const { data: nxpBalance } = useReadContract({
-    address: CONTRACTS.NXP,
-    abi: ERC20_ABI,
-    functionName: 'balanceOf',
-    args: address ? [address] : undefined,
-    query: { enabled: !!address },
-  });
-
-  // Copy referral link
   const copyReferralLink = () => {
     navigator.clipboard.writeText(referralLink);
     setCopied(true);
-    toast({
-      title: 'Link Copied!',
-      description: 'Referral link copied to clipboard',
-    });
+    toast({ title: 'Link Copied!', description: 'Referral link copied to clipboard' });
     setTimeout(() => setCopied(false), 2000);
   };
 
@@ -100,301 +45,136 @@ const Dashboard = () => {
   const referralEarningsFormatted = totalReferralEarnings ? formatUnits(totalReferralEarnings as bigint, 18) : '0';
 
   return (
-    <div className="min-h-screen bg-background particle-bg">
-      {/* Background effects */}
+    <div className="min-h-screen bg-background">
       <div className="fixed inset-0 tech-grid-bg opacity-40 pointer-events-none" />
-      <div className="fixed top-1/4 left-1/3 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="fixed bottom-1/4 right-1/3 w-80 h-80 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="fixed top-1/4 left-1/3 w-96 h-96 bg-primary/8 rounded-full blur-3xl pointer-events-none" />
+      <div className="fixed bottom-1/4 right-1/3 w-80 h-80 bg-primary/6 rounded-full blur-3xl pointer-events-none" />
       
       <Navbar />
       
-      <main className="pt-20 sm:pt-24 pb-16 relative z-10">
-        <div className="container mx-auto px-3 sm:px-4">
+      <main className="pt-28 pb-20 relative z-10">
+        <div className="container mx-auto px-4">
           {/* Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            className="text-center mb-8 sm:mb-12"
-          >
-            <motion.div 
-              className="inline-flex items-center gap-2 badge-tech mb-6"
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6 }}
-            >
-              <BarChart3 className="w-4 h-4 text-primary" />
-              <span className="nexus-label">ANALYTICS DASHBOARD</span>
-            </motion.div>
-            <h1 className="neon-headline text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-3 sm:mb-4">
-              DASHBOARD
-            </h1>
-            <p className="nexus-body text-sm sm:text-base max-w-xl mx-auto px-4">
-              Track your NFTs, earnings, and referral performance
-            </p>
+          <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-center mb-12">
+            <div className="badge-tech mb-6">
+              <BarChart3 className="w-4 h-4" />
+              <span>MINING DASHBOARD</span>
+            </div>
+            <h1 className="neon-headline text-5xl sm:text-6xl md:text-7xl mb-4">DASHBOARD</h1>
+            <p className="neon-body max-w-xl mx-auto text-lg">Track your NFT mining performance in realtime</p>
           </motion.div>
 
-          {/* Connect Wallet Message */}
           {!isConnected && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="max-w-md mx-auto glass-card p-6 sm:p-8 text-center neon-glow"
-            >
-              <Wallet className="w-12 h-12 sm:w-16 sm:h-16 text-primary mx-auto mb-4" />
-              <h2 className="nexus-card-title text-lg sm:text-xl mb-2">Connect Wallet</h2>
-              <p className="nexus-muted text-sm">
-                Please connect your wallet to view your dashboard.
-              </p>
+            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="max-w-md mx-auto glass-card p-10 text-center neon-glow">
+              <Wallet className="w-16 h-16 text-primary mx-auto mb-5" />
+              <h2 className="neon-card-title text-2xl mb-3">Connect Wallet</h2>
+              <p className="neon-muted">Please connect your wallet to view your dashboard.</p>
             </motion.div>
           )}
 
           {isConnected && (
-            <div className="space-y-6 sm:space-y-8">
-              {/* Referral Link Card - Full Width */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                className="glass-card p-4 sm:p-6 neon-glow"
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary/20 flex items-center justify-center flex-shrink-0 border border-primary/30">
-                    <Link2 className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
+            <div className="space-y-8">
+              {/* Referral Link Card */}
+              <motion.div initial={{ opacity: 0, y: 25 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="hero-card p-6 sm:p-8">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-14 h-14 rounded-xl bg-primary/20 flex items-center justify-center border border-primary/40" style={{ boxShadow: '0 0 30px hsl(120 100% 50% / 0.3)' }}>
+                    <Link2 className="w-7 h-7 text-primary" />
                   </div>
-                  <div className="min-w-0">
-                    <h2 className="nexus-card-title text-lg sm:text-xl">Your Referral Link</h2>
-                    <p className="nexus-muted text-xs sm:text-sm">Auto-generated on-chain referral</p>
+                  <div>
+                    <h2 className="neon-card-title text-xl">Referral Link</h2>
+                    <p className="neon-muted text-sm">Auto-generated on-chain referral</p>
                   </div>
                 </div>
-                <div className="flex flex-col gap-3">
-                  <input
-                    type="text"
-                    value={referralLink}
-                    readOnly
-                    className="w-full bg-background/50 border border-primary/30 rounded-lg px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm font-mono text-primary/80 focus:outline-none truncate"
-                  />
-                  <motion.button
-                    onClick={copyReferralLink}
-                    className="btn-primary-glow flex items-center justify-center gap-2 w-full sm:w-auto"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    {copied ? (
-                      <>
-                        <CheckCircle className="w-4 h-4" />
-                        Copied!
-                      </>
-                    ) : (
-                      <>
-                        <Copy className="w-4 h-4" />
-                        Copy Link
-                      </>
-                    )}
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <input type="text" value={referralLink} readOnly className="flex-1 bg-background/60 border border-primary/40 rounded-xl px-5 py-4 text-sm font-mono text-primary/80 focus:outline-none truncate" />
+                  <motion.button onClick={copyReferralLink} className="btn-primary-glow flex items-center justify-center gap-2 px-8" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                    {copied ? <><CheckCircle className="w-4 h-4" />Copied!</> : <><Copy className="w-4 h-4" />Copy Link</>}
                   </motion.button>
                 </div>
-                <p className="nexus-muted text-xs mt-3">
-                  Share this link. When friends buy NFTs using your link, you earn referral rewards on-chain.
-                </p>
+                <p className="neon-muted text-xs mt-4">Share this link. When friends buy NFTs, you earn referral rewards on-chain.</p>
               </motion.div>
 
-              {/* Referral Analytics Section */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.15 }}
-                className="glass-card p-4 sm:p-6"
-              >
-                <h2 className="nexus-card-title text-lg sm:text-xl mb-4 sm:mb-6 flex items-center gap-2">
-                  <BarChart3 className="w-5 h-5 text-primary" />
-                  Referral Analytics
+              {/* Referral Analytics */}
+              <motion.div initial={{ opacity: 0, y: 25 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="glass-card p-6 sm:p-8">
+                <h2 className="neon-card-title text-xl mb-6 flex items-center gap-3">
+                  <BarChart3 className="w-6 h-6 text-primary" />Referral Analytics
                 </h2>
-                <div className="grid grid-cols-2 gap-3 sm:gap-4">
-                  {/* Referred Users */}
-                  <div className="bg-background/50 border border-primary/20 rounded-xl p-4 sm:p-6 text-center">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-3 sm:mb-4 border border-primary/30">
-                      <UserPlus className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
+                <div className="grid grid-cols-2 gap-6">
+                  <div className="stats-card p-6 text-center">
+                    <div className="w-14 h-14 rounded-xl bg-primary/15 flex items-center justify-center mx-auto mb-4 border border-primary/30" style={{ boxShadow: '0 0 25px hsl(120 100% 50% / 0.2)' }}>
+                      <UserPlus className="w-7 h-7 text-primary" />
                     </div>
-                    <p className="nexus-label mb-1 sm:mb-2">Referred Users</p>
-                    <motion.p 
-                      key={referralCountNum}
-                      initial={{ scale: 0.9 }}
-                      animate={{ scale: 1 }}
-                      className="nexus-metric text-2xl sm:text-3xl"
-                    >
-                      {referralCountNum}
-                    </motion.p>
-                    <p className="nexus-muted text-[10px] sm:text-xs mt-1">Total Referrals</p>
+                    <p className="neon-label mb-2">Referred Users</p>
+                    <motion.p key={referralCountNum} initial={{ scale: 0.9 }} animate={{ scale: 1 }} className="neon-metric text-4xl">{referralCountNum}</motion.p>
+                    <p className="neon-muted text-xs mt-1">Total Referrals</p>
                   </div>
-
-                  {/* Total Referral Earnings */}
-                  <div className="bg-background/50 border border-primary/20 rounded-xl p-4 sm:p-6 text-center">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-3 sm:mb-4 border border-primary/30">
-                      <Award className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
+                  <div className="stats-card p-6 text-center">
+                    <div className="w-14 h-14 rounded-xl bg-primary/15 flex items-center justify-center mx-auto mb-4 border border-primary/30" style={{ boxShadow: '0 0 25px hsl(120 100% 50% / 0.2)' }}>
+                      <Award className="w-7 h-7 text-primary" />
                     </div>
-                    <p className="nexus-label mb-1 sm:mb-2">Referral Earnings</p>
-                    <motion.p 
-                      key={referralEarningsFormatted}
-                      initial={{ scale: 0.9 }}
-                      animate={{ scale: 1 }}
-                      className="nexus-metric text-xl sm:text-3xl"
-                    >
-                      {Number(referralEarningsFormatted).toLocaleString(undefined, { maximumFractionDigits: 2 })}
-                    </motion.p>
-                    <p className="nexus-muted text-[10px] sm:text-xs mt-1">USDT Earned</p>
+                    <p className="neon-label mb-2">Referral Earnings</p>
+                    <motion.p key={referralEarningsFormatted} initial={{ scale: 0.9 }} animate={{ scale: 1 }} className="neon-metric text-3xl">{Number(referralEarningsFormatted).toLocaleString(undefined, { maximumFractionDigits: 2 })}</motion.p>
+                    <p className="neon-muted text-xs mt-1">USDT Earned</p>
                   </div>
                 </div>
-                <p className="nexus-muted text-xs text-center mt-4">
-                  Data read directly from smart contract
-                </p>
               </motion.div>
 
               {/* Stats Grid */}
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-                {/* NXP Balance */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                  className="glass-card p-4 sm:p-6"
-                >
-                  <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0 border border-primary/30">
-                      <Coins className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
+                {[
+                  { icon: Coins, label: 'NXP Balance', value: Number(nxpFormatted).toLocaleString(undefined, { maximumFractionDigits: 2 }), sub: 'Total NXP' },
+                  { icon: Package, label: 'NFTs Owned', value: nftCount, sub: 'Total Collection' },
+                  { icon: Users, label: 'Your Referrer', value: hasReferrer ? `${(referrer as string).slice(0, 6)}...${(referrer as string).slice(-4)}` : 'None', sub: 'Upline Address', isMono: true },
+                  { icon: TrendingUp, label: 'Network', value: 'BSC', sub: 'Binance Smart Chain' },
+                ].map((stat, i) => (
+                  <motion.div key={i} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 + i * 0.1 }} className="card-3d p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-12 h-12 rounded-xl bg-primary/15 flex items-center justify-center border border-primary/30">
+                        <stat.icon className="w-6 h-6 text-primary" />
+                      </div>
+                      <span className="neon-label">{stat.label}</span>
                     </div>
-                    <span className="nexus-label">NXP Balance</span>
-                  </div>
-                  <motion.p 
-                    key={nxpFormatted}
-                    initial={{ scale: 0.9 }}
-                    animate={{ scale: 1 }}
-                    className="nexus-metric text-lg sm:text-2xl truncate"
-                  >
-                    {Number(nxpFormatted).toLocaleString(undefined, { maximumFractionDigits: 2 })}
-                  </motion.p>
-                  <p className="nexus-muted text-[10px] sm:text-xs">Total NXP</p>
-                </motion.div>
-
-                {/* Total NFTs */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 }}
-                  className="glass-card p-4 sm:p-6"
-                >
-                  <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0 border border-primary/30">
-                      <Package className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
-                    </div>
-                    <span className="nexus-label">NFTs Owned</span>
-                  </div>
-                  <p className="nexus-metric text-lg sm:text-2xl">{nftCount}</p>
-                  <p className="nexus-muted text-[10px] sm:text-xs">Total Collection</p>
-                </motion.div>
-
-                {/* Your Referrer */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
-                  className="glass-card p-4 sm:p-6"
-                >
-                  <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0 border border-primary/30">
-                      <Users className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
-                    </div>
-                    <span className="nexus-label">Your Referrer</span>
-                  </div>
-                  <p className="text-primary text-xs sm:text-sm font-mono truncate">
-                    {hasReferrer 
-                      ? `${(referrer as string).slice(0, 6)}...${(referrer as string).slice(-4)}`
-                      : 'None'
-                    }
-                  </p>
-                  <p className="nexus-muted text-[10px] sm:text-xs">Upline Address</p>
-                </motion.div>
-
-                {/* Network */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
-                  className="glass-card p-4 sm:p-6"
-                >
-                  <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0 border border-primary/30">
-                      <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
-                    </div>
-                    <span className="nexus-label">Network</span>
-                  </div>
-                  <p className="nexus-metric text-lg sm:text-2xl">BSC</p>
-                  <p className="nexus-muted text-[10px] sm:text-xs">Binance Smart Chain</p>
-                </motion.div>
+                    <motion.p key={String(stat.value)} initial={{ scale: 0.9 }} animate={{ scale: 1 }} className={`${stat.isMono ? 'text-primary text-sm font-mono truncate' : 'neon-metric text-2xl'}`}>{stat.value}</motion.p>
+                    <p className="neon-muted text-xs mt-1">{stat.sub}</p>
+                  </motion.div>
+                ))}
               </div>
 
-              {/* Total Earning Section */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 }}
-                className="glass-card p-4 sm:p-6"
-              >
-                <h2 className="nexus-card-title text-lg sm:text-xl mb-4 sm:mb-6 flex items-center gap-2">
-                  <TrendingUp className="w-5 h-5 text-primary" />
-                  Total Earning
+              {/* Mining Inventory */}
+              <motion.div initial={{ opacity: 0, y: 25 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} className="glass-card p-6 sm:p-8">
+                <h2 className="neon-card-title text-xl mb-6 flex items-center gap-3">
+                  <TrendingUp className="w-6 h-6 text-primary" />Mining Inventory
                 </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <TotalEarningCard tokenIds={tokenIds as bigint[] | undefined} period="Staking Rewards" />
-                  <div className="bg-background/50 border border-primary/20 rounded-xl p-4 sm:p-6 text-center">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-3 sm:mb-4 border border-primary/30">
-                      <Award className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <TotalEarningCard tokenIds={tokenIds as bigint[] | undefined} period="Mining Rewards" />
+                  <div className="stats-card p-6 text-center">
+                    <div className="w-14 h-14 rounded-xl bg-primary/15 flex items-center justify-center mx-auto mb-4 border border-primary/30">
+                      <Award className="w-7 h-7 text-primary" />
                     </div>
-                    <p className="nexus-label mb-1 sm:mb-2">Referral Rewards</p>
-                    <motion.p 
-                      key={referralEarningsFormatted}
-                      initial={{ scale: 0.9 }}
-                      animate={{ scale: 1 }}
-                      className="nexus-metric text-2xl sm:text-3xl"
-                    >
-                      {Number(referralEarningsFormatted).toLocaleString(undefined, { maximumFractionDigits: 2 })}
-                    </motion.p>
-                    <p className="nexus-muted text-[10px] sm:text-xs mt-1">USDT</p>
+                    <p className="neon-label mb-2">Referral Rewards</p>
+                    <motion.p key={referralEarningsFormatted} initial={{ scale: 0.9 }} animate={{ scale: 1 }} className="neon-metric text-3xl">{Number(referralEarningsFormatted).toLocaleString(undefined, { maximumFractionDigits: 2 })}</motion.p>
+                    <p className="neon-muted text-xs mt-1">USDT</p>
                   </div>
                 </div>
-                <p className="nexus-muted text-xs text-center mt-4">
-                  All earnings calculated from on-chain data
-                </p>
               </motion.div>
 
-              {/* NFT Collection Section */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7 }}
-              >
-                <h2 className="nexus-card-title text-lg sm:text-xl mb-4 sm:mb-6 flex items-center gap-2">
-                  <Package className="w-5 h-5 text-primary" />
-                  NFT Collection
+              {/* NFT Collection */}
+              <motion.div initial={{ opacity: 0, y: 25 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}>
+                <h2 className="neon-card-title text-xl mb-6 flex items-center gap-3">
+                  <Package className="w-6 h-6 text-primary" />NFT Collection
                 </h2>
 
                 {nftCount === 0 ? (
-                  <div className="glass-card p-6 sm:p-8 text-center">
-                    <Package className="w-12 h-12 sm:w-16 sm:h-16 text-primary/50 mx-auto mb-4" />
-                    <p className="nexus-muted mb-4 text-sm sm:text-base">You don't own any NFTs yet.</p>
-                    <motion.a
-                      href="/buy"
-                      className="btn-primary-glow inline-flex items-center gap-2"
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      Buy NFT Now
+                  <div className="glass-card p-10 text-center">
+                    <Package className="w-16 h-16 text-primary/40 mx-auto mb-5" />
+                    <p className="neon-muted mb-5">You don't own any NFTs yet.</p>
+                    <motion.a href="/buy" className="btn-primary-glow inline-flex items-center gap-2" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                      <Zap className="w-4 h-4" />Buy NFT Now
                     </motion.a>
                   </div>
                 ) : (
-                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4">
-                    {(tokenIds as bigint[]).map((tokenId) => (
-                      <NFTCard key={tokenId.toString()} tokenId={tokenId} />
-                    ))}
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
+                    {(tokenIds as bigint[]).map((tokenId) => <NFTCard key={tokenId.toString()} tokenId={tokenId} />)}
                   </div>
                 )}
               </motion.div>
@@ -408,82 +188,40 @@ const Dashboard = () => {
   );
 };
 
-// NFT Card Component
 const NFTCard = ({ tokenId }: { tokenId: bigint }) => {
-  const { data: tokenTier } = useReadContract({
-    address: CONTRACTS.NFT_MINER,
-    abi: NFT_MINER_ABI,
-    functionName: 'tokenTier',
-    args: [tokenId],
-  });
-
+  const { data: tokenTier } = useReadContract({ address: CONTRACTS.NFT_MINER, abi: NFT_MINER_ABI, functionName: 'tokenTier', args: [tokenId] });
   const tier = tokenTier !== undefined ? Number(tokenTier) : 0;
-  const image = tierImages[tier] || treeNFT;
-  const tierName = tierNames[tier] || 'NFT';
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      className="glass-card p-2 sm:p-3 group hover:border-primary/40 transition-all"
-    >
-      <div className="aspect-square rounded-lg overflow-hidden mb-2 sm:mb-3 bg-background/50">
-        <img
-          src={image}
-          alt={`NFT #${tokenId.toString()}`}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-        />
+    <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="nft-card overflow-hidden group">
+      <div className="aspect-square overflow-hidden">
+        <img src={tierImages[tier] || treeNFT} alt={`NFT #${tokenId.toString()}`} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
       </div>
-      <div className="text-center">
-        <p className="nexus-label text-[10px] sm:text-xs">#{tokenId.toString()}</p>
-        <p className="text-primary font-semibold text-xs sm:text-sm">{tierName}</p>
+      <div className="p-4 text-center">
+        <p className="neon-label text-xs">#{tokenId.toString()}</p>
+        <p className="text-primary font-display font-bold">{tierNames[tier] || 'NFT'}</p>
       </div>
     </motion.div>
   );
 };
 
-// Total Earning Card Component
-const TotalEarningCard = ({ 
-  tokenIds, 
-  period 
-}: { 
-  tokenIds: bigint[] | undefined;
-  period: string;
-}) => {
+const TotalEarningCard = ({ tokenIds, period }: { tokenIds: bigint[] | undefined; period: string }) => {
   const { data: stakingResults } = useReadContracts({
-    contracts: tokenIds?.map((tokenId) => ({
-      address: CONTRACTS.STAKING,
-      abi: STAKING_ABI,
-      functionName: 'totalClaimed',
-      args: [tokenId],
-    })) || [],
+    contracts: tokenIds?.map((tokenId) => ({ address: CONTRACTS.STAKING, abi: STAKING_ABI, functionName: 'totalClaimed', args: [tokenId] })) || [],
     query: { enabled: !!tokenIds && tokenIds.length > 0 },
   });
 
-  const totalClaimed = stakingResults?.reduce((acc, result) => {
-    if (result.status === 'success' && result.result) {
-      return acc + (result.result as bigint);
-    }
-    return acc;
-  }, BigInt(0)) || BigInt(0);
-
+  const totalClaimed = stakingResults?.reduce((acc, result) => result.status === 'success' && result.result ? acc + (result.result as bigint) : acc, BigInt(0)) || BigInt(0);
   const totalClaimedFormatted = formatUnits(totalClaimed, 18);
 
   return (
-    <div className="bg-background/50 border border-primary/20 rounded-xl p-4 sm:p-6 text-center">
-      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-3 sm:mb-4 border border-primary/30">
-        <Gift className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
+    <div className="stats-card p-6 text-center">
+      <div className="w-14 h-14 rounded-xl bg-primary/15 flex items-center justify-center mx-auto mb-4 border border-primary/30">
+        <Gift className="w-7 h-7 text-primary" />
       </div>
-      <p className="nexus-label mb-1 sm:mb-2">{period}</p>
-      <motion.p 
-        key={totalClaimedFormatted}
-        initial={{ scale: 0.9 }}
-        animate={{ scale: 1 }}
-        className="nexus-metric text-2xl sm:text-3xl"
-      >
-        {Number(totalClaimedFormatted).toLocaleString(undefined, { maximumFractionDigits: 2 })}
-      </motion.p>
-      <p className="nexus-muted text-[10px] sm:text-xs mt-1">NXP</p>
+      <p className="neon-label mb-2">{period}</p>
+      <motion.p key={totalClaimedFormatted} initial={{ scale: 0.9 }} animate={{ scale: 1 }} className="neon-metric text-3xl">{Number(totalClaimedFormatted).toLocaleString(undefined, { maximumFractionDigits: 2 })}</motion.p>
+      <p className="neon-muted text-xs mt-1">NXP</p>
     </div>
   );
 };
