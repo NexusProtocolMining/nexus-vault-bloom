@@ -293,7 +293,7 @@ const Staking = () => {
   // Transaction success effects
   useEffect(() => {
     if (isStakeSuccess) {
-      toast({ title: 'NFT Staked!', description: 'Your NFT is now staking and earning rewards.' });
+      toast({ title: 'NFT Mining Activated!', description: 'Your NFT is now mining and earning NXP rewards.' });
       refetchTokens();
       refetchStaked();
       setProcessingId(null);
@@ -317,7 +317,7 @@ const Staking = () => {
       };
       setClaimHistory(prev => [newHistoryItem, ...prev]);
       
-      toast({ title: 'Rewards Claimed!', description: 'NXP tokens have been sent to your wallet.' });
+      toast({ title: 'Mining Rewards Claimed!', description: 'NXP tokens have been sent to your wallet.' });
       refetchNxpBalance();
       refetchStaked();
       setProcessingId(null);
@@ -327,7 +327,7 @@ const Staking = () => {
 
   useEffect(() => {
     if (isUnstakeSuccess) {
-      toast({ title: 'NFT Unstaked!', description: 'Your NFT has been returned to your wallet.' });
+      toast({ title: 'Mining Stopped!', description: 'Your NFT has been returned to your wallet.' });
       refetchTokens();
       refetchStaked();
       setProcessingId(null);
@@ -390,13 +390,13 @@ const Staking = () => {
               transition={{ duration: 0.6 }}
             >
               <Zap className="w-4 h-4 text-emerald-400" />
-              <span className="nexus-label text-white/75">PREMIUM STAKING</span>
+              <span className="nexus-label text-white/75">GREEN MINING</span>
             </motion.div>
             <h1 className="nexus-section-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-3 sm:mb-4">
-              <span className="nexus-highlight">Luxury Staking</span>
+              <span className="nexus-highlight">NFT Mining</span>
             </h1>
             <p className="nexus-body text-sm sm:text-base max-w-xl mx-auto px-4">
-              Stake your NFTs, earn rewards, and sell your NXP tokens
+              Activate your NFTs for green mining, earn NXP rewards backed by real environmental impact
             </p>
           </motion.div>
 
@@ -410,7 +410,7 @@ const Staking = () => {
               <Wallet className="w-12 h-12 sm:w-16 sm:h-16 text-primary mx-auto mb-4" />
               <h2 className="font-display text-lg sm:text-xl font-bold mb-2">Connect Wallet</h2>
               <p className="text-muted-foreground text-sm">
-                Please connect your wallet to access staking features.
+                Please connect your wallet to access green mining features.
               </p>
             </motion.div>
           )}
@@ -430,7 +430,7 @@ const Staking = () => {
                 isRefreshing={isRefreshing}
               />
 
-              {/* Staking Overview Stats */}
+              {/* Mining Overview Stats */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -438,14 +438,14 @@ const Staking = () => {
               >
                 <div className="glass-card p-3 sm:p-4 text-center">
                   <Lock className="w-5 h-5 sm:w-6 sm:h-6 text-primary mx-auto mb-1 sm:mb-2" />
-                  <p className="text-[10px] sm:text-xs text-muted-foreground">Lock Duration</p>
+                  <p className="text-[10px] sm:text-xs text-muted-foreground">Mining Lock</p>
                   <p className="font-display font-bold text-sm sm:text-lg text-foreground">
                     {lockDuration ? formatDuration(lockDuration as bigint) : '-'}
                   </p>
                 </div>
                 <div className="glass-card p-3 sm:p-4 text-center">
                   <Clock className="w-5 h-5 sm:w-6 sm:h-6 text-primary mx-auto mb-1 sm:mb-2" />
-                  <p className="text-[10px] sm:text-xs text-muted-foreground">Claim Interval</p>
+                  <p className="text-[10px] sm:text-xs text-muted-foreground">Reward Cycle</p>
                   <p className="font-display font-bold text-sm sm:text-lg text-foreground">
                     {claimInterval ? formatDuration(claimInterval as bigint) : '-'}
                   </p>
@@ -595,7 +595,7 @@ const Staking = () => {
                     )}
                   </motion.div>
 
-                  {/* Daily/Monthly Reward Info */}
+                  {/* Mining Reward Info */}
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -604,24 +604,24 @@ const Staking = () => {
                   >
                     <h2 className="font-display text-lg font-bold mb-4 flex items-center gap-2">
                       <Calendar className="w-5 h-5 text-primary" />
-                      Reward Schedule
+                      Mining Schedule
                     </h2>
                     <div className="space-y-3">
                       <div className="flex justify-between items-center p-3 bg-card/50 rounded-lg">
-                        <span className="text-muted-foreground text-sm">Claim Period</span>
+                        <span className="text-muted-foreground text-sm">Reward Cycle</span>
                         <span className="font-display font-bold text-foreground">
                           {claimInterval ? formatDuration(claimInterval as bigint) : '-'}
                         </span>
                       </div>
                       <div className="flex justify-between items-center p-3 bg-card/50 rounded-lg">
-                        <span className="text-muted-foreground text-sm">Lock Period</span>
+                        <span className="text-muted-foreground text-sm">Mining Lock</span>
                         <span className="font-display font-bold text-foreground">
                           {lockDuration ? formatDuration(lockDuration as bigint) : '-'}
                         </span>
                       </div>
                     </div>
                     <p className="text-xs text-muted-foreground mt-4 text-center">
-                      Rewards are calculated on-chain based on NFT tier
+                      Mining rewards backed by real environmental activities
                     </p>
                   </motion.div>
                 </div>
@@ -666,7 +666,7 @@ function ActiveStakingSection({
       <div className="flex items-center justify-between mb-4 sm:mb-6">
         <h2 className="font-display text-lg sm:text-xl font-bold flex items-center gap-2">
           <Activity className="w-5 h-5 text-primary animate-pulse" />
-          Active Staking
+          Active Mining
           <span className="text-xs sm:text-sm text-muted-foreground font-normal ml-2">Real-time Rewards</span>
         </h2>
         <div className="flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/30 rounded-full">
@@ -678,7 +678,7 @@ function ActiveStakingSection({
       {stakedNFTs.length === 0 ? (
         <div className="text-center py-8">
           <Sparkles className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-          <p className="text-muted-foreground">No NFTs found. Purchase and stake NFTs to start earning.</p>
+          <p className="text-muted-foreground">No NFTs mining. Purchase and activate NFTs to start earning green rewards.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
@@ -741,11 +741,11 @@ function ActiveStakingCard({
       className="relative group"
     >
       <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-card/90 to-card/50 border border-primary/30 backdrop-blur-xl shadow-lg shadow-primary/10 hover:shadow-primary/20 transition-all duration-300">
-        {/* Active Badge */}
+        {/* Mining Badge */}
         <div className="absolute top-3 right-3 z-10">
           <div className="flex items-center gap-1.5 px-2 py-1 bg-primary/90 rounded-full">
             <div className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" />
-            <span className="text-[10px] font-bold text-primary-foreground uppercase tracking-wider">Active</span>
+            <span className="text-[10px] font-bold text-primary-foreground uppercase tracking-wider">Mining</span>
           </div>
         </div>
 
@@ -776,7 +776,7 @@ function ActiveStakingCard({
               <div className="flex items-center justify-between mb-1">
                 <p className="text-[10px] sm:text-xs text-muted-foreground flex items-center gap-1">
                   <Sparkles className="w-3 h-3 text-primary" />
-                  Pending Reward
+                  Mining Reward
                 </p>
                 <div className="flex items-center gap-1">
                   <div className="w-1.5 h-1.5 bg-primary rounded-full animate-pulse" />
@@ -847,7 +847,7 @@ function ActiveStakingCard({
               ) : (
                 <Unlock className="w-3 h-3" />
               )}
-              Unstake
+              Stop
             </motion.button>
           </div>
         </div>
@@ -879,13 +879,13 @@ function AvailableNFTsSection({
     >
       <h2 className="font-display text-lg sm:text-xl font-bold mb-4 flex items-center gap-2">
         <Zap className="w-5 h-5 text-primary" />
-        Available to Stake
+        Ready to Mine
       </h2>
 
       {!tokenIds || tokenIds.length === 0 ? (
         <div className="text-center py-6 sm:py-8">
           <Gift className="w-10 h-10 sm:w-12 sm:h-12 text-muted-foreground mx-auto mb-4" />
-          <p className="text-muted-foreground text-sm sm:text-base">No NFTs available. Purchase one to start staking.</p>
+          <p className="text-muted-foreground text-sm sm:text-base">No NFTs available. Purchase one to start green mining.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
@@ -991,7 +991,7 @@ function AvailableNFTCard({
             ) : (
               <Zap className="w-3 h-3 sm:w-4 sm:h-4" />
             )}
-            Stake NFT
+            Start Mining
           </motion.button>
         </div>
       </div>

@@ -49,7 +49,7 @@ export function TotalRewardsAggregation({
           <div className="flex items-center justify-between mb-4 sm:mb-6">
             <h2 className="font-display text-lg sm:text-xl font-bold flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-primary animate-pulse" />
-              Total Staking Rewards
+              Total Mining Rewards
             </h2>
             <motion.button
               onClick={onRefresh}
@@ -112,7 +112,7 @@ export function TotalRewardsAggregation({
           <div className="mt-4 flex items-center justify-center gap-4 text-xs text-muted-foreground">
             <span className="flex items-center gap-1">
               <div className="w-2 h-2 bg-primary rounded-full" />
-              {stakedCount} Active NFT{stakedCount !== 1 ? 's' : ''}
+              {stakedCount} Mining NFT{stakedCount !== 1 ? 's' : ''}
             </span>
             <span>•</span>
             <span>Updated {lastUpdate.toLocaleTimeString()}</span>
