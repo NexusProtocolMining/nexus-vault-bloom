@@ -1,6 +1,6 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Leaf, Shield, Coins, Globe } from 'lucide-react';
+import { Leaf, Shield, Coins, Globe, Target, Zap } from 'lucide-react';
 import nftnomicNexus from '@/assets/nftnomic.jpeg';
 
 const features = [
@@ -8,43 +8,39 @@ const features = [
     icon: Leaf,
     title: 'Green Mining',
     description: 'NFT-based mining backed by real environmental activities including tree planting and carbon credits.',
-    color: 'primary',
   },
   {
     icon: Shield,
-    title: 'Transparent & Immutable',
+    title: 'Transparent',
     description: 'All environmental data recorded on-chain, ensuring trust and verifiability for every contribution.',
-    color: 'secondary',
   },
   {
     icon: Coins,
     title: 'Token Rewards',
     description: 'Earn NXP tokens from your NFTs with reward mechanisms backed by real environmental activity.',
-    color: 'accent',
   },
   {
     icon: Globe,
-    title: 'Real-World Impact',
-    description: 'Connect blockchain innovation with tangible environmental projects including reforestation and renewable energy.',
-    color: 'primary',
+    title: 'Real Impact',
+    description: 'Connect blockchain innovation with tangible environmental projects including reforestation.',
   },
 ];
 
 const aboutContent = [
   {
-    title: 'The Vision',
-    text: 'To position blockchain as a tool for global environmental restoration, not merely financial speculation. Nexus envisions a future where technology and nature grow together.',
-    color: 'primary',
+    title: 'THE VISION',
+    text: 'To position blockchain as a tool for global environmental restoration, not merely financial speculation.',
+    icon: Target,
   },
   {
-    title: 'The Problem',
-    text: 'Traditional environmental and carbon credit systems face major challenges: lack of transparency, centralized inefficient processes, and limited value distribution. Many blockchain projects remain speculative with no real-world impact.',
-    color: 'secondary',
+    title: 'THE PROBLEM',
+    text: 'Traditional environmental systems lack transparency. Many blockchain projects remain speculative with no real-world impact.',
+    icon: Zap,
   },
   {
-    title: 'The Solution',
-    text: 'Nexus Protocol introduces a blockchain-based framework that records environmental data immutably on-chain, tokenizes real-world green assets (RWA), and creates a circular green economy with sustainable incentives.',
-    color: 'accent',
+    title: 'THE SOLUTION',
+    text: 'Nexus Protocol records environmental data immutably on-chain and creates a circular green economy.',
+    icon: Leaf,
   },
 ];
 
@@ -53,23 +49,27 @@ export function AboutSection() {
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
-    <section ref={ref} className="py-24 relative overflow-hidden">
-      {/* Background effects */}
+    <section ref={ref} className="py-28 relative overflow-hidden">
+      {/* Background */}
       <div className="absolute inset-0 particle-bg" />
-      <div className="absolute inset-0 cyber-grid-bg opacity-20" />
+      <div className="absolute inset-0 matrix-grid-bg opacity-30" />
       
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="text-center mb-16"
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="text-center mb-20"
         >
-          <h2 className="cyber-headline text-3xl sm:text-4xl md:text-5xl mb-4">
+          <div className="badge-tech mb-6">
+            <Leaf className="w-4 h-4" />
+            <span>GREEN ECOSYSTEM</span>
+          </div>
+          <h2 className="neon-headline text-4xl sm:text-5xl md:text-6xl mb-6">
             ABOUT NEXUS
           </h2>
-          <p className="cyber-body max-w-2xl mx-auto">
+          <p className="neon-body max-w-2xl mx-auto text-lg">
             A green blockchain ecosystem connecting real-world environmental assets into verifiable on-chain digital assets
           </p>
         </motion.div>
@@ -79,39 +79,36 @@ export function AboutSection() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={isInView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="max-w-4xl mx-auto mb-20"
+          className="max-w-4xl mx-auto mb-24"
         >
-          <div className="cyber-card p-4 rounded-2xl overflow-hidden">
+          <div className="hero-card p-5 rounded-3xl overflow-hidden">
             <img
               src={nftnomicNexus}
               alt="Nexus NFT Collection"
-              className="w-full h-auto rounded-xl"
+              className="w-full h-auto rounded-2xl"
             />
           </div>
         </motion.div>
 
-        {/* About Content */}
-        <div className="grid md:grid-cols-3 gap-8 mb-20">
+        {/* About Content - 3D Cards */}
+        <div className="grid md:grid-cols-3 gap-8 mb-24">
           {aboutContent.map((item, i) => (
             <motion.div
               key={item.title}
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 50 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: i * 0.15, ease: "easeOut" }}
-              className={`cyber-card p-8 hover:border-${item.color}/40 transition-colors ${
-                item.color === 'primary' ? '' : 
-                item.color === 'secondary' ? 'cyber-card-magenta' : 'cyber-card-gold'
-              }`}
+              className="card-3d p-8 text-center"
             >
-              <h3 className={`cyber-card-title text-xl mb-4 ${
-                item.color === 'primary' ? 'text-primary' : 
-                item.color === 'secondary' ? 'text-secondary' : 'text-accent'
-              }`}>
-                {item.title}
-              </h3>
-              <p className="cyber-body">
-                {item.text}
-              </p>
+              <motion.div
+                whileHover={{ scale: 1.2, rotate: 15 }}
+                className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-primary/15 border border-primary/40 flex items-center justify-center"
+                style={{ boxShadow: '0 0 30px hsl(120 100% 50% / 0.3)' }}
+              >
+                <item.icon className="w-8 h-8 text-primary" />
+              </motion.div>
+              <h3 className="neon-card-title text-xl mb-4">{item.title}</h3>
+              <p className="neon-body text-sm">{item.text}</p>
             </motion.div>
           ))}
         </div>
@@ -121,29 +118,18 @@ export function AboutSection() {
           {features.map((feature, i) => (
             <motion.div
               key={feature.title}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.4 + i * 0.1, ease: "easeOut" }}
-              className="cyber-card p-6 group hover:border-primary/40 transition-all"
+              transition={{ duration: 0.6, delay: 0.5 + i * 0.1, ease: "easeOut" }}
+              className="stats-card p-6 group"
             >
-              <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform border ${
-                feature.color === 'primary' ? 'bg-primary/10 border-primary/20' : 
-                feature.color === 'secondary' ? 'bg-secondary/10 border-secondary/20' : 'bg-accent/10 border-accent/20'
-              }`}>
-                <feature.icon className={`w-6 h-6 ${
-                  feature.color === 'primary' ? 'text-primary' : 
-                  feature.color === 'secondary' ? 'text-secondary' : 'text-accent'
-                }`} />
+              <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-all duration-300 border border-primary/30 bg-primary/10"
+                style={{ boxShadow: '0 0 20px hsl(120 100% 50% / 0.2)' }}
+              >
+                <feature.icon className="w-7 h-7 text-primary" />
               </div>
-              <h4 className={`cyber-card-title text-lg mb-2 ${
-                feature.color === 'primary' ? 'text-primary' : 
-                feature.color === 'secondary' ? 'text-secondary' : 'text-accent'
-              }`}>
-                {feature.title}
-              </h4>
-              <p className="cyber-muted text-sm">
-                {feature.description}
-              </p>
+              <h4 className="neon-card-title text-lg mb-3">{feature.title}</h4>
+              <p className="neon-muted text-sm leading-relaxed">{feature.description}</p>
             </motion.div>
           ))}
         </div>

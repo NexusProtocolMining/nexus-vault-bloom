@@ -1,5 +1,6 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
+import { Flag, CheckCircle } from 'lucide-react';
 import nexusRoadmap from '@/assets/nexus-roadmap.jpeg';
 
 const phases = [
@@ -16,7 +17,6 @@ const phases = [
       'NFT Carbon Release',
     ],
     active: true,
-    color: 'primary',
   },
   {
     phase: 'Phase 2',
@@ -29,7 +29,6 @@ const phases = [
       'NFT Reward Distribution',
     ],
     active: false,
-    color: 'secondary',
   },
   {
     phase: 'Phase 3',
@@ -43,7 +42,6 @@ const phases = [
       'Treasury RWA Active',
     ],
     active: false,
-    color: 'accent',
   },
   {
     phase: 'Phase 4',
@@ -56,7 +54,6 @@ const phases = [
       'Global Partnerships',
     ],
     active: false,
-    color: 'primary',
   },
   {
     phase: 'Phase 5',
@@ -69,7 +66,6 @@ const phases = [
       'Institutional Onboarding',
     ],
     active: false,
-    color: 'secondary',
   },
 ];
 
@@ -78,7 +74,7 @@ export function RoadmapSection() {
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
-    <section ref={ref} className="py-24 relative overflow-hidden">
+    <section ref={ref} className="py-28 relative overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <img
@@ -86,23 +82,27 @@ export function RoadmapSection() {
           alt="Nexus Roadmap"
           className="w-full h-full object-cover opacity-15"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
       </div>
       
-      <div className="absolute inset-0 cyber-grid-bg opacity-20" />
+      <div className="absolute inset-0 matrix-grid-bg opacity-30" />
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.7 }}
+          className="text-center mb-20"
         >
-          <h2 className="cyber-headline text-3xl sm:text-4xl md:text-5xl mb-4">
+          <div className="badge-tech mb-6">
+            <Flag className="w-4 h-4" />
+            <span>PROJECT MILESTONES</span>
+          </div>
+          <h2 className="neon-headline text-4xl sm:text-5xl md:text-6xl mb-6">
             ROADMAP
           </h2>
-          <p className="cyber-body max-w-2xl mx-auto">
+          <p className="neon-body max-w-2xl mx-auto text-lg">
             Our journey to build a sustainable green blockchain ecosystem
           </p>
         </motion.div>
@@ -110,84 +110,63 @@ export function RoadmapSection() {
         {/* Timeline */}
         <div className="relative">
           {/* Timeline line */}
-          <div className="hidden lg:block absolute top-24 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+          <div className="hidden lg:block absolute top-28 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary/40 to-transparent rounded-full" />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
             {phases.map((phase, i) => (
               <motion.div
                 key={phase.phase}
-                initial={{ opacity: 0, y: 40 }}
+                initial={{ opacity: 0, y: 50 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
-                className={`relative ${phase.active ? '' : 'opacity-70'}`}
+                transition={{ duration: 0.7, delay: i * 0.1 }}
+                className={`relative ${phase.active ? '' : 'opacity-75'}`}
               >
                 {/* Timeline dot */}
-                <div className="hidden lg:flex absolute -top-2 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full border-2 items-center justify-center z-10"
+                <div className="hidden lg:flex absolute -top-3 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full border-3 items-center justify-center z-10"
                   style={{
-                    borderColor: phase.active 
-                      ? 'hsl(185 100% 50%)' 
-                      : phase.color === 'primary' ? 'hsl(185 50% 30%)' 
-                      : phase.color === 'secondary' ? 'hsl(320 50% 30%)'
-                      : 'hsl(45 50% 30%)',
-                    backgroundColor: phase.active ? 'hsl(185 100% 50%)' : 'transparent',
-                    boxShadow: phase.active ? '0 0 20px hsl(185 100% 50% / 0.6)' : 'none',
+                    borderColor: phase.active ? 'hsl(120 100% 50%)' : 'hsl(120 50% 25%)',
+                    backgroundColor: phase.active ? 'hsl(120 100% 50%)' : 'transparent',
+                    boxShadow: phase.active ? '0 0 30px hsl(120 100% 50% / 0.7)' : 'none',
                   }}
                 >
                   {phase.active && (
                     <motion.div
-                      className="w-3 h-3 rounded-full bg-primary"
-                      animate={{ scale: [1, 1.5, 1] }}
+                      className="w-4 h-4 rounded-full bg-primary-foreground"
+                      animate={{ scale: [1, 1.3, 1] }}
                       transition={{ duration: 2, repeat: Infinity }}
                     />
                   )}
                 </div>
 
-                <div className={`cyber-card p-6 mt-8 lg:mt-12 h-full transition-all ${
-                  phase.active ? 'border-primary/50 glow-cyan' : 
-                  phase.color === 'primary' ? 'hover:border-primary/30' :
-                  phase.color === 'secondary' ? 'cyber-card-magenta hover:border-secondary/30' :
-                  'cyber-card-gold hover:border-accent/30'
-                }`}>
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className={`text-xs font-semibold px-2 py-1 rounded-full border ${
-                      phase.color === 'primary' ? 'bg-primary/20 text-primary border-primary/30' :
-                      phase.color === 'secondary' ? 'bg-secondary/20 text-secondary border-secondary/30' :
-                      'bg-accent/20 text-accent border-accent/30'
-                    }`}>
+                <motion.div 
+                  className={`glass-card p-6 mt-10 lg:mt-14 h-full transition-all ${
+                    phase.active ? 'border-primary/60 neon-glow' : 'hover:border-primary/40'
+                  }`}
+                  whileHover={{ y: -10, scale: 1.02 }}
+                >
+                  <div className="flex items-center gap-2 mb-4">
+                    <span className="text-xs font-bold px-3 py-1.5 rounded-full border bg-primary/15 text-primary border-primary/40">
                       {phase.quarter}
                     </span>
                     {phase.active && (
-                      <span className="text-xs px-2 py-1 rounded-full bg-primary text-primary-foreground">
-                        Current
+                      <span className="text-xs px-3 py-1.5 rounded-full bg-primary text-primary-foreground font-bold">
+                        CURRENT
                       </span>
                     )}
                   </div>
                   
-                  <h3 className={`cyber-card-title text-lg mb-1 ${
-                    phase.color === 'primary' ? 'text-primary' :
-                    phase.color === 'secondary' ? 'text-secondary' : 'text-accent'
-                  }`}>
-                    {phase.phase}
-                  </h3>
-                  <h4 className={`font-semibold mb-4 ${
-                    phase.color === 'primary' ? 'text-primary' :
-                    phase.color === 'secondary' ? 'text-secondary' : 'text-accent'
-                  }`}>
-                    {phase.title}
-                  </h4>
+                  <h3 className="neon-card-title text-lg mb-1">{phase.phase}</h3>
+                  <h4 className="text-primary font-semibold mb-5">{phase.title}</h4>
 
-                  <ul className="space-y-2">
+                  <ul className="space-y-3">
                     {phase.items.map((item, j) => (
-                      <li key={j} className="cyber-muted text-xs flex items-start gap-2">
-                        <span className={`w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0 ${
-                          phase.color === 'primary' ? 'bg-primary/50' :
-                          phase.color === 'secondary' ? 'bg-secondary/50' : 'bg-accent/50'
-                        }`} />
+                      <li key={j} className="neon-muted text-xs flex items-start gap-2">
+                        <CheckCircle className={`w-4 h-4 flex-shrink-0 mt-0.5 ${phase.active ? 'text-primary' : 'text-primary/40'}`} />
                         {item}
                       </li>
                     ))}
                   </ul>
-                </div>
+                </motion.div>
               </motion.div>
             ))}
           </div>
