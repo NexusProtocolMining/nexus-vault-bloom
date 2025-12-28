@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { useSearchParams } from 'react-router-dom';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
-import { Loader2, CheckCircle, AlertCircle, Wallet, ShoppingCart } from 'lucide-react';
+import { Loader2, CheckCircle, AlertCircle, Wallet, Leaf, TreePine } from 'lucide-react';
 import { CONTRACTS } from '@/config/contracts';
 import { NFT_SALE_ABI, ERC20_ABI } from '@/config/abis';
 import { toast } from '@/hooks/use-toast';
@@ -15,9 +15,27 @@ import diamondNFT from '@/assets/diamond-nft.png';
 import carbonNFT from '@/assets/carbon-nft.png';
 
 const NFT_TIERS = [
-  { key: 'tree', name: 'TREE', image: treeNFT, priceUSD: 10 },
-  { key: 'diamond', name: 'DIAMOND', image: diamondNFT, priceUSD: 100 },
-  { key: 'carbon', name: 'CARBON', image: carbonNFT, priceUSD: 1000 },
+  { 
+    key: 'tree', 
+    name: 'TREE NFT', 
+    image: treeNFT, 
+    priceUSD: 10,
+    description: 'Represents real tree planting and long-term carbon offset. Start your green journey.',
+  },
+  { 
+    key: 'diamond', 
+    name: 'DIAMOND NFT', 
+    image: diamondNFT, 
+    priceUSD: 100,
+    description: 'Premium tier with enhanced mining rewards and exclusive ecosystem privileges.',
+  },
+  { 
+    key: 'carbon', 
+    name: 'CARBON NFT', 
+    image: carbonNFT, 
+    priceUSD: 1000,
+    description: 'Directly linked to verified carbon credit mechanisms. Maximum environmental impact.',
+  },
 ];
 
 const BuyNFT = () => {
@@ -173,14 +191,15 @@ const BuyNFT = () => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6 }}
             >
-              <ShoppingCart className="w-4 h-4 text-primary" />
-              <span className="nexus-label">NFT MARKETPLACE</span>
+              <Leaf className="w-4 h-4 text-primary" />
+              <span className="nexus-label">PRODUCTIVE ASSETS</span>
             </motion.div>
             <h1 className="neon-headline text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-4">
-              BUY NFT
+              ACQUIRE NFT
             </h1>
-            <p className="nexus-body max-w-xl mx-auto text-lg">
-              Choose your NFT tier and start mining NXP tokens. Higher tiers earn more rewards.
+            <p className="nexus-body max-w-2xl mx-auto text-lg">
+              Own productive digital assets that represent real environmental impact. 
+              Each NFT activates green mining and generates sustainable value.
             </p>
             {referrer !== '0x0000000000000000000000000000000000000000' && (
               <motion.div 
@@ -201,10 +220,10 @@ const BuyNFT = () => {
               animate={{ opacity: 1, scale: 1 }}
               className="max-w-md mx-auto glass-card p-8 text-center neon-glow"
             >
-              <Wallet className="w-12 h-12 text-primary mx-auto mb-4" />
-              <h2 className="nexus-card-title text-xl mb-2">Connect Wallet</h2>
+              <TreePine className="w-12 h-12 text-primary mx-auto mb-4" />
+              <h2 className="nexus-card-title text-xl mb-2">Join the Green Ecosystem</h2>
               <p className="nexus-muted text-sm">
-                Please connect your wallet to purchase NFTs on BSC.
+                Connect your wallet to acquire productive NFT assets and start generating real environmental impact.
               </p>
             </motion.div>
           )}
@@ -238,14 +257,17 @@ const BuyNFT = () => {
                         <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
                       </div>
 
-                      {/* Info */}
-                      <div className="p-6">
-                        <h3 className="neon-headline text-2xl mb-2">
-                          {tier.name}
-                        </h3>
-                        <p className="nexus-metric text-3xl mb-4">
-                          ${priceFormatted} <span className="text-sm nexus-muted">USDT</span>
-                        </p>
+                        {/* Info */}
+                        <div className="p-6">
+                          <h3 className="neon-headline text-2xl mb-2">
+                            {tier.name}
+                          </h3>
+                          <p className="nexus-muted text-sm mb-3">
+                            {tier.description}
+                          </p>
+                          <p className="nexus-metric text-3xl mb-4">
+                            ${priceFormatted} <span className="text-sm nexus-muted">USDT</span>
+                          </p>
 
                         {/* Action Button */}
                         {needsApprovalFlag ? (
@@ -279,7 +301,7 @@ const BuyNFT = () => {
                                 Buying...
                               </>
                             ) : (
-                              'Buy NFT'
+                              'Acquire NFT'
                             )}
                           </motion.button>
                         )}
