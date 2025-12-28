@@ -5,65 +5,65 @@ import nexusRoadmap from '@/assets/nexus-roadmap.jpeg';
 
 const phases = [
   {
-    phase: 'Phase 1',
-    title: 'Foundation',
+    phase: 'PHASE 1',
+    title: 'FOUNDATION',
     quarter: 'Q1',
     items: [
-      'NFT Launch',
-      'Smart Contracts',
-      'Wallet Integration',
-      'NFT Tree Release',
-      'NFT Diamond Release',
-      'NFT Carbon Release',
+      'NFT LAUNCH',
+      'SMART CONTRACTS',
+      'WALLET INTEGRATION',
+      'NFT TREE RELEASE',
+      'NFT DIAMOND RELEASE',
+      'NFT CARBON RELEASE',
     ],
     active: true,
   },
   {
-    phase: 'Phase 2',
-    title: 'Token Launch',
+    phase: 'PHASE 2',
+    title: 'TOKEN LAUNCH',
     quarter: 'Q2',
     items: [
-      'NXP Token Launch',
-      'Mining & Rewards',
-      'DEX/CEX Liquidity',
-      'NFT Reward Distribution',
+      'NXP TOKEN LAUNCH',
+      'MINING & REWARDS',
+      'DEX/CEX LIQUIDITY',
+      'NFT REWARD DISTRIBUTION',
     ],
     active: false,
   },
   {
-    phase: 'Phase 3',
-    title: 'RWA Integration',
+    phase: 'PHASE 3',
+    title: 'RWA INTEGRATION',
     quarter: 'Q3',
     items: [
-      'Carbon Credit Integration',
-      'NFT RWA Launch',
-      'Carbon Credit Tokenization',
-      'Revenue Generation (USD)',
-      'Treasury RWA Active',
+      'CARBON CREDIT INTEGRATION',
+      'NFT RWA LAUNCH',
+      'CARBON CREDIT TOKENIZATION',
+      'REVENUE GENERATION (USD)',
+      'TREASURY RWA ACTIVE',
     ],
     active: false,
   },
   {
-    phase: 'Phase 4',
-    title: 'Ecosystem Expansion',
-    quarter: 'Year 2',
+    phase: 'PHASE 4',
+    title: 'ECOSYSTEM EXPANSION',
+    quarter: 'YEAR 2',
     items: [
-      'Carbon Marketplace',
-      'Enterprise Partnerships',
-      'Governance System',
-      'Global Partnerships',
+      'CARBON MARKETPLACE',
+      'ENTERPRISE PARTNERSHIPS',
+      'GOVERNANCE SYSTEM',
+      'GLOBAL PARTNERSHIPS',
     ],
     active: false,
   },
   {
-    phase: 'Phase 5',
-    title: 'Nexus Chain',
-    quarter: 'Year 3',
+    phase: 'PHASE 5',
+    title: 'NEXUS CHAIN',
+    quarter: 'YEAR 3',
     items: [
-      'Nexus Blockchain',
-      'Validator Network',
-      'RWA Multisector',
-      'Institutional Onboarding',
+      'NEXUS BLOCKCHAIN',
+      'VALIDATOR NETWORK',
+      'RWA MULTISECTOR',
+      'INSTITUTIONAL ONBOARDING',
     ],
     active: false,
   },
@@ -103,7 +103,7 @@ export function RoadmapSection() {
             ROADMAP
           </h2>
           <p className="neon-body max-w-2xl mx-auto text-lg">
-            Our journey to build a sustainable green blockchain ecosystem
+            OUR JOURNEY TO BUILD A SUSTAINABLE GREEN BLOCKCHAIN ECOSYSTEM
           </p>
         </motion.div>
 
@@ -145,18 +145,18 @@ export function RoadmapSection() {
                   whileHover={{ y: -10, scale: 1.02 }}
                 >
                   <div className="flex items-center gap-2 mb-4">
-                    <span className="text-xs font-bold px-3 py-1.5 rounded-full border bg-primary/15 text-primary border-primary/40">
+                    <span className="text-xs font-bold px-3 py-1.5 rounded-full border bg-primary/15 text-primary border-primary/40 font-display tracking-wider">
                       {phase.quarter}
                     </span>
                     {phase.active && (
-                      <span className="text-xs px-3 py-1.5 rounded-full bg-primary text-primary-foreground font-bold">
+                      <span className="text-xs px-3 py-1.5 rounded-full bg-primary text-primary-foreground font-bold font-display tracking-wider">
                         CURRENT
                       </span>
                     )}
                   </div>
                   
                   <h3 className="neon-card-title text-lg mb-1">{phase.phase}</h3>
-                  <h4 className="text-primary font-semibold mb-5">{phase.title}</h4>
+                  <h4 className="text-primary font-semibold mb-5 font-display tracking-wider text-sm">{phase.title}</h4>
 
                   <ul className="space-y-3">
                     {phase.items.map((item, j) => (

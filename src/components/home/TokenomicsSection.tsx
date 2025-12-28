@@ -9,8 +9,8 @@ import carbonNft from '@/assets/carbon-nft.png';
 const tokenomicData = {
   totalSupply: '210,000,000 NXP',
   distribution: [
-    { name: 'NFT Mining Pool', amount: '160,000,000', percentage: 76 },
-    { name: 'Liquidity Pool (DEX/CEX)', amount: '50,000,000', percentage: 24 },
+    { name: 'NFT MINING POOL', amount: '160,000,000', percentage: 76 },
+    { name: 'LIQUIDITY POOL (DEX/CEX)', amount: '50,000,000', percentage: 24 },
   ],
 };
 
@@ -21,9 +21,9 @@ const nftTiers = [
     percentage: '98.57%', 
     price: '$10 USDT',
     image: treeNft,
-    reward: 'Mining Rewards',
-    description: 'Represents real tree planting and long-term carbon offset.',
-    miningPower: '1x',
+    reward: 'MINING REWARDS',
+    description: 'REPRESENTS REAL TREE PLANTING AND LONG-TERM CARBON OFFSET.',
+    miningPower: '1X',
   },
   { 
     name: 'DIAMOND NFT', 
@@ -31,9 +31,9 @@ const nftTiers = [
     percentage: '0.95%', 
     price: '$100 USDT',
     image: diamondNft,
-    reward: 'Enhanced Rewards',
-    description: 'Premium tier with enhanced rewards and ecosystem privileges.',
-    miningPower: '10x',
+    reward: 'ENHANCED REWARDS',
+    description: 'PREMIUM TIER WITH ENHANCED REWARDS AND ECOSYSTEM PRIVILEGES.',
+    miningPower: '10X',
   },
   { 
     name: 'CARBON NFT', 
@@ -41,9 +41,9 @@ const nftTiers = [
     percentage: '0.45%', 
     price: '$1,000 USDT',
     image: carbonNft,
-    reward: 'Premium Rewards',
-    description: 'Directly linked to verified carbon credit mechanisms.',
-    miningPower: '100x',
+    reward: 'PREMIUM REWARDS',
+    description: 'DIRECTLY LINKED TO VERIFIED CARBON CREDIT MECHANISMS.',
+    miningPower: '100X',
   },
 ];
 
@@ -71,7 +71,7 @@ export function TokenomicsSection() {
             TOKENOMICS
           </h2>
           <p className="neon-body max-w-2xl mx-auto text-lg">
-            Fixed supply with sustainable distribution model - Token value supported by real environmental activities
+            FIXED SUPPLY WITH SUSTAINABLE DISTRIBUTION MODEL — TOKEN VALUE SUPPORTED BY REAL ENVIRONMENTAL ACTIVITIES
           </p>
         </motion.div>
 
@@ -101,18 +101,18 @@ export function TokenomicsSection() {
             <div className="glass-card p-8 rounded-2xl">
               <h3 className="neon-card-title text-2xl mb-3">NXP TOKEN</h3>
               <p className="neon-metric text-5xl mb-4">{tokenomicData.totalSupply}</p>
-              <p className="neon-muted text-sm mb-6">Fixed Supply - No Inflation</p>
+              <p className="neon-muted text-sm mb-6">FIXED SUPPLY — NO INFLATION</p>
               
               <p className="neon-body text-sm mb-10 leading-relaxed">
-                Used for NFT mining rewards, ecosystem incentives, and DEX/CEX liquidity. 
-                Value supported by real environmental activities and ecosystem growth.
+                USED FOR NFT MINING REWARDS, ECOSYSTEM INCENTIVES, AND DEX/CEX LIQUIDITY. 
+                VALUE SUPPORTED BY REAL ENVIRONMENTAL ACTIVITIES AND ECOSYSTEM GROWTH.
               </p>
 
               <div className="space-y-7">
                 {tokenomicData.distribution.map((item, i) => (
                   <div key={item.name}>
                     <div className="flex justify-between items-center mb-3">
-                      <span className="text-sm font-semibold text-white/90">{item.name}</span>
+                      <span className="text-sm font-semibold text-white/90 font-display tracking-wider">{item.name}</span>
                       <span className="neon-metric text-lg">{item.percentage}%</span>
                     </div>
                     <div className="h-4 bg-background/60 rounded-full overflow-hidden border border-primary/30">
@@ -147,7 +147,7 @@ export function TokenomicsSection() {
             NFT UTILITY
           </h2>
           <p className="neon-body max-w-2xl mx-auto text-lg">
-            Nexus NFTs are productive assets, not collectibles. Holders participate in mining rewards and revenue distribution.
+            NEXUS NFTS ARE PRODUCTIVE ASSETS, NOT COLLECTIBLES. HOLDERS PARTICIPATE IN MINING REWARDS AND REVENUE DISTRIBUTION.
           </p>
         </motion.div>
 
@@ -181,7 +181,7 @@ export function TokenomicsSection() {
 
                 {/* Mining Power Badge */}
                 <div className="absolute top-4 right-4">
-                  <span className="px-3 py-1.5 rounded-lg text-xs font-display font-bold bg-background/80 text-primary border border-primary/40">
+                  <span className="px-3 py-1.5 rounded-lg text-xs font-display font-bold bg-background/80 text-primary border border-primary/40 tracking-wider">
                     {tier.miningPower} POWER
                   </span>
                 </div>
@@ -193,18 +193,18 @@ export function TokenomicsSection() {
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="stats-card p-4 text-center">
-                    <p className="neon-label text-[10px] mb-1">Price</p>
+                    <p className="neon-label text-[10px] mb-1">PRICE</p>
                     <p className="neon-metric text-lg">{tier.price}</p>
                   </div>
                   <div className="stats-card p-4 text-center">
-                    <p className="neon-label text-[10px] mb-1">Supply</p>
+                    <p className="neon-label text-[10px] mb-1">SUPPLY</p>
                     <p className="text-white font-mono text-sm">{tier.supply}</p>
                   </div>
                 </div>
 
                 <div className="flex justify-between items-center pt-2">
-                  <span className="neon-muted text-sm">Reward Type</span>
-                  <span className="text-primary font-display font-bold text-sm">{tier.reward}</span>
+                  <span className="neon-muted text-sm">REWARD TYPE</span>
+                  <span className="text-primary font-display font-bold text-sm tracking-wider">{tier.reward}</span>
                 </div>
               </div>
             </motion.div>

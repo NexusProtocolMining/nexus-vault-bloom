@@ -6,40 +6,40 @@ import nftnomicNexus from '@/assets/nftnomic.jpeg';
 const features = [
   {
     icon: Leaf,
-    title: 'Green Mining',
-    description: 'NFT-based mining backed by real environmental activities including tree planting and carbon credits.',
+    title: 'GREEN MINING',
+    description: 'NFT-BASED MINING BACKED BY REAL ENVIRONMENTAL ACTIVITIES INCLUDING TREE PLANTING AND CARBON CREDITS.',
   },
   {
     icon: Shield,
-    title: 'Transparent',
-    description: 'All environmental data recorded on-chain, ensuring trust and verifiability for every contribution.',
+    title: 'TRANSPARENT',
+    description: 'ALL ENVIRONMENTAL DATA RECORDED ON-CHAIN, ENSURING TRUST AND VERIFIABILITY FOR EVERY CONTRIBUTION.',
   },
   {
     icon: Coins,
-    title: 'Token Rewards',
-    description: 'Earn NXP tokens from your NFTs with reward mechanisms backed by real environmental activity.',
+    title: 'TOKEN REWARDS',
+    description: 'EARN NXP TOKENS FROM YOUR NFTS WITH REWARD MECHANISMS BACKED BY REAL ENVIRONMENTAL ACTIVITY.',
   },
   {
     icon: Globe,
-    title: 'Real Impact',
-    description: 'Connect blockchain innovation with tangible environmental projects including reforestation.',
+    title: 'REAL IMPACT',
+    description: 'CONNECT BLOCKCHAIN INNOVATION WITH TANGIBLE ENVIRONMENTAL PROJECTS INCLUDING REFORESTATION.',
   },
 ];
 
 const aboutContent = [
   {
     title: 'THE VISION',
-    text: 'To position blockchain as a tool for global environmental restoration, not merely financial speculation.',
+    text: 'TO POSITION BLOCKCHAIN AS A TOOL FOR GLOBAL ENVIRONMENTAL RESTORATION, NOT MERELY FINANCIAL SPECULATION.',
     icon: Target,
   },
   {
     title: 'THE PROBLEM',
-    text: 'Traditional environmental systems lack transparency. Many blockchain projects remain speculative with no real-world impact.',
+    text: 'TRADITIONAL ENVIRONMENTAL SYSTEMS LACK TRANSPARENCY. MANY BLOCKCHAIN PROJECTS REMAIN SPECULATIVE WITH NO REAL-WORLD IMPACT.',
     icon: Zap,
   },
   {
     title: 'THE SOLUTION',
-    text: 'Nexus Protocol records environmental data immutably on-chain and creates a circular green economy.',
+    text: 'NEXUS PROTOCOL RECORDS ENVIRONMENTAL DATA IMMUTABLY ON-CHAIN AND CREATES A CIRCULAR GREEN ECONOMY.',
     icon: Leaf,
   },
 ];
@@ -70,7 +70,7 @@ export function AboutSection() {
             ABOUT NEXUS
           </h2>
           <p className="neon-body max-w-2xl mx-auto text-lg">
-            A green blockchain ecosystem connecting real-world environmental assets into verifiable on-chain digital assets
+            A GREEN BLOCKCHAIN ECOSYSTEM CONNECTING REAL-WORLD ENVIRONMENTAL ASSETS INTO VERIFIABLE ON-CHAIN DIGITAL ASSETS
           </p>
         </motion.div>
 

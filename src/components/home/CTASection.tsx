@@ -60,12 +60,12 @@ export function CTASection() {
             GROW THE FOREST
           </h2>
           <h3 className="neon-subtitle text-2xl sm:text-3xl mb-8">
-            Secure the <span className="text-primary glow-text-neon">Future</span>
+            SECURE THE <span className="text-primary glow-text-neon">FUTURE</span>
           </h3>
 
           <p className="neon-body text-lg mb-12 max-w-xl mx-auto leading-relaxed">
-            Join the green blockchain ecosystem where every transaction creates positive environmental impact. 
-            Technology and nature growing together.
+            JOIN THE GREEN BLOCKCHAIN ECOSYSTEM WHERE EVERY TRANSACTION CREATES POSITIVE ENVIRONMENTAL IMPACT. 
+            TECHNOLOGY AND NATURE GROWING TOGETHER.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-5">

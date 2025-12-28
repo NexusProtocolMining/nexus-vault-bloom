@@ -14,9 +14,15 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Rajdhani', 'system-ui', 'sans-serif'],
+        sans: ['Exo 2', 'Rajdhani', 'system-ui', 'sans-serif'],
         display: ['Orbitron', 'monospace'],
         mono: ['JetBrains Mono', 'monospace'],
+        body: ['Exo 2', 'Rajdhani', 'sans-serif'],
+      },
+      letterSpacing: {
+        'ultra-wide': '0.3em',
+        'mega-wide': '0.4em',
+        'sci-fi': '0.25em',
       },
       colors: {
         border: "hsl(var(--border))",

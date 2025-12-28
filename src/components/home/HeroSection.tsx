@@ -214,7 +214,7 @@ export function HeroSection() {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="neon-subtitle text-xl sm:text-2xl mb-8"
           >
-            ONE NEXUS. ONE TREE.
+            ONE NEXUS · ONE TREE
           </motion.p>
 
           {/* Hero Headline */}
@@ -254,7 +254,7 @@ export function HeroSection() {
             transition={{ delay: 0.7, duration: 0.8 }}
             className="neon-body text-xl sm:text-2xl mb-16 max-w-3xl mx-auto leading-relaxed"
           >
-            NFT Mining Ecosystem for Real-World Impact
+            NFT MINING ECOSYSTEM FOR REAL-WORLD IMPACT
           </motion.p>
 
           {/* CTAs */}

@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Exo+2:wght@400;500;600;700;800;900&display=swap');
 
 @layer base {
   :root {
@@ -98,8 +98,9 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Rajdhani', system-ui, sans-serif;
+    font-family: 'Exo 2', 'Rajdhani', system-ui, sans-serif;
     font-weight: 500;
+    letter-spacing: 0.02em;
     background: 
       radial-gradient(ellipse at 30% 20%, hsl(120 100% 50% / 0.03) 0%, transparent 50%),
       radial-gradient(ellipse at 70% 80%, hsl(120 100% 50% / 0.02) 0%, transparent 50%),
@@ -109,7 +110,7 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Orbitron', monospace;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.2em;
     font-weight: 800;
     text-transform: uppercase;
   }
@@ -119,13 +120,13 @@
   }
 }
 
-/* ==================== 3D NEON TYPOGRAPHY SYSTEM ==================== */
+/* ==================== FUTURISTIC SCI-FI TYPOGRAPHY SYSTEM ==================== */
 @layer components {
-  /* MAIN HERO TITLE - 3D Neon Effect */
+  /* MAIN HERO TITLE - 3D Neon Effect - Wide Tracking */
   .neon-title {
     font-family: 'Orbitron', monospace;
     font-weight: 900;
-    letter-spacing: 0.35em;
+    letter-spacing: 0.4em;
     text-transform: uppercase;
     background: linear-gradient(
       180deg, 
@@ -143,11 +144,11 @@
             drop-shadow(0 0 100px hsl(120 100% 50% / 0.4));
   }
 
-  /* Solid Neon Green Text */
+  /* Solid Neon Green Text - Wide Tracking */
   .neon-text {
     font-family: 'Orbitron', monospace;
     font-weight: 800;
-    letter-spacing: 0.25em;
+    letter-spacing: 0.3em;
     text-transform: uppercase;
     color: hsl(120 100% 50%);
     text-shadow: 
@@ -158,11 +159,11 @@
       0 0 120px hsl(120 100% 50% / 0.3);
   }
 
-  /* SECTION HEADLINE */
+  /* SECTION HEADLINE - Sharp & Geometric */
   .neon-headline {
     font-family: 'Orbitron', monospace;
     font-weight: 900;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.25em;
     text-transform: uppercase;
     background: linear-gradient(
       180deg, 
@@ -176,11 +177,11 @@
     filter: drop-shadow(0 0 25px hsl(120 100% 50% / 0.8));
   }
 
-  /* SUBTITLE with glow */
+  /* SUBTITLE with glow - Wide Tracking */
   .neon-subtitle {
     font-family: 'Orbitron', monospace;
-    font-weight: 600;
-    letter-spacing: 0.35em;
+    font-weight: 700;
+    letter-spacing: 0.4em;
     text-transform: uppercase;
     color: hsl(0 0% 100% / 0.95);
     text-shadow: 
@@ -188,33 +189,36 @@
       0 0 30px hsl(120 100% 50% / 0.4);
   }
 
-  /* BODY TEXT - Softer */
+  /* BODY TEXT - Clean Geometric Sans */
   .neon-body {
-    font-family: 'Rajdhani', sans-serif;
+    font-family: 'Exo 2', 'Rajdhani', sans-serif;
     font-weight: 500;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     @apply text-white/80 leading-relaxed;
   }
 
-  /* CTA TEXT */
+  /* CTA TEXT - Sharp & Bold */
   .neon-cta {
     font-family: 'Orbitron', monospace;
-    font-weight: 700;
-    letter-spacing: 0.2em;
+    font-weight: 800;
+    letter-spacing: 0.25em;
     text-transform: uppercase;
   }
 
-  /* MUTED TEXT */
+  /* MUTED TEXT - Uppercase Geometric */
   .neon-muted {
-    font-family: 'Rajdhani', sans-serif;
+    font-family: 'Exo 2', 'Rajdhani', sans-serif;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     @apply text-white/50;
   }
 
-  /* CARD TITLE */
+  /* CARD TITLE - Sharp Geometric */
   .neon-card-title {
     font-family: 'Orbitron', monospace;
     font-weight: 700;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: hsl(0 0% 100%);
     text-shadow: 
@@ -222,11 +226,12 @@
       0 0 25px hsl(120 100% 50% / 0.3);
   }
 
-  /* METRIC DISPLAY */
+  /* METRIC DISPLAY - Bold Numbers */
   .neon-metric {
     font-family: 'Orbitron', monospace;
     font-weight: 900;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     color: hsl(120 100% 50%);
     text-shadow: 
       0 0 15px hsl(120 100% 50% / 1),
@@ -235,19 +240,19 @@
       0 0 100px hsl(120 100% 50% / 0.3);
   }
 
-  /* LABEL TEXT */
+  /* LABEL TEXT - Wide Tracking */
   .neon-label {
     font-family: 'Orbitron', monospace;
     font-weight: 600;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.25em;
     text-transform: uppercase;
     @apply text-white/65 text-xs;
   }
 
-  /* NAV LINK */
+  /* NAV LINK - Sharp Geometric */
   .nav-link-neon {
     font-family: 'Orbitron', monospace;
-    @apply font-medium tracking-[0.15em] uppercase text-sm text-white/75 transition-all duration-300;
+    @apply font-bold tracking-[0.2em] uppercase text-sm text-white/75 transition-all duration-300;
   }
   
   .nav-link-neon:hover,
@@ -443,8 +448,9 @@
 /* ==================== 3D BUTTONS ==================== */
 @layer components {
   .btn-neon-primary {
-    @apply relative font-bold uppercase tracking-[0.15em] px-10 py-4 rounded-xl overflow-hidden;
+    @apply relative font-bold uppercase px-10 py-4 rounded-xl overflow-hidden;
     font-family: 'Orbitron', monospace;
+    letter-spacing: 0.2em;
     background: linear-gradient(135deg, hsl(120 100% 40%) 0%, hsl(120 100% 50%) 50%, hsl(90 100% 50%) 100%);
     color: hsl(140 50% 2%);
     box-shadow: 
@@ -482,8 +488,9 @@
   }
 
   .btn-neon-outline {
-    @apply relative font-bold uppercase tracking-[0.15em] px-10 py-4 rounded-xl overflow-hidden;
+    @apply relative font-bold uppercase px-10 py-4 rounded-xl overflow-hidden;
     font-family: 'Orbitron', monospace;
+    letter-spacing: 0.2em;
     background: hsl(120 100% 50% / 0.05);
     color: hsl(120 100% 50%);
     border: 2px solid hsl(120 100% 50% / 0.6);
@@ -500,73 +507,54 @@
       0 0 50px hsl(120 100% 50% / 0.5),
       0 0 100px hsl(120 100% 50% / 0.25),
       inset 0 0 40px hsl(120 100% 50% / 0.1);
-    transform: translateY(-6px);
-    text-shadow: 0 0 15px hsl(120 100% 50% / 0.9);
+    transform: translateY(-4px);
   }
 
-  /* Smaller Button Variants */
+  /* Smaller button variants */
   .btn-primary-glow {
-    @apply relative font-bold uppercase tracking-[0.12em] px-6 py-3 rounded-lg overflow-hidden text-sm;
+    @apply relative font-bold uppercase px-6 py-3 rounded-lg overflow-hidden;
     font-family: 'Orbitron', monospace;
-    background: linear-gradient(135deg, hsl(120 100% 40%) 0%, hsl(120 100% 50%) 100%);
+    letter-spacing: 0.15em;
+    background: linear-gradient(135deg, hsl(120 100% 45%) 0%, hsl(120 100% 50%) 100%);
     color: hsl(140 50% 2%);
-    box-shadow: 
-      0 0 25px hsl(120 100% 50% / 0.5),
-      0 10px 20px -8px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 30px hsl(120 100% 50% / 0.4);
     transition: all 0.3s ease;
   }
 
   .btn-primary-glow:hover {
-    box-shadow: 
-      0 0 40px hsl(120 100% 50% / 0.7),
-      0 15px 30px -10px rgba(0, 0, 0, 0.5);
-    transform: translateY(-3px);
+    box-shadow: 0 0 50px hsl(120 100% 50% / 0.6);
+    transform: translateY(-2px);
   }
 
   .btn-outline-glow {
-    @apply relative font-bold uppercase tracking-[0.12em] px-6 py-3 rounded-lg overflow-hidden text-sm;
+    @apply relative font-bold uppercase px-6 py-3 rounded-lg;
     font-family: 'Orbitron', monospace;
+    letter-spacing: 0.15em;
     background: transparent;
     color: hsl(120 100% 50%);
-    border: 2px solid hsl(120 100% 50% / 0.5);
+    border: 1px solid hsl(120 100% 50% / 0.5);
     transition: all 0.3s ease;
   }
 
   .btn-outline-glow:hover {
     background: hsl(120 100% 50% / 0.1);
     border-color: hsl(120 100% 50%);
-    box-shadow: 0 0 30px hsl(120 100% 50% / 0.4);
-    transform: translateY(-3px);
+    box-shadow: 0 0 30px hsl(120 100% 50% / 0.3);
   }
 }
 
 /* ==================== GLOW EFFECTS ==================== */
 @layer components {
   .glow-neon {
-    box-shadow: 
-      0 0 50px hsl(120 100% 50% / 0.5),
-      0 0 100px hsl(120 100% 50% / 0.25),
-      0 0 150px hsl(120 100% 50% / 0.1);
+    box-shadow: 0 0 40px hsl(120 100% 50% / 0.5), 0 0 80px hsl(120 100% 50% / 0.25);
   }
-
+  
   .glow-text-neon {
-    text-shadow: 
-      0 0 15px hsl(120 100% 50% / 1),
-      0 0 30px hsl(120 100% 50% / 0.8),
-      0 0 60px hsl(120 100% 50% / 0.5),
-      0 0 100px hsl(120 100% 50% / 0.3);
+    text-shadow: 0 0 20px hsl(120 100% 50% / 0.8), 0 0 40px hsl(120 100% 50% / 0.5);
   }
 
   .neon-glow {
-    box-shadow: 
-      0 0 40px hsl(120 100% 50% / 0.3),
-      0 0 80px hsl(120 100% 50% / 0.15);
-  }
-
-  .neon-glow-text {
-    text-shadow: 
-      0 0 10px hsl(120 100% 50% / 0.9),
-      0 0 25px hsl(120 100% 50% / 0.6);
+    animation: glow-pulse 3s ease-in-out infinite;
   }
 }
 
@@ -574,59 +562,76 @@
 @layer components {
   .matrix-grid-bg {
     background-image: 
-      linear-gradient(hsl(120 100% 50% / 0.06) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(120 100% 50% / 0.06) 1px, transparent 1px);
+      linear-gradient(hsl(120 100% 50% / 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(120 100% 50% / 0.03) 1px, transparent 1px);
     background-size: 50px 50px;
   }
 
   .tech-grid-bg {
     background-image: 
-      linear-gradient(hsl(120 100% 50% / 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(120 100% 50% / 0.04) 1px, transparent 1px);
-    background-size: 80px 80px;
+      linear-gradient(hsl(120 100% 50% / 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(120 100% 50% / 0.05) 1px, transparent 1px);
+    background-size: 30px 30px;
   }
 
   .particle-bg {
     background: 
-      radial-gradient(ellipse at 25% 25%, hsl(120 100% 50% / 0.08) 0%, transparent 50%),
-      radial-gradient(ellipse at 75% 75%, hsl(120 100% 50% / 0.06) 0%, transparent 50%),
-      radial-gradient(ellipse at 50% 50%, hsl(120 100% 50% / 0.04) 0%, transparent 60%);
+      radial-gradient(circle at 20% 30%, hsl(120 100% 50% / 0.04) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, hsl(120 100% 50% / 0.03) 0%, transparent 50%);
+  }
+
+  .tech-lines-bg {
+    background-image: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 30px,
+      hsl(120 100% 50% / 0.02) 30px,
+      hsl(120 100% 50% / 0.02) 31px
+    );
   }
 }
 
 /* ==================== BADGE ==================== */
 @layer components {
   .badge-tech {
-    @apply inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-[0.2em];
+    @apply inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold uppercase;
     font-family: 'Orbitron', monospace;
-    background: hsl(120 100% 50% / 0.08);
-    border: 1px solid hsl(120 100% 50% / 0.3);
+    letter-spacing: 0.2em;
+    background: hsl(120 100% 50% / 0.1);
     color: hsl(120 100% 50%);
-    box-shadow: 
-      0 0 20px hsl(120 100% 50% / 0.15),
-      inset 0 0 15px hsl(120 100% 50% / 0.05);
+    border: 1px solid hsl(120 100% 50% / 0.4);
+    box-shadow: 0 0 20px hsl(120 100% 50% / 0.2);
   }
 }
 
 /* ==================== ANIMATIONS ==================== */
 @keyframes shimmer {
-  0% { left: -100%; }
-  50%, 100% { left: 200%; }
+  0%, 100% { left: -100%; }
+  50% { left: 100%; }
 }
 
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
+  50% { transform: translateY(-15px); }
 }
 
 @keyframes pulse-glow {
   0%, 100% { 
-    box-shadow: 0 0 40px hsl(120 100% 50% / 0.4), 0 0 80px hsl(120 100% 50% / 0.2);
-    border-color: hsl(120 100% 50% / 0.5);
+    box-shadow: 0 0 30px hsl(120 100% 50% / 0.4), 0 0 60px hsl(120 100% 50% / 0.2);
   }
   50% { 
-    box-shadow: 0 0 70px hsl(120 100% 50% / 0.7), 0 0 140px hsl(120 100% 50% / 0.4);
-    border-color: hsl(120 100% 50% / 1);
+    box-shadow: 0 0 60px hsl(120 100% 50% / 0.7), 0 0 120px hsl(120 100% 50% / 0.4);
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { 
+    box-shadow: 0 0 30px hsl(120 100% 50% / 0.3);
+    border-color: hsl(120 100% 50% / 0.4);
+  }
+  50% { 
+    box-shadow: 0 0 60px hsl(120 100% 50% / 0.5);
+    border-color: hsl(120 100% 50% / 0.7);
   }
 }
 
@@ -643,13 +648,9 @@
   animation: pulse-glow 3s ease-in-out infinite;
 }
 
-.animate-rotate-slow {
-  animation: rotate-slow 30s linear infinite;
-}
-
 /* ==================== SCROLLBAR ==================== */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -658,8 +659,7 @@
 
 ::-webkit-scrollbar-thumb {
   background: hsl(120 100% 50% / 0.3);
-  border-radius: 5px;
-  border: 2px solid hsl(140 50% 3%);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -667,28 +667,9 @@
 }
 
 /* ==================== LEGACY COMPATIBILITY ==================== */
-.cyber-headline { @apply neon-headline; }
-.cyber-body { @apply neon-body; }
-.cyber-muted { @apply neon-muted; }
-.cyber-card-title { @apply neon-card-title; }
-.cyber-subtitle { @apply neon-subtitle; }
-.cyber-card { @apply glass-card; }
-.cyber-card-3d { @apply nft-card; }
-.matrix-card { @apply glass-card; }
-.matrix-card-3d { @apply card-3d; }
-.luxury-card { @apply nft-card; }
-.nexus-label { @apply neon-label; }
-.nexus-body { @apply neon-body; }
-.nexus-muted { @apply neon-muted; }
-.nexus-card-title { @apply neon-card-title; }
-.nexus-metric { @apply neon-metric; }
-.nexus-section-title { @apply neon-headline; }
-.nexus-highlight { @apply text-primary glow-text-neon; }
-.matrix-body { @apply neon-body; }
-.matrix-headline { @apply neon-headline; }
-.matrix-muted { @apply neon-muted; }
-.btn-cyber-primary { @apply btn-neon-primary; }
-.btn-cyber-outline { @apply btn-neon-outline; }
-.cyber-grid-bg { @apply matrix-grid-bg; }
-.glow-cyan { @apply glow-neon; }
-.glow-text-cyan { @apply glow-text-neon; }
+@layer components {
+  .cyber-headline { @apply neon-headline; }
+  .matrix-card { @apply glass-card; }
+  .matrix-body { @apply neon-body; }
+  .matrix-muted { @apply neon-muted; }
+}
