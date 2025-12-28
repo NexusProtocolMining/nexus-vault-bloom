@@ -8,28 +8,28 @@ const steps = [
     icon: ShoppingCart,
     number: '01',
     title: 'ACQUIRE NFT',
-    description: 'Purchase Nexus NFTs (Tree, Diamond, or Carbon) to join the green ecosystem.',
+    description: 'PURCHASE NEXUS NFTS (TREE, DIAMOND, OR CARBON) TO JOIN THE GREEN ECOSYSTEM.',
     status: 'MINT NOW',
   },
   {
     icon: Cpu,
     number: '02',
     title: 'ACTIVATE MINING',
-    description: 'Your NFTs automatically activate NXP mining mechanisms on-chain.',
+    description: 'YOUR NFTS AUTOMATICALLY ACTIVATE NXP MINING MECHANISMS ON-CHAIN.',
     status: 'START MINING',
   },
   {
     icon: TreePine,
     number: '03',
     title: 'GENERATE CREDITS',
-    description: 'Environmental activities generate carbon credits and ecosystem revenue.',
+    description: 'ENVIRONMENTAL ACTIVITIES GENERATE CARBON CREDITS AND ECOSYSTEM REVENUE.',
     status: 'REAL IMPACT',
   },
   {
     icon: Coins,
     number: '04',
     title: 'VALUE DISTRIBUTED',
-    description: 'Rewards are distributed transparently to NFT and token holders.',
+    description: 'REWARDS ARE DISTRIBUTED TRANSPARENTLY TO NFT AND TOKEN HOLDERS.',
     status: 'CLAIM REWARDS',
   },
 ];
@@ -60,7 +60,7 @@ export const HowItWorksSection = () => {
             HOW DOES NFT MINING WORK?
           </h2>
           <p className="neon-body max-w-2xl mx-auto text-lg">
-            From NFT ownership to real environmental impact—every step is recorded transparently on-chain.
+            FROM NFT OWNERSHIP TO REAL ENVIRONMENTAL IMPACT — EVERY STEP IS RECORDED TRANSPARENTLY ON-CHAIN.
           </p>
         </motion.div>
 
@@ -132,9 +132,9 @@ export const HowItWorksSection = () => {
         >
           <div className="glass-card inline-block px-10 py-6 rounded-2xl">
             <p className="neon-body text-lg">
-              <span className="text-primary font-bold glow-text-neon">Greater participation</span> leads to{' '}
-              <span className="text-primary font-bold glow-text-neon">greater impact</span> and{' '}
-              <span className="text-primary font-bold glow-text-neon">value</span>.
+              <span className="text-primary font-bold glow-text-neon">GREATER PARTICIPATION</span> LEADS TO{' '}
+              <span className="text-primary font-bold glow-text-neon">GREATER IMPACT</span> AND{' '}
+              <span className="text-primary font-bold glow-text-neon">VALUE</span>.
             </p>
           </div>
         </motion.div>
