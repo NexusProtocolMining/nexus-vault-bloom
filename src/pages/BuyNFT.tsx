@@ -20,24 +20,24 @@ const NFT_TIERS = [
     name: 'TREE NFT', 
     image: treeNFT, 
     priceUSD: 10,
-    description: 'Represents real tree planting and long-term carbon offset. Start your green journey.',
-    miningPower: '1x',
+    description: 'REPRESENTS REAL TREE PLANTING AND LONG-TERM CARBON OFFSET. START YOUR GREEN JOURNEY.',
+    miningPower: '1X',
   },
   { 
     key: 'diamond', 
     name: 'DIAMOND NFT', 
     image: diamondNFT, 
     priceUSD: 100,
-    description: 'Premium tier with enhanced mining rewards and exclusive ecosystem privileges.',
-    miningPower: '10x',
+    description: 'PREMIUM TIER WITH ENHANCED MINING REWARDS AND EXCLUSIVE ECOSYSTEM PRIVILEGES.',
+    miningPower: '10X',
   },
   { 
     key: 'carbon', 
     name: 'CARBON NFT', 
     image: carbonNFT, 
     priceUSD: 1000,
-    description: 'Directly linked to verified carbon credit mechanisms. Maximum environmental impact.',
-    miningPower: '100x',
+    description: 'DIRECTLY LINKED TO VERIFIED CARBON CREDIT MECHANISMS. MAXIMUM ENVIRONMENTAL IMPACT.',
+    miningPower: '100X',
   },
 ];
 
@@ -94,7 +94,7 @@ const BuyNFT = () => {
 
   useEffect(() => {
     if (isApproveConfirmed && selectedTier) {
-      toast({ title: 'Approval Successful', description: 'USDT approved. You can now buy the NFT.' });
+      toast({ title: 'APPROVAL SUCCESSFUL', description: 'USDT APPROVED. YOU CAN NOW BUY THE NFT.' });
       refetchAllowance();
       setStep('idle');
     }
@@ -102,7 +102,7 @@ const BuyNFT = () => {
 
   useEffect(() => {
     if (isBuyConfirmed) {
-      toast({ title: 'NFT Purchased!', description: `You have successfully purchased a ${selectedTier?.toUpperCase()} NFT!` });
+      toast({ title: 'NFT PURCHASED!', description: `YOU HAVE SUCCESSFULLY PURCHASED A ${selectedTier?.toUpperCase()} NFT!` });
       setStep('idle');
       setSelectedTier(null);
     }
@@ -132,12 +132,12 @@ const BuyNFT = () => {
             </div>
             <h1 className="neon-headline text-5xl sm:text-6xl md:text-7xl mb-6">ACQUIRE NFT</h1>
             <p className="neon-body max-w-2xl mx-auto text-lg">
-              Acquire NFTs that function as mining assets and start generating rewards instantly.
+              ACQUIRE NFTS THAT FUNCTION AS MINING ASSETS AND START GENERATING REWARDS INSTANTLY.
             </p>
             {referrer !== '0x0000000000000000000000000000000000000000' && (
               <motion.div className="mt-6 inline-flex items-center gap-2 glass-card px-6 py-3 text-sm" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                 <CheckCircle className="w-4 h-4 text-primary" />
-                <span className="text-white/80">Referrer: <span className="font-mono text-primary">{referrer.slice(0, 6)}...{referrer.slice(-4)}</span></span>
+                <span className="text-white/80 font-display tracking-wider">REFERRER: <span className="font-mono text-primary">{referrer.slice(0, 6)}...{referrer.slice(-4)}</span></span>
               </motion.div>
             )}
           </motion.div>
@@ -145,8 +145,8 @@ const BuyNFT = () => {
           {!isConnected && (
             <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="max-w-md mx-auto glass-card p-10 text-center neon-glow">
               <TreePine className="w-16 h-16 text-primary mx-auto mb-5" />
-              <h2 className="neon-card-title text-2xl mb-3">Join the Green Ecosystem</h2>
-              <p className="neon-muted">Connect your wallet to acquire productive NFT assets.</p>
+              <h2 className="neon-card-title text-2xl mb-3">JOIN THE GREEN ECOSYSTEM</h2>
+              <p className="neon-muted">CONNECT YOUR WALLET TO ACQUIRE PRODUCTIVE NFT ASSETS.</p>
             </motion.div>
           )}
 
@@ -165,10 +165,10 @@ const BuyNFT = () => {
                       <motion.img src={tier.image} alt={tier.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                       <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
                       <div className="absolute top-4 left-4">
-                        <span className="px-4 py-2 rounded-full text-xs font-display font-bold bg-primary/20 text-primary border border-primary/40" style={{ boxShadow: '0 0 20px hsl(120 100% 50% / 0.3)' }}>{tier.name}</span>
+                        <span className="px-4 py-2 rounded-full text-xs font-display font-bold bg-primary/20 text-primary border border-primary/40 tracking-wider" style={{ boxShadow: '0 0 20px hsl(120 100% 50% / 0.3)' }}>{tier.name}</span>
                       </div>
                       <div className="absolute top-4 right-4">
-                        <span className="px-3 py-1.5 rounded-lg text-xs font-display font-bold bg-background/80 text-primary border border-primary/40">{tier.miningPower} POWER</span>
+                        <span className="px-3 py-1.5 rounded-lg text-xs font-display font-bold bg-background/80 text-primary border border-primary/40 tracking-wider">{tier.miningPower} POWER</span>
                       </div>
                     </div>
 
@@ -178,17 +178,17 @@ const BuyNFT = () => {
 
                       {needsApprovalFlag ? (
                         <motion.button onClick={() => handleApprove(tier.key)} disabled={isProcessing || !hasBalance} className="w-full btn-outline-glow flex items-center justify-center gap-2" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                          {isProcessing ? <><Loader2 className="w-4 h-4 animate-spin" />Approving...</> : 'Approve USDT'}
+                          {isProcessing ? <><Loader2 className="w-4 h-4 animate-spin" />APPROVING...</> : 'APPROVE USDT'}
                         </motion.button>
                       ) : (
                         <motion.button onClick={() => handleBuy(tier.key)} disabled={isProcessing || !hasBalance} className="w-full btn-primary-glow flex items-center justify-center gap-2" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                          {isProcessing ? <><Loader2 className="w-4 h-4 animate-spin" />Buying...</> : 'BUY NOW'}
+                          {isProcessing ? <><Loader2 className="w-4 h-4 animate-spin" />BUYING...</> : 'BUY NOW'}
                         </motion.button>
                       )}
 
                       {!hasBalance && (
-                        <p className="text-xs text-destructive mt-3 flex items-center gap-1">
-                          <AlertCircle className="w-3 h-3" />Insufficient USDT balance
+                        <p className="text-xs text-destructive mt-3 flex items-center gap-1 font-display tracking-wider">
+                          <AlertCircle className="w-3 h-3" />INSUFFICIENT USDT BALANCE
                         </p>
                       )}
                     </div>
@@ -200,7 +200,7 @@ const BuyNFT = () => {
 
           {isConnected && usdtBalance && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="text-center mt-10">
-              <p className="neon-muted">Your USDT Balance: <span className="text-primary font-mono neon-metric text-lg">{formatUnits(usdtBalance as bigint, 18)} USDT</span></p>
+              <p className="neon-muted">YOUR USDT BALANCE: <span className="text-primary font-mono neon-metric text-lg">{formatUnits(usdtBalance as bigint, 18)} USDT</span></p>
             </motion.div>
           )}
         </div>

@@ -6,10 +6,10 @@ import { motion } from 'framer-motion';
 
 export function Footer() {
   const contractLinks = [
-    { name: 'NFT Sale', address: CONTRACTS.NFT_SALE },
-    { name: 'NFT Miner', address: CONTRACTS.NFT_MINER },
-    { name: 'Mining', address: CONTRACTS.STAKING },
-    { name: 'NXP Token', address: CONTRACTS.NXP },
+    { name: 'NFT SALE', address: CONTRACTS.NFT_SALE },
+    { name: 'NFT MINER', address: CONTRACTS.NFT_MINER },
+    { name: 'MINING', address: CONTRACTS.STAKING },
+    { name: 'NXP TOKEN', address: CONTRACTS.NXP },
   ];
 
   return (
@@ -31,18 +31,18 @@ export function Footer() {
                   boxShadow: '0 0 25px hsl(120 100% 50% / 0.4)',
                 }}
               >
-                <img src={logoNexus} alt="Nexus Protocol" className="w-full h-full object-cover" />
+                <img src={logoNexus} alt="NEXUS PROTOCOL" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/25 to-transparent" />
               </motion.div>
               <div>
                 <span className="neon-title text-xl block">
                   NEXUS
                 </span>
-                <span className="neon-label">Green Blockchain</span>
+                <span className="neon-label">GREEN BLOCKCHAIN</span>
               </div>
             </Link>
-            <p className="matrix-body text-sm mb-6">
-              One Nexus, One Tree. A Green Blockchain Ecosystem for Real-World Impact.
+            <p className="neon-body text-sm mb-6">
+              ONE NEXUS, ONE TREE. A GREEN BLOCKCHAIN ECOSYSTEM FOR REAL-WORLD IMPACT.
             </p>
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-primary/15 flex items-center justify-center border border-primary/40 hover:bg-primary/25 transition-colors hover:shadow-neon">
@@ -61,20 +61,20 @@ export function Footer() {
           <div>
             <h4 className="neon-card-title text-sm mb-6 flex items-center gap-2">
               <Shield className="w-4 h-4 text-primary" />
-              Quick Links
+              QUICK LINKS
             </h4>
             <ul className="space-y-3">
               {[
-                { path: '/', name: 'Home' },
-                { path: '/buy', name: 'Buy NFT' },
-                { path: '/staking', name: 'Mining' },
-                { path: '/pool', name: 'Sell NXP' },
-                { path: '/dashboard', name: 'Dashboard' },
+                { path: '/', name: 'HOME' },
+                { path: '/buy', name: 'BUY NFT' },
+                { path: '/staking', name: 'MINING' },
+                { path: '/pool', name: 'SELL NXP' },
+                { path: '/dashboard', name: 'DASHBOARD' },
               ].map((link) => (
                 <li key={link.path}>
                   <Link 
                     to={link.path} 
-                    className="matrix-muted text-sm hover:text-primary transition-all duration-300 flex items-center gap-2 group"
+                    className="neon-muted text-sm hover:text-primary transition-all duration-300 flex items-center gap-2 group"
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-primary/50 group-hover:bg-primary group-hover:shadow-lg group-hover:shadow-primary/60 transition-all" />
                     {link.name}
@@ -88,7 +88,7 @@ export function Footer() {
           <div className="lg:col-span-2">
             <h4 className="neon-card-title text-sm mb-6 flex items-center gap-2">
               <Zap className="w-4 h-4 text-primary" />
-              Smart Contracts (BSC)
+              SMART CONTRACTS (BSC)
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {contractLinks.map((contract) => (
@@ -97,10 +97,10 @@ export function Footer() {
                   href={getExplorerUrl('address', contract.address)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="matrix-card p-3 flex items-center justify-between gap-3 group hover:border-primary/50 transition-all duration-300"
+                  className="glass-card p-3 flex items-center justify-between gap-3 group hover:border-primary/50 transition-all duration-300"
                 >
                   <div className="min-w-0">
-                    <span className="text-sm text-foreground block">{contract.name}</span>
+                    <span className="text-sm text-foreground block font-display tracking-wider">{contract.name}</span>
                     <span className="font-mono text-xs text-primary/70 truncate block">
                       {contract.address.slice(0, 8)}...{contract.address.slice(-6)}
                     </span>
@@ -114,12 +114,12 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-primary/15 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="matrix-muted text-xs text-center sm:text-left flex items-center gap-2">
+          <p className="neon-muted text-xs text-center sm:text-left flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" style={{ boxShadow: '0 0 12px hsl(120 100% 50% / 0.6)' }} />
-            © 2024 Nexus Protocol. Built on BSC.
+            © 2024 NEXUS PROTOCOL. BUILT ON BSC.
           </p>
-          <p className="matrix-muted text-xs text-center sm:text-right max-w-lg opacity-60">
-            This website uses real on-chain data only. All balances, rewards, and mining information are read directly from smart contracts.
+          <p className="neon-muted text-xs text-center sm:text-right max-w-lg opacity-60">
+            THIS WEBSITE USES REAL ON-CHAIN DATA ONLY. ALL BALANCES, REWARDS, AND MINING INFORMATION ARE READ DIRECTLY FROM SMART CONTRACTS.
           </p>
         </div>
       </div>
