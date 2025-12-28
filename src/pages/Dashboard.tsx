@@ -34,7 +34,7 @@ const Dashboard = () => {
   const copyReferralLink = () => {
     navigator.clipboard.writeText(referralLink);
     setCopied(true);
-    toast({ title: 'Link Copied!', description: 'Referral link copied to clipboard' });
+    toast({ title: 'LINK COPIED!', description: 'REFERRAL LINK COPIED TO CLIPBOARD' });
     setTimeout(() => setCopied(false), 2000);
   };
 
@@ -61,14 +61,14 @@ const Dashboard = () => {
               <span>MINING DASHBOARD</span>
             </div>
             <h1 className="neon-headline text-5xl sm:text-6xl md:text-7xl mb-4">DASHBOARD</h1>
-            <p className="neon-body max-w-xl mx-auto text-lg">Track your NFT mining performance in realtime</p>
+            <p className="neon-body max-w-xl mx-auto text-lg">TRACK YOUR NFT MINING PERFORMANCE IN REALTIME</p>
           </motion.div>
 
           {!isConnected && (
             <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="max-w-md mx-auto glass-card p-10 text-center neon-glow">
               <Wallet className="w-16 h-16 text-primary mx-auto mb-5" />
-              <h2 className="neon-card-title text-2xl mb-3">Connect Wallet</h2>
-              <p className="neon-muted">Please connect your wallet to view your dashboard.</p>
+              <h2 className="neon-card-title text-2xl mb-3">CONNECT WALLET</h2>
+              <p className="neon-muted">PLEASE CONNECT YOUR WALLET TO VIEW YOUR DASHBOARD.</p>
             </motion.div>
           )}
 
@@ -81,40 +81,40 @@ const Dashboard = () => {
                     <Link2 className="w-7 h-7 text-primary" />
                   </div>
                   <div>
-                    <h2 className="neon-card-title text-xl">Referral Link</h2>
-                    <p className="neon-muted text-sm">Auto-generated on-chain referral</p>
+                    <h2 className="neon-card-title text-xl">REFERRAL LINK</h2>
+                    <p className="neon-muted text-sm">AUTO-GENERATED ON-CHAIN REFERRAL</p>
                   </div>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <input type="text" value={referralLink} readOnly className="flex-1 bg-background/60 border border-primary/40 rounded-xl px-5 py-4 text-sm font-mono text-primary/80 focus:outline-none truncate" />
                   <motion.button onClick={copyReferralLink} className="btn-primary-glow flex items-center justify-center gap-2 px-8" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                    {copied ? <><CheckCircle className="w-4 h-4" />Copied!</> : <><Copy className="w-4 h-4" />Copy Link</>}
+                    {copied ? <><CheckCircle className="w-4 h-4" />COPIED!</> : <><Copy className="w-4 h-4" />COPY LINK</>}
                   </motion.button>
                 </div>
-                <p className="neon-muted text-xs mt-4">Share this link. When friends buy NFTs, you earn referral rewards on-chain.</p>
+                <p className="neon-muted text-xs mt-4">SHARE THIS LINK. WHEN FRIENDS BUY NFTS, YOU EARN REFERRAL REWARDS ON-CHAIN.</p>
               </motion.div>
 
               {/* Referral Analytics */}
               <motion.div initial={{ opacity: 0, y: 25 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="glass-card p-6 sm:p-8">
                 <h2 className="neon-card-title text-xl mb-6 flex items-center gap-3">
-                  <BarChart3 className="w-6 h-6 text-primary" />Referral Analytics
+                  <BarChart3 className="w-6 h-6 text-primary" />REFERRAL ANALYTICS
                 </h2>
                 <div className="grid grid-cols-2 gap-6">
                   <div className="stats-card p-6 text-center">
                     <div className="w-14 h-14 rounded-xl bg-primary/15 flex items-center justify-center mx-auto mb-4 border border-primary/30" style={{ boxShadow: '0 0 25px hsl(120 100% 50% / 0.2)' }}>
                       <UserPlus className="w-7 h-7 text-primary" />
                     </div>
-                    <p className="neon-label mb-2">Referred Users</p>
+                    <p className="neon-label mb-2">REFERRED USERS</p>
                     <motion.p key={referralCountNum} initial={{ scale: 0.9 }} animate={{ scale: 1 }} className="neon-metric text-4xl">{referralCountNum}</motion.p>
-                    <p className="neon-muted text-xs mt-1">Total Referrals</p>
+                    <p className="neon-muted text-xs mt-1">TOTAL REFERRALS</p>
                   </div>
                   <div className="stats-card p-6 text-center">
                     <div className="w-14 h-14 rounded-xl bg-primary/15 flex items-center justify-center mx-auto mb-4 border border-primary/30" style={{ boxShadow: '0 0 25px hsl(120 100% 50% / 0.2)' }}>
                       <Award className="w-7 h-7 text-primary" />
                     </div>
-                    <p className="neon-label mb-2">Referral Earnings</p>
+                    <p className="neon-label mb-2">REFERRAL EARNINGS</p>
                     <motion.p key={referralEarningsFormatted} initial={{ scale: 0.9 }} animate={{ scale: 1 }} className="neon-metric text-3xl">{Number(referralEarningsFormatted).toLocaleString(undefined, { maximumFractionDigits: 2 })}</motion.p>
-                    <p className="neon-muted text-xs mt-1">USDT Earned</p>
+                    <p className="neon-muted text-xs mt-1">USDT EARNED</p>
                   </div>
                 </div>
               </motion.div>
@@ -122,10 +122,10 @@ const Dashboard = () => {
               {/* Stats Grid */}
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
                 {[
-                  { icon: Coins, label: 'NXP Balance', value: Number(nxpFormatted).toLocaleString(undefined, { maximumFractionDigits: 2 }), sub: 'Total NXP' },
-                  { icon: Package, label: 'NFTs Owned', value: nftCount, sub: 'Total Collection' },
-                  { icon: Users, label: 'Your Referrer', value: hasReferrer ? `${(referrer as string).slice(0, 6)}...${(referrer as string).slice(-4)}` : 'None', sub: 'Upline Address', isMono: true },
-                  { icon: TrendingUp, label: 'Network', value: 'BSC', sub: 'Binance Smart Chain' },
+                  { icon: Coins, label: 'NXP BALANCE', value: Number(nxpFormatted).toLocaleString(undefined, { maximumFractionDigits: 2 }), sub: 'TOTAL NXP' },
+                  { icon: Package, label: 'NFTS OWNED', value: nftCount, sub: 'TOTAL COLLECTION' },
+                  { icon: Users, label: 'YOUR REFERRER', value: hasReferrer ? `${(referrer as string).slice(0, 6)}...${(referrer as string).slice(-4)}` : 'NONE', sub: 'UPLINE ADDRESS', isMono: true },
+                  { icon: TrendingUp, label: 'NETWORK', value: 'BSC', sub: 'BINANCE SMART CHAIN' },
                 ].map((stat, i) => (
                   <motion.div key={i} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 + i * 0.1 }} className="card-3d p-6">
                     <div className="flex items-center gap-3 mb-4">
@@ -143,15 +143,15 @@ const Dashboard = () => {
               {/* Mining Inventory */}
               <motion.div initial={{ opacity: 0, y: 25 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} className="glass-card p-6 sm:p-8">
                 <h2 className="neon-card-title text-xl mb-6 flex items-center gap-3">
-                  <TrendingUp className="w-6 h-6 text-primary" />Mining Inventory
+                  <TrendingUp className="w-6 h-6 text-primary" />MINING INVENTORY
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <TotalEarningCard tokenIds={tokenIds as bigint[] | undefined} period="Mining Rewards" />
+                  <TotalEarningCard tokenIds={tokenIds as bigint[] | undefined} period="MINING REWARDS" />
                   <div className="stats-card p-6 text-center">
                     <div className="w-14 h-14 rounded-xl bg-primary/15 flex items-center justify-center mx-auto mb-4 border border-primary/30">
                       <Award className="w-7 h-7 text-primary" />
                     </div>
-                    <p className="neon-label mb-2">Referral Rewards</p>
+                    <p className="neon-label mb-2">REFERRAL REWARDS</p>
                     <motion.p key={referralEarningsFormatted} initial={{ scale: 0.9 }} animate={{ scale: 1 }} className="neon-metric text-3xl">{Number(referralEarningsFormatted).toLocaleString(undefined, { maximumFractionDigits: 2 })}</motion.p>
                     <p className="neon-muted text-xs mt-1">USDT</p>
                   </div>
@@ -161,15 +161,15 @@ const Dashboard = () => {
               {/* NFT Collection */}
               <motion.div initial={{ opacity: 0, y: 25 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}>
                 <h2 className="neon-card-title text-xl mb-6 flex items-center gap-3">
-                  <Package className="w-6 h-6 text-primary" />NFT Collection
+                  <Package className="w-6 h-6 text-primary" />NFT COLLECTION
                 </h2>
 
                 {nftCount === 0 ? (
                   <div className="glass-card p-10 text-center">
                     <Package className="w-16 h-16 text-primary/40 mx-auto mb-5" />
-                    <p className="neon-muted mb-5">You don't own any NFTs yet.</p>
+                    <p className="neon-muted mb-5">YOU DON'T OWN ANY NFTS YET.</p>
                     <motion.a href="/buy" className="btn-primary-glow inline-flex items-center gap-2" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                      <Zap className="w-4 h-4" />Buy NFT Now
+                      <Zap className="w-4 h-4" />BUY NFT NOW
                     </motion.a>
                   </div>
                 ) : (
@@ -199,7 +199,7 @@ const NFTCard = ({ tokenId }: { tokenId: bigint }) => {
       </div>
       <div className="p-4 text-center">
         <p className="neon-label text-xs">#{tokenId.toString()}</p>
-        <p className="text-primary font-display font-bold">{tierNames[tier] || 'NFT'}</p>
+        <p className="text-primary font-display font-bold tracking-wider">{tierNames[tier] || 'NFT'}</p>
       </div>
     </motion.div>
   );

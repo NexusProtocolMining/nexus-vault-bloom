@@ -47,16 +47,14 @@ export function Navbar() {
                 boxShadow: '0 0 25px hsl(120 100% 50% / 0.4)'
               }}
             >
-              <img src={logoNexus} alt="Nexus Protocol" className="w-full h-full object-cover" />
+              <img src={logoNexus} alt="NEXUS PROTOCOL" className="w-full h-full object-cover" />
               <motion.div 
                 className="absolute inset-0 border-2 border-primary/70 rounded-xl"
                 animate={{ opacity: [0.5, 1, 0.5] }}
                 transition={{ duration: 2, repeat: Infinity }}
               />
             </motion.div>
-            <span 
-              className="hidden sm:block neon-title text-xl"
-            >
+            <span className="hidden sm:block neon-title text-xl">
               NEXUS
             </span>
           </Link>
@@ -122,7 +120,7 @@ export function Navbar() {
                     <Link
                       to={link.path}
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className={`flex items-center gap-3 px-5 py-4 rounded-xl text-sm font-semibold tracking-[0.15em] transition-all duration-300 ${
+                      className={`flex items-center gap-3 px-5 py-4 rounded-xl text-sm font-bold tracking-[0.2em] transition-all duration-300 ${
                         location.pathname === link.path
                           ? 'bg-primary text-primary-foreground'
                           : 'text-white/60 hover:text-primary hover:bg-primary/10'
